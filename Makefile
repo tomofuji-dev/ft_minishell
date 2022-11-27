@@ -12,48 +12,33 @@
 
 # ********************** Section for Macros (Variables) ********************** #
 # Product file
-NAME			= so_long
+NAME			= minishell
 
 # Component names
-LIBNAME_FT		= libftprintf
-LIBNAME_MLX		= libmlx
+LIBNAME			= libft
 
 # Check the platform
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= sl_main.c sl_mapopen.c sl_mapread.c sl_maptrim.c \
-				  sl_mapchk.c sl_mapvalid.c sl_linechk.c sl_ispath.c \
-				  sl_mapcount.c sl_mapclear.c sl_exit.c sl_exit_mlx.c \
-				  sl_print.c \
-				  sl_mlx.c sl_win.c sl_img.c sl_game.c \
-				  ft_lst2map.c ft_mapseek.c ft_mapsize.c
-SRC				+= debug_common.c debug_sl.c debug_sl_img.c
+SRC				= ms_main.c \
+				  ms_lexer.c ms_parser.c \
+				  ms_expand.c ms_exec.c ms_redirect.c \
+				  ms_echo.c ms_cd.c ms_pwd.c ms_export.c ms_unset.c \
+				  ms_env.c ms_exit.c
+SRC				+= debug_common.c debug_ms.c
 
 # Enumeration of directories
 SRCDIR			= ./src
 INCDIR			= ./include
-LIBDIR			= ./lib
-LIBDIR_FT		= $(LIBDIR)/libft
-ifeq ($(OS), Darwin)
-	LIBDIR_MLX	= $(LIBDIR)/minilibx_mms_20200219
-else
-	LIBDIR_MLX	= $(LIBDIR)/minilibx-linux
-endif
+LIBDIR			= $(LIBNAME)
 OBJDIR			= ./obj
 
 # Macros to replace and/or integrate
 SRCS			= $(addprefix $(SRCDIR)/, $(SRC))
 OBJS			= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS			= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.d)))
-LIB_FT			= $(LIBDIR_FT)/$(LIBNAME_FT).a
-ifeq ($(OS), Darwin)
-	LIB_MLX		= $(LIBNAME_MLX).dylib
-	LIBS		= $(LIBDIR_MLX)/$(LIB_MLX) $(LIB_FT)
-else
-	LIB_MLX		= $(LIBDIR_MLX)/$(LIBNAME_MLX).a
-	LIBS		= $(LIB_MLX) $(LIB_FT)
-endif
+LIBS			= $(LIBDIR)/$(LIBNAME).a
 
 # Aliases of commands
 CC				= cc
@@ -63,13 +48,7 @@ RM				= rm
 CFLAGS			= -MMD -Wall -Wextra -Werror
 DEBUGCFLAGS		= -g -ggdb -fstack-usage -fno-omit-frame-pointer
 DEBUGLDFLAGS	= -fsanitize=address
-INCLUDES		= -I$(INCDIR) -I$(LIBDIR_MLX) -I$(LIBDIR_FT)/include
-ifeq ($(OS), Darwin)
-	LDFLAGS		= -L/usr/lib -L$(LIBDIR_MLX)
-else
-	LDFLAGS		= -L/usr/lib -L$(LIBDIR_MLX)/obj
-	LIBS		+= -lXext -lX11
-endif
+INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
 
 # Redefination when the specific target
@@ -88,25 +67,17 @@ endif
 # Mandatory targets
 all: $(LIBS) $(NAME)
 clean:
-	$(MAKE) clean -C $(LIBDIR_FT)
-	$(MAKE) clean -C $(LIBDIR_MLX)
+	$(MAKE) clean -C $(LIBDIR)
 	-$(RM) $(RMFLAGS) $(OBJDIR)
 fclean: clean
-	$(MAKE) fclean -C $(LIBDIR_FT)
-	$(MAKE) clean -C $(LIBDIR_MLX)
+	$(MAKE) fclean -C $(LIBDIR)
 	-$(RM) $(RMFLAGS) $(NAME)
-ifeq ($(OS), Darwin)
-	-$(RM) $(LIB_MLX)
-endif
 re: fclean all
 
 # Additional targets
-clean_partly:
-	$(MAKE) clean -C $(LIBDIR_FT)
-	-$(RM) $(RMFLAGS) $(OBJDIR)
 debug_lib: 
 	$(MAKE) debug -C $(LIBDIR_FT)
-debug: clean_partly debug_lib all
+debug: fclean debug_lib all
 
 # Recipes
 $(NAME): $(OBJS)
@@ -114,9 +85,6 @@ $(NAME): $(OBJS)
 $(LIBS):
 	$(MAKE) -C $(LIBDIR_FT)
 	$(MAKE) -C $(LIBDIR_MLX)
-ifeq ($(OS), Darwin)
-	cp -p $(LIBDIR_MLX)/$(LIB_MLX) ./
-endif
 $(OBJDIR):
 	@mkdir -p $@
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
