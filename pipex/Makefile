@@ -44,14 +44,15 @@ RM				= rm
 # Command options (flags)
 CFLAGS			= -MMD -Wall -Wextra -Werror
 DEBUGCFLAGS		= -g -ggdb -fstack-usage -fno-omit-frame-pointer
+DEBUGCFLAGS		= -g -ggdb -fno-omit-frame-pointer
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
 
 # Redefination when the specific target
 ifeq ($(MAKECMDGOALS), debug)
+	CFLAGS	+= $(DEBUGCFLAGS)
 	ifneq ($(OS), Darwin)
-		CFLAGS	+= $(DEBUGCFLAGS)
 		LDFLAGS	+= $(DEBUGLDFLAGS)
 	endif
 	DEF		= -D DEBUG_MODE=1
