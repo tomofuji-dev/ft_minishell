@@ -34,7 +34,7 @@ INCDIR		= ./include
 OBJDIR		= ./obj
 
 # Macros to replace and/or integrate
-SRCS		= $(addprefix $(SRCDIR)/$(NAME)/, $(SRC))
+SRCS		= $(addprefix $(SRCDIR)/, $(SRC))
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.d)))
 
@@ -76,11 +76,7 @@ $(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 $(OBJDIR):
 	@mkdir -p $@
-$(OBJDIR)/%.o: $(SRCDIR)/$(NAME_LIBFT)/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) $(DEF) $(INCLUDES) -o $@ -c $<
-$(OBJDIR)/%.o: $(SRCDIR)/$(NAME_PRINTF)/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) $(DEF) $(INCLUDES) -o $@ -c $<
-$(OBJDIR)/%.o: $(SRCDIR)/$(NAME_GNL)/%.c | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(DEF) $(INCLUDES) -o $@ -c $<
 
 # Including and ignore .dep files when they are not found
