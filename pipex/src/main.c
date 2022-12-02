@@ -3,77 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:17:50 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/01 17:16:25 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:22:20 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-bool	pp_find_cmd(char *cmd_path, char *cmd_name, char **env_split)
-{
-	if (access(cmd_name, X_OK) == 0)
-	{
-		ft_strlcpy(cmd_path, cmd_name, 1024);
-		return (true);
-	}
-	while (*env_split)
-	{
-		ft_strlcpy(cmd_path, *env_split, 1024);
-		// todo: over 1024 case
-		ft_strlcat(cmd_path, "/", 1024);
-		ft_strlcat(cmd_path, cmd_name, 1024);
-		if (access(cmd_path, X_OK) == 0)
-			return (true);
-		env_split++;
-	}
-	return (false);
-}
+#include "constant.h"
 
 //int	pp_exec(char *file1, char *cmd, char *envp[])
-int	pp_exec(char *cmd, char **env_split, char **envp)
+int	pp_exec(t_cmd *cmd)
 {
-	char	**cmd_split;
-	char	cmd_path[1024];
 	int		errnum;
 
-	cmd_split = ft_split(cmd, ' ');
-	if (cmd_split == NULL)
-		return (-1);
-	if (pp_find_cmd(cmd_path, cmd_split[0], env_split) == false)
-		return (-2);
-	errnum = execve(cmd_path, cmd_split, envp);
-	free(cmd_split);
+	printf("exec\n");
+	errnum = execve(cmd->cmd_path, cmd->cmd_split, cmd->envp);
 	return (errnum);
-}
-
-char	**pp_split_path(char *envp[])
-{
-	char	*save;
-
-	while (*envp != NULL)
-	{
-		save = *envp;
-		if (ft_strncmp(*envp, "PATH=", 5) == 0)
-			return (ft_split(&(save[5]), ':'));
-		envp++;
-	}
-	return (NULL);
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	int		errnum;
-	char	**env_split;
+	t_cmd	*cmd_lst;
+	t_cmd	*now_cmd;
 
-	if (check_argc(argc) == false)
-		return (1);
-	env_split = pp_split_path(envp);
-	if (env_split == NULL)
-		return (2);
-	errnum = pp_exec(argv[2], env_split, envp);
-	free(env_split);
+	if (pp_check_argc(argc) == false)
+		return (ARGC_ERR);
+	cmd_lst = pp_args_to_cmdlst(argc, argv, envp);
+	printf("created cmd_lst\n");
+	errnum = 0;
+	now_cmd = cmd_lst;
+	while (now_cmd != NULL && errnum == 0)
+	{
+		errnum = pp_exec(cmd_lst);
+		now_cmd = now_cmd->next;
+	}
+	pp_clear_cmdlst(cmd_lst, argc - 2);
 	return (errnum);
 }

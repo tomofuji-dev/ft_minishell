@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/01 13:54:43 by tfujiwar         ###   ########.fr        #
+#    Updated: 2022/12/02 13:41:00 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ OS				= $(shell uname)
 
 # Enumeration of files
 SRC				= main.c \
-				  arg.c
+				  arg.c \
+				  command.c
 SRC				+=
 
 # Enumeration of directories
