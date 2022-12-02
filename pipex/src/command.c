@@ -6,13 +6,13 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 13:33:24 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/02 14:18:18 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/02 15:02:59 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-bool			pp_cmd_add_back(t_cmd *cmd_lst, char *cmd_str, \
+bool			pp_cmd_add_back(t_cmd **cmd_lst, char *cmd_str, \
 									char *envp[], char **env_split);
 void			pp_clear_cmdlst(t_cmd *cmd_lst, int free_size);
 static t_cmd	*pp_create_cmd(char *cmd_str, char *envp[], char **env_split);
@@ -20,22 +20,22 @@ static bool		pp_find_cmd_path(char *cmd_path, char *cmd_name, \
 									char **env_split);
 
 
-bool	pp_cmd_add_back(t_cmd *cmd_lst, char *cmd_str, \
+bool	pp_cmd_add_back(t_cmd **cmd_lst, char *cmd_str, \
 						char *envp[], char *env_split[])
 {
 	t_cmd	*new;
 	t_cmd	*now_cmd;
 
-	if (cmd_lst == NULL)
+	if (*cmd_lst == NULL)
 	{
-		cmd_lst = pp_create_cmd(cmd_str, envp, env_split);
+		*cmd_lst = pp_create_cmd(cmd_str, envp, env_split);
 		return (cmd_lst != NULL);
 	}
 	new = pp_create_cmd(cmd_str, envp, env_split);
 	if (new == NULL)
 		return (false);
-	now_cmd = cmd_lst;
-	while (now_cmd->next == NULL)
+	now_cmd = *cmd_lst;
+	while (now_cmd->next != NULL)
 		now_cmd = now_cmd->next;
 	now_cmd->next = new;
 	return (true);

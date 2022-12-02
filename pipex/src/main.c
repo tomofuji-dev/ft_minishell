@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:17:50 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/02 14:22:20 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/02 15:04:25 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	pp_exec(t_cmd *cmd)
 {
 	int		errnum;
 
-	printf("exec\n");
 	errnum = execve(cmd->cmd_path, cmd->cmd_split, cmd->envp);
 	return (errnum);
 }
@@ -32,7 +31,6 @@ int	main(int argc, char *argv[], char *envp[])
 	if (pp_check_argc(argc) == false)
 		return (ARGC_ERR);
 	cmd_lst = pp_args_to_cmdlst(argc, argv, envp);
-	printf("created cmd_lst\n");
 	errnum = 0;
 	now_cmd = cmd_lst;
 	while (now_cmd != NULL && errnum == 0)

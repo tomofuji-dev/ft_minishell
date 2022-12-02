@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/02 14:04:30 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/02 15:03:16 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cmd	*pp_args_to_cmdlst(int argc, char *argv[], char *envp[])
 	i = 2;
 	while (i < argc - 1)
 	{
-		if (pp_cmd_add_back(cmd_lst, argv[i], envp, env_split) == false)
+		if (pp_cmd_add_back(&cmd_lst, argv[i], envp, env_split) == false)
 		{
 			pp_clear_cmdlst(cmd_lst, i - 2);
 			exit (CMD_MALLOC_ERR);
