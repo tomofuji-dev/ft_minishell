@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 13:33:24 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/02 15:02:59 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/02 15:22:23 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ bool	pp_cmd_add_back(t_cmd **cmd_lst, char *cmd_str, \
 	while (now_cmd->next != NULL)
 		now_cmd = now_cmd->next;
 	now_cmd->next = new;
+	new->prev = now_cmd;
 	return (true);
 }
 
@@ -74,6 +75,7 @@ static t_cmd	*pp_create_cmd(char *cmd_str, char *envp[], char **env_split)
 	}
 	cmd->envp = envp;
 	cmd->next = NULL;
+	cmd->prev = NULL;
 	if (pp_find_cmd_path(cmd->cmd_path, \
 						cmd->cmd_split[0], env_split) == false)
 	{

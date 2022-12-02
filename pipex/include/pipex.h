@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/02 14:54:42 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/02 16:10:39 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 # include <stdbool.h>
 # include <stdio.h>
+# include <unistd.h>
 # include "libft.h"
 
 typedef struct s_cmd
@@ -21,7 +22,10 @@ typedef struct s_cmd
 	char			cmd_path[1024];
 	char			**cmd_split;
 	char			**envp;
+	int				pipe[2];
+	pid_t			pid;
 	struct s_cmd	*next;
+	struct s_cmd	*prev;
 	//input_fd, output_fd, type
 }	t_cmd;
 
