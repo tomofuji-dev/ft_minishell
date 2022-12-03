@@ -3,33 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:17:50 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/02 16:10:59 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/03 16:01:26 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "constant.h"
 
-//int	pp_exec(char *file1, char *cmd, char *envp[])
-void	pp_exec_cmd(t_cmd *cmd)
+int	pp_exec(t_cmd *cmd)
 {
-	
-}
+	int		fd[2];
+	pid_t	pid;
 
-int	pp_exec_cmds(t_cmd *cmd)
-{
-	t_cmd	*now_cmd;
-
-	now_cmd = cmd;
-	while (now_cmd != NULL)
+	if (cmd->next == NULL)
+		execve(cmd->cmd_path, cmd->cmd_split, cmd->envp);
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
 	{
-		pp_exec_cmd(now_cmd);
-		now_cmd = now_cmd->next;
+		dup2(fd[0], 0);
+		close(fd[1]);
+		close(fd[0]);
+		pp_exec(cmd->next);
 	}
-	pp_wait_cmds(cmd);
+	else
+	{
+		dup2(fd[1], 1);
+		close(fd[1]);
+		close(fd[0]);
+		execve(cmd->cmd_path, cmd->cmd_split, cmd->envp);
+	}
+	return (0);
 }
 
 int	main(int argc, char *argv[], char *envp[])
