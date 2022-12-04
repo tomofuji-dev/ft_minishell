@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/04 14:48:26 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/04 17:15:32 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	pp_file_open(int argc, char *argv[], t_cmd *cmd)
 		exit (FILE_OPEN_ERR);
 	while (cmd->next != NULL)
 		cmd = cmd->next;
-	cmd->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (ft_strncmp(argv[1], "here_doc", HEREDOC_LEN))
+		cmd->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	else
+		cmd->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
 	if (cmd->out_fd == -1)
 		exit (FILE_OPEN_ERR);
 }
