@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/03 16:07:07 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/04 14:45:05 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ RM				= rm
 CFLAGS			= -MMD -Wall -Wextra -Werror
 DEBUGCFLAGS		= -g -ggdb -fstack-usage -fno-omit-frame-pointer
 DEBUGCFLAGS		= -g -ggdb -fno-omit-frame-pointer
+LDFLAGS			= -lreadline
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
@@ -81,7 +82,7 @@ debug: fclean debug_lib all
 
 # Recipes
 $(NAME): $(OBJS)
-	$(CC) $(LDFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(INCLUDES) $(OBJS) $(LIBS) $(LDFLAGS) -o $(NAME)
 $(LIBS):
 	$(MAKE) -C $(LIBDIR)
 $(OBJDIR):

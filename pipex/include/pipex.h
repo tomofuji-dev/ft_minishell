@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/03 16:14:49 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/04 14:39:26 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "libft.h"
 
 typedef struct s_cmd
