@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/03 16:31:33 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/04 15:44:27 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,18 @@
 
 void	pp_file_open(int argc, char *argv[], t_cmd *cmd)
 {
-	cmd->in_fd = open(argv[1], O_RDONLY);
+	int	fd[2];
+
+	if (ft_strncmp(argv[1], "here_doc", HEREDOC_LEN))
+		cmd->in_fd = open(argv[1], O_RDONLY);
+	else
+	{
+		pipe(fd);
+		cmd->in_fd = fd[0];
+		ft_putstr_fd("this", fd[1]);
+		// ft_putstr_fd(get_heredoc_txt(argv[2]), fd[1]);
+		close(fd[1]);
+	}
 	if (cmd->in_fd == -1)
 		exit (FILE_OPEN_ERR);
 	while (cmd->next != NULL)

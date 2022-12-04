@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arg.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/02 15:03:16 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/04 15:46:01 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_cmd	*pp_args_to_cmdlst(int argc, char *argv[], char *envp[])
 	if (env_split == NULL)
 		exit (ENV_SPLIT_MALLOC_ERR);
 	cmd_lst = NULL;
-	i = 2;
+	i = 2 + !ft_strncmp(argv[1], "here_doc", HEREDOC_LEN);
 	while (i < argc - 1)
 	{
 		if (pp_cmd_add_back(&cmd_lst, argv[i], envp, env_split) == false)
