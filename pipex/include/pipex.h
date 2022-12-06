@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/04 14:39:26 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/06 15:42:25 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ typedef struct s_cmd
 	char			cmd_path[1024];
 	char			**cmd_split;
 	char			**envp;
-//	int				pipe[2];
-//	pid_t			pid;
+	pid_t			pid;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	int				in_fd;

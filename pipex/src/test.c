@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 12:16:18 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/06 14:52:30 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:01:09 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	exec_cmd(char **cmd_lis, int prev_pipe[2], int now_pipe[2])
 		dup2(fd[0], 0);
 		dup2(fd[1], 1);
 		if (fd[0] != 0)
-			close(fd[0]);
+			close_pipe(fd[0]);
 		if (fd[1] != 1)
 			close(fd[1]);
 		return (execve(cmd_lis[0], cmd_lis, environ));

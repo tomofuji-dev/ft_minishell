@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 13:33:24 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/02 15:22:23 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/06 15:20:41 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static t_cmd	*pp_create_cmd(char *cmd_str, char *envp[], char **env_split)
 	cmd->envp = envp;
 	cmd->next = NULL;
 	cmd->prev = NULL;
+	cmd->in_fd = -1;
+	cmd->out_fd = -1;
 	if (pp_find_cmd_path(cmd->cmd_path, \
 						cmd->cmd_split[0], env_split) == false)
 	{
