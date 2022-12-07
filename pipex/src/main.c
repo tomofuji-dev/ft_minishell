@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:17:50 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/06 16:33:19 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/07 11:09:42 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int		pp_exec(t_cmd *cmd_lst);
 void	pp_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2]);
-void	close_pipe(t_cmd *cmd, int fd[2], int prev_pipe[2], int now_pipe[2]);
+void	close_pipe(int fd[2]);
 void	copy_pipe(int dest[2], int src[2]);
 int		wait_all(t_cmd *cmd_lst);
 
@@ -32,6 +32,7 @@ int	pp_exec(t_cmd *cmd_lst)
 	{
 		pipe(now_pipe);
 		pp_exec_a_cmd(now_cmd, prev_pipe, now_pipe);
+		close_pipe(prev_pipe);
 		copy_pipe(prev_pipe, now_pipe);
 		now_cmd = now_cmd->next;
 	}
@@ -48,30 +49,26 @@ void	pp_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2])
 		fd[0] = cmd->in_fd;
 	if (cmd->out_fd >= 0)
 		fd[1] = cmd->out_fd;
-	printf("cmd: %s, fd[0]: %d, fd[1]: %d\n", cmd->cmd_path, fd[0], fd[1]);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
 		dup2(fd[0], 0);
 		dup2(fd[1], 1);
-		close_pipe(cmd, fd, prev_pipe, now_pipe);
+		close_pipe(fd);
+		close_pipe(prev_pipe);
+		close_pipe(now_pipe);
 		execve(cmd->cmd_path, cmd->cmd_split, cmd->envp);
 	}
 	else
 		return ;
 }
 
-void	close_pipe(t_cmd *cmd, int fd[2], int prev_pipe[2], int now_pipe[2])
+void	close_pipe(int fd[2])
 {
 	if (fd[0] != 0)
 		close(fd[0]);
 	if (fd[1] != 1)
 		close(fd[1]);
-	if (cmd->prev != NULL)
-		close(prev_pipe[0]);
-	if (cmd->next == NULL)
-		close(now_pipe[0]);
-	close(now_pipe[1]);
 }
 
 void	copy_pipe(int dest[2], int src[2])
