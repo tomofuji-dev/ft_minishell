@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/08 16:35:52 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/08 17:18:15 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ size_t	ms_lexer_endpos_delim(char *line)
 	return (pos);
 }
 
-size_t	ms_lexer_endpos_quoted(char *line, )
+size_t	ms_lexer_endpos_quoted(char *line)
 {
 	int		ch;
-	char	line_end;
+	char	*line_end;
 
 	if (!ft_strchr(CHRS_QUOTE, *line))
 		return (0);
@@ -44,11 +44,11 @@ size_t	ms_lexer_endpos(char *line)
 {
 	size_t	pos;
 
+	pos = 0;
 	if (line == NULL)
 		return (0);
 	else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
-		return (ms_lexer_pendos_delim(line + pos, size));
-	pos = 0;
+		return (ms_lexer_endpos_delim(line + pos));
 	while (*(line + pos))
 	{
 		if (ft_strchr(CHRS_QUOTE, *(line + pos)))

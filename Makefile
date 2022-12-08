@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
+#    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/11/19 21:05:08 by ykosaka          ###   ########.fr        #
+#    Updated: 2022/12/08 17:05:19 by tfujiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,8 @@ LIBNAME			= libft
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= ms_main.c \
-				  ms_lexer.c ms_parser.c \
-				  ms_expand.c ms_exec.c ms_redirect.c \
-				  ms_echo.c ms_cd.c ms_pwd.c ms_export.c ms_unset.c \
-				  ms_env.c ms_exit.c
-SRC				+= debug_common.c debug_ms.c
+SRC				= test_lexer.c
+SRC				+= 
 
 # Enumeration of directories
 SRCDIR			= ./src
