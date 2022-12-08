@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/07 16:13:04 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/08 16:37:27 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 //# define CHRS_DELIM		" <>|;&()" for bonus+
 # define CHRS_DELIM		" <>|"
+# define CHRS_QUOTE		"\"'"
 
 typedef struct s_token {
 	char	*token;
