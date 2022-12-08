@@ -1,0 +1,30 @@
+./a.out
+./a.out single_arg
+./a.out multiple arguments 3
+./a.out 1 23 456 7890 123456789012345678901234567890
+./a.out s i n g l e c h a r s
+./a.out "Double quoted"
+./a.out 'Single quoted'
+./a.out Double quoted " " space
+./a.out Single quoted ' ' space
+./a.out "Double quoted | contain pipe"
+./a.out 'Single quoted | contain pipe'
+./a.out "Double quoted > contain gt"
+./a.out 'Single quoted > contain gt'
+./a.out "Double quoted >> contain multi gt"
+./a.out 'Single quoted >> contain multi gt'
+./a.out "Double quoted ' contain single quote"
+./a.out 'Single quoted " contain double quote'
+./a.out "Double quoted"and'Single quoted'
+./a.out Appeared"double quoted"w/oSpace
+./a.out Appeared'single quoted'w/oSpace
+./a.out Redirect Output > file1
+./a.out Redirect Output w/o space>file1
+./a.out Redirect Append >> file1
+./a.out Redirect Append w/o space>>file1
+./a.out Redirect Input < file1
+./a.out Redirect Input w/o space<file1
+./a.out Redirect HereDoc << file1
+./a.out Redirect HereDoc w/o space<<file1
+./a.out > file1 Redirect in front of args
+./a.out Redirect >file1 between args
