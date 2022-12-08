@@ -6,24 +6,54 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/07 16:33:18 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/08 16:35:52 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	ms_lexer_endpos(char *line, size_t *size)
+size_t	ms_lexer_endpos_delim(char *line)
 {
-	size_t pos;
+	int		ch;
+	size_t	pos;
 
+	if (!ft_strchr(&CHRS_DELIM[1], *line))
+		return (0);
+	ch = *line;
+	pos = 0;
+	while (*(line + pos) == ch)
+		pos++;
+	return (pos);
+}
+
+size_t	ms_lexer_endpos_quoted(char *line, )
+{
+	int		ch;
+	char	line_end;
+
+	if (!ft_strchr(CHRS_QUOTE, *line))
+		return (0);
+	ch = *line;
+	line_end = ft_strchr(line + 1, ch);
+	if (!line_end)
+		return (1);
+	return (line_end - line);
+}
+
+size_t	ms_lexer_endpos(char *line)
+{
+	size_t	pos;
+
+	if (line == NULL)
+		return (0);
+	else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
+		return (ms_lexer_pendos_delim(line + pos, size));
 	pos = 0;
 	while (*(line + pos))
 	{
-		if (*(line + pos) && !ft_strchr(CHRS_DELIM, *line))
-			pos += ms_lexer_endpos_quoted(line + pos, size);
-		else if (*(line + pos) && ft_strchr(&CHRS_DELIM[1], *line))
-			pos += ms_lexer_pendos_delim(line + pos, size);
-		else if (*(line + pos) == CHRS_DELIM[0])
+		if (ft_strchr(CHRS_QUOTE, *(line + pos)))
+			pos += ms_lexer_endpos_quoted(line + pos);
+		else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
 			return (pos);
 		else
 			pos++;
@@ -35,6 +65,7 @@ char	**ms_lexer_tokensize(char *line)
 {
 	size_t	size;
 	size_t	pos;
+	size_t	pos_end;
 
 	if (line == NULL)
 		return (0);
