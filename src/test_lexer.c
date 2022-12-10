@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/08 17:09:58 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:39:26 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ size_t	ms_lexer_endpos(char *line)
 	{
 		if (ft_strchr(CHRS_QUOTE, *(line + pos)))
 			pos += ms_lexer_endpos_quoted(line + pos);
-		else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
+		else if (ft_strchr(CHRS_DELIM, *(line + pos)))
 			return (pos);
 		else
 			pos++;
@@ -77,7 +77,7 @@ size_t	ms_lexer_endpos(char *line)
 
 void	test_ms_lexer_endpos(void)
 {
-	char	str[] = "a>bc<def>>ghij<<klm>>>n<<<<op><q|rs||tu|<vw|>x\'y\"z|><12\'34\"56\'78\"9ab\"cdefghi";
+	char	str[] = "a b  c>bc<def>>ghij<<klm>>>n<<<<op><q|rs||tu|<vw|>x\'y\"z|><12\'34\"56\'78\"9ab\"cdefghi";
 	char	*cur;
 	size_t	s;
 
@@ -88,6 +88,8 @@ void	test_ms_lexer_endpos(void)
 		write(1, cur, s);
 		write(1, "\n", 1);
 		cur = cur + s;
+		while (*cur && *cur == CHRS_DELIM[0])
+			cur++;
 	}
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/08 17:18:15 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/10 14:30:47 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	ms_lexer_endpos(char *line)
 	{
 		if (ft_strchr(CHRS_QUOTE, *(line + pos)))
 			pos += ms_lexer_endpos_quoted(line + pos);
-		else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
+		else if (ft_strchr(CHRS_DELIM, *(line + pos)))
 			return (pos);
 		else
 			pos++;
