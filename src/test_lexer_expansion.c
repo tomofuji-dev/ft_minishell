@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_lexer.c                                         :+:      :+:    :+:   */
+/*   test_lexer_expansion.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 15:48:36 by tfujiwar         ###   ########.fr       */
+/*   Created: 2022/12/11 15:32:17 by tfujiwar          #+#    #+#             */
+/*   Updated: 2022/12/11 15:38:25 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_global(void)
 	g_shell.envp = environ;
 }
 
-size_t	ms_lexer_tokenlen_delim(char *line)
+size_t	ms_lexer_endpos_delim(char *line)
 {
 	int		ch;
 	size_t	pos;
@@ -35,7 +35,7 @@ size_t	ms_lexer_tokenlen_delim(char *line)
 	return (pos);
 }
 
-size_t	ms_lexer_tokenlen_quoted(char *line)
+size_t	ms_lexer_endpos_quoted(char *line)
 {
 	int		ch;
 	char	*line_end;
@@ -46,10 +46,10 @@ size_t	ms_lexer_tokenlen_quoted(char *line)
 	line_end = ft_strchr(line + 1, ch);
 	if (!line_end)
 		return (1);
-	return (line_end - line + 1);
+	return (line_end - line);
 }
 
-size_t	ms_lexer_tokenlen_plain(char *line)
+size_t	ms_lexer_endpos_plain(char *line)
 {
 	const char	*plain_delim = "\'\"$";
 	size_t		i;
@@ -60,7 +60,7 @@ size_t	ms_lexer_tokenlen_plain(char *line)
 	return (i);
 }
 
-size_t	ms_lexer_tokenlen(char *line)
+size_t	ms_lexer_endpos(char *line)
 {
 	size_t	pos;
 
@@ -68,11 +68,11 @@ size_t	ms_lexer_tokenlen(char *line)
 	if (line == NULL)
 		return (0);
 	else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
-		return (ms_lexer_tokenlen_delim(line + pos));
+		return (ms_lexer_endpos_delim(line + pos));
 	while (*(line + pos))
 	{
 		if (ft_strchr(CHRS_QUOTE, *(line + pos)))
-			pos += ms_lexer_tokenlen_quoted(line + pos);
+			pos += ms_lexer_endpos_quoted(line + pos);
 		else if (ft_strchr(CHRS_DELIM, *(line + pos)))
 			return (pos);
 		else
@@ -81,24 +81,22 @@ size_t	ms_lexer_tokenlen(char *line)
 	return (pos);
 }
 
-size_t	ms_lexer_tokensize(char *line)
+char	**ms_lexer_tokensize(char *line)
 {
 	size_t	size;
 	size_t	pos;
-	size_t	len;
+	size_t	pos_end;
 
 	if (line == NULL)
 		return (0);
 	size = 0;
 	pos = 0;
-	while (*(line + pos) != '\0')
+	while (*line != '\0')
 	{
-		while (*(line + pos) == CHRS_DELIM[0])
-			pos++;
-		len = ms_lexer_tokenlen(line + pos);
-		if (len > 0)
+		while (*line && *line == CHRS_DELIM[0])
+			line++;
+		if (ms_lexer_endpos(line))
 			size++;
-		pos += len;
 	}
 	return (size);
 }
@@ -240,7 +238,7 @@ char	*ms_substr_and_expand(char *line)
 	{
 		if (line[pos] == '\'')
 		{
-			stride = ms_lexer_tokenlen_quoted(&line[pos]);
+			stride = ms_lexer_endpos_quoted(&line[pos]);
 			if (stride > 2)
 			{
 				ms_lstadd_back_substr(&head, line, pos + 1, stride - 2);
@@ -257,7 +255,7 @@ char	*ms_substr_and_expand(char *line)
 		}
 		else if (line[pos] == '\"')
 		{
-			stride = ms_lexer_tokenlen_quoted(&line[pos]);
+			stride = ms_lexer_endpos_quoted(&line[pos]);
 			if (stride > 2)
 			{
 				ft_lstadd_back(&head, \
@@ -282,7 +280,7 @@ char	*ms_substr_and_expand(char *line)
 		}
 		else
 		{
-			stride = ms_lexer_tokenlen_plain(&line[pos]);
+			stride = ms_lexer_endpos_plain(&line[pos]);
 			if (stride > 0)
 			{
 				ms_lstadd_back_substr(&head, line, pos, stride);
@@ -299,19 +297,13 @@ char	*ms_substr_and_expand(char *line)
 	return (expand_str);
 }
 
-t_token	*ms_lexer(char *line)
+void	main(void)
 {
-	t_token	*token;
-	size_t	size;
-	size_t	i;
+	char		*expanded_str;
+	const char	input[] = "\"in \'doubleq\'\" \'in \"singleq\"\' $HOME ";
 
-	size = ms_lexer_tokensize(line);
-	token = (t_token *)malloc((size + 1) * sizeof(t_token));
-	i = 0;
-	while (i < size)
-	{
-		token[i++] = ms_lexer_gettoken(line);
-	}
-	token[size + 1]->token == NULL;
-	return (token);
+	init_global();
+
+	expanded_str = ms_substr_and_expand(input);
+	printf("%s\n%s\n", input, expanded_str);
 }

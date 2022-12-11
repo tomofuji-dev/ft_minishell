@@ -6,7 +6,7 @@
 #    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/08 17:05:19 by tfujiwar         ###   ########.fr        #
+#    Updated: 2022/12/11 15:38:42 by tfujiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBNAME			= libft
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= test_lexer.c
+SRC				= test_lexer_expansion.c
 SRC				+= 
 
 # Enumeration of directories
