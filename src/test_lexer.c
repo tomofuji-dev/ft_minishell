@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/10 14:39:26 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/11 16:27:02 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,55 +24,6 @@ void	test_print_argv(int argc, char *argv[])
 		i++;
 	}
 	return ;
-}
-
-size_t	ms_lexer_endpos_delim(char *line)
-{
-	int		ch;
-	size_t	pos;
-
-	if (!ft_strchr(&CHRS_DELIM[1], *line))
-		return (0);
-	ch = *line;
-	pos = 0;
-	while (*(line + pos) == ch)
-		pos++;
-	return (pos);
-}
-
-size_t	ms_lexer_endpos_quoted(char *line)
-{
-	int		ch;
-	char	*line_end;
-
-	if (!ft_strchr(CHRS_QUOTE, *line))
-		return (0);
-	ch = *line;
-	line_end = ft_strchr(line + 1, ch);
-	if (!line_end)
-		return (1);
-	return (line_end - line);
-}
-
-size_t	ms_lexer_endpos(char *line)
-{
-	size_t	pos;
-
-	pos = 0;
-	if (line == NULL)
-		return (0);
-	else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
-		return (ms_lexer_endpos_delim(line + pos));
-	while (*(line + pos))
-	{
-		if (ft_strchr(CHRS_QUOTE, *(line + pos)))
-			pos += ms_lexer_endpos_quoted(line + pos);
-		else if (ft_strchr(CHRS_DELIM, *(line + pos)))
-			return (pos);
-		else
-			pos++;
-	}
-	return (pos);
 }
 
 void	test_ms_lexer_endpos(void)
@@ -99,3 +50,53 @@ int	main(void)
 	test_ms_lexer_endpos();
 	return (0);
 }
+
+// 
+// size_t	ms_lexer_endpos_delim(char *line)
+// {
+// 	int		ch;
+// 	size_t	pos;
+
+// 	if (!ft_strchr(&CHRS_DELIM[1], *line))
+// 		return (0);
+// 	ch = *line;
+// 	pos = 0;
+// 	while (*(line + pos) == ch)
+// 		pos++;
+// 	return (pos);
+// }
+
+// size_t	ms_lexer_endpos_quoted(char *line)
+// {
+// 	int		ch;
+// 	char	*line_end;
+
+// 	if (!ft_strchr(CHRS_QUOTE, *line))
+// 		return (0);
+// 	ch = *line;
+// 	line_end = ft_strchr(line + 1, ch);
+// 	if (!line_end)
+// 		return (1);
+// 	return (line_end - line);
+// }
+
+// size_t	ms_lexer_endpos(char *line)
+// {
+// 	size_t	pos;
+
+// 	pos = 0;
+// 	if (line == NULL)
+// 		return (0);
+// 	else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
+// 		return (ms_lexer_endpos_delim(line + pos));
+// 	while (*(line + pos))
+// 	{
+// 		if (ft_strchr(CHRS_QUOTE, *(line + pos)))
+// 			pos += ms_lexer_endpos_quoted(line + pos);
+// 		else if (ft_strchr(CHRS_DELIM, *(line + pos)))
+// 			return (pos);
+// 		else
+// 			pos++;
+// 	}
+// 	return (pos);
+// }
