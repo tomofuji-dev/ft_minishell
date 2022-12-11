@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 13:54:27 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:17:32 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,22 +151,23 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 		return (NULL);
 	*pos++;
 	i = 1;
+	if (line[*pos] == '?')
+	{
+		*pos++;
+		return (ft_lstnew("?"));
+	}
 	while (i < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))
 		i++;
 	if (i == 1)
 		return (ft_lstnew("$"));
-	else
-	{
-		env_key = ft_substr(line, *pos, i - 1);
-		if (errno == ENOMEM)
-			return (NULL);
-		env_val = ms_search_env(env_key);
-		free(env_key);
-		if (env_val == NULL)
-			return (NULL);
-		else
-			return (ft_lstnew(env_val));
-	}
+	env_key = ft_substr(line, *pos, i - 1);
+	if (errno == ENOMEM)
+		return (NULL);
+	env_val = ms_search_env(env_key);
+	free(env_key);
+	if (env_val == NULL)
+		return (NULL);
+	return (ft_lstnew(env_val));
 }
 
 // "abc $var def" -> "abc (expanded) def"
