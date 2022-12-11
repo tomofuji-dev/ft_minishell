@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/08 17:08:04 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/11 12:36:21 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <errno.h>
 # include "libft.h"
 
 //# define CHRS_DELIM		" <>|;&()" for bonus+
@@ -35,6 +36,10 @@ typedef struct s_token {
 	char	*token;
 	int		tokenflag;
 }	t_token;
+
+typedef struct s_shell {
+	char	**envp;
+}	t_shell;
 
 // bool	pp_check_argc(int argc);
 // bool	pp_check_argc(int argc);
