@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 12:36:21 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/11 16:13:50 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,22 @@ typedef struct s_shell {
 // void	pp_clear_cmdlst(t_cmd *cmd_lst, int free_size);
 // void	pp_file_open(int argc, char *argv[], t_cmd *cmd);
 // void	pp_file_close(t_cmd *cmd);
+
+size_t	ms_lexer_tokenlen(char *line);
+size_t	ms_lexer_tokenlen_delim(char *line);
+size_t	ms_lexer_tokenlen_quoted(char *line);
+size_t	ms_lexer_tokenlen_plain(char *line);
+
+char	*ms_lexer_string(char *line);
+
+bool	ms_isenvchar(int c);
+char	*ms_search_env(char *env_key);
+t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len);
+t_list	*ms_expand_envvar_dquote(char *line, size_t len);
+
+void	*ms_lstclear_return_null(t_list **head);
+void	ms_lstadd_back_substr(t_list **head, char *line, \
+								size_t pos, size_t len);
+char	*ms_linkedls_to_str(t_list *head);
 
 #endif
