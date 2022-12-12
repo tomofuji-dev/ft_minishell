@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_lexer_gettoken.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 16:26:13 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/11 16:35:31 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,20 @@ int	main(int argc, char *argv[])
 {
 	t_token	*token;
 	size_t	size;
-	size_t	pos;
 	size_t	i;
 
 	if (argc < 2)
 		return (1);
 	size = ms_lexer_tokensize(argv[1]);
-	token = (t_token *)malloc((size + 1) * sizeof(t_token));
-	pos = 0;
+	token = ms_lexer_gettoken(argv[1], size);
 	i = 0;
 	while (i < size)
 	{
-		token[i++] = ms_lexer_gettoken(argv[1], &pos);
 		printf("%s\n", token[i]->str);
 		printf("%d\n", token[i]->flag);
 	}
-	token[size + 1]->token == NULL;
 	return (0);
 }
-
 
 // size_t	ms_lexer_tokenlen_delim(char *line)
 // {
