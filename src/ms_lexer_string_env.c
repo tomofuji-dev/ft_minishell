@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 10:56:25 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/12 15:38:20 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	if (line[*pos] == '?')
 	{
 		*pos += 1;
-		return (ft_lstnew("?"));
+		return (ft_lstnew(ft_strdup("?")));
 	}
 	while (i < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))
 		i++;

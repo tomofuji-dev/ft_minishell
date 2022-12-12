@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 14:50:15 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/12 14:56:43 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char *argv[])
 	while (i < size)
 	{
 		printf("%s\n", token[i].str);
-		printf("%d\n", token[i].flag);
+		printf("%x\n", token[i].flag);
 		i++;
 	}
 	return (0);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_lexer_lst.c                                     :+:      :+:    :+:   */
+/*   ms_lexer_string_lst.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:12:29 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 16:13:33 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:35:16 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ char	*ms_linkedls_to_str(t_list *head)
 			joined_str_size += ft_strlen(cur->content);
 		cur = cur->next;
 	}
-	joined_str = ft_calloc(joined_str_size, sizeof(char));
+	joined_str = ft_calloc(joined_str_size + 1, sizeof(char));
 	if (errno == ENOMEM)
 		return (NULL);
 	cur = head;
 	while (cur != NULL)
 	{
 		if (cur->content != NULL)
-			ft_strlcat(joined_str, cur->content, joined_str_size);
+			ft_strlcat(joined_str, cur->content, joined_str_size + 1);
 		cur = cur->next;
 	}
 	return (joined_str);

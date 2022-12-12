@@ -6,7 +6,7 @@
 #    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/12 14:37:20 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/12 15:04:31 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,20 @@ LIBNAME			= libft
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= test_lexer_gettoken.c \
-				  src/ms_lexer.c \
+SRC				= src/ms_lexer.c \
 				  src/ms_lexer_gettoken.c \
 				  src/ms_lexer_string.c \
 				  src/ms_lexer_string_env.c \
 				  src/ms_lexer_string_lst.c \
 				  src/ms_lexer_tokenlen.c
-SRC				+= 
+
+ifeq ($(MAKECMDGOALS), test_lexer_expansion)
+	SRC			+= test_lexer_expansion.c
+endif
+
+ifeq ($(MAKECMDGOALS), test_lexer_gettoken)
+	SRC			+= test_lexer_gettoken.c
+endif
 
 # Enumeration of directories
 SRCDIR			= ./src
@@ -80,6 +86,8 @@ re: fclean all
 debug_lib: 
 	$(MAKE) debug -C $(LIBDIR_FT)
 debug: fclean debug_lib all
+test_lexer_expansion:	all
+test_lexer_gettoken:	all	
 
 # Recipes
 $(NAME): $(OBJS)

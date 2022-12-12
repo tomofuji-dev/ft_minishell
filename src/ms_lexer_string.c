@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 10:37:04 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/12 15:37:53 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ms_lexer_string(char *line)
 			}
 			else if (stride == 1)
 			{
-				ft_lstadd_back(&head, ft_lstnew("\'"));
+				ft_lstadd_back(&head, ft_lstnew(ft_strdup("\'")));
 				if (errno == ENOMEM)
 					return (ms_lstclear_return_null(&head));
 			}
@@ -52,7 +52,7 @@ char	*ms_lexer_string(char *line)
 			}
 			else if (stride == 1)
 			{
-				ft_lstadd_back(&head, ft_lstnew("\""));
+				ft_lstadd_back(&head, ft_lstnew(ft_strdup("\"")));
 				if (errno == ENOMEM)
 					return (ms_lstclear_return_null(&head));
 			}
