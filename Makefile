@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/11 15:38:42 by tfujiwar         ###   ########.fr        #
+#    Updated: 2022/12/12 10:16:50 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,11 @@ LIBNAME			= libft
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= test_lexer_expansion.c
+SRC				= test_lexer_expansion.c \
+				  src/ms_lexer_string.c \
+				  src/ms_lexer_string_env.c \
+				  src/ms_lexer_string_lst.c \
+				  src/ms_lexer_tokenlen.c
 SRC				+= 
 
 # Enumeration of directories

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 16:13:50 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:07:39 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_shell {
 // void	pp_clear_cmdlst(t_cmd *cmd_lst, int free_size);
 // void	pp_file_open(int argc, char *argv[], t_cmd *cmd);
 // void	pp_file_close(t_cmd *cmd);
+
+void	init_global(char *envp[]);
 
 size_t	ms_lexer_tokenlen(char *line);
 size_t	ms_lexer_tokenlen_delim(char *line);

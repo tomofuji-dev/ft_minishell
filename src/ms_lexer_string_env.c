@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 16:06:26 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:25:29 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*ms_search_env(char *env_key);
 t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len);
 t_list	*ms_expand_envvar_dquote(char *line, size_t len);
 
-
 bool	ms_isenvchar(int c)
 {
 	return (ft_isalnum(c) || c == '_');
@@ -25,15 +24,17 @@ bool	ms_isenvchar(int c)
 
 char	*ms_search_env(char *env_key)
 {
-	char	**cur;
-	size_t	key_len;
+	char		**cur;
+	size_t		key_len;
+	extern char	**environ;
 
-	cur = g_shell.envp;
+	cur = environ;
 	key_len = ft_strlen(env_key);
-	while (cur != NULL)
+	while (*cur != NULL)
 	{
 		if (ft_strncmp(*cur, env_key, key_len) == 0)
-			return (ft_substr(cur, key_len + 1, ft_strlen(&cur[key_len + 1])));
+			return (ft_substr(*cur, key_len + 1, \
+						ft_strlen(*cur + key_len + 1)));
 		cur++;
 	}
 	return (NULL);
@@ -49,11 +50,11 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 
 	if (line[*pos] != '$')
 		return (NULL);
-	*pos++;
+	*pos += 1;
 	i = 1;
 	if (line[*pos] == '?')
 	{
-		*pos++;
+		*pos += 1;
 		return (ft_lstnew("?"));
 	}
 	while (i < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))

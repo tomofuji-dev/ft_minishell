@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 16:10:27 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:17:18 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ms_lexer_string(char *line)
 			}
 			else if (stride == 1)
 			{
-				ft_lstadd_back(head, ft_lstnew("\""));
+				ft_lstadd_back(&head, ft_lstnew("\""));
 				if (errno == ENOMEM)
 					return (ms_lstclear_return_null(&head));
 			}
