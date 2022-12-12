@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_tokenlen.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:54:46 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 15:56:45 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/13 05:35:40 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ms_lexer_tokenlen(char *line)
 	size_t	pos;
 
 	pos = 0;
-	if (line == NULL)
+	if (line == NULL || *line == '\0')
 		return (0);
 	else if (ft_strchr(&CHRS_DELIM[1], *(line + pos)))
 		return (ms_lexer_tokenlen_delim(line + pos));

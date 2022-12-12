@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_lexer_gettoken.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 14:56:43 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/12 21:59:27 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int	main(int argc, char *argv[])
 		return (1);
 	size = ms_lexer_tokensize(argv[1]);
 	token = ms_lexer_gettoken(argv[1], size);
+	printf("test {%s}\n", argv[1]);
 	i = 0;
 	while (i < size)
 	{
-		printf("%s\n", token[i].str);
-		printf("%x\n", token[i].flag);
+		printf("%2zd %#2x\t", i, token[i].flag);
+		printf("{%s}\n", token[i].str);
 		i++;
 	}
 	return (0);
