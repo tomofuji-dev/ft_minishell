@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:53:14 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/11 15:58:39 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:43:19 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,9 @@ t_token	*ms_lexer(char *line)
 {
 	t_token	*token;
 	size_t	size;
-	size_t	i;
 
 	size = ms_lexer_tokensize(line);
-	token = (t_token *)malloc((size + 1) * sizeof(t_token));
-	i = 0;
-	while (i < size)
-	{
-		token[i++] = ms_lexer_gettoken(line);
-	}
-	token[size + 1]->token == NULL;
+	token = ms_lexer_gettoken(line, size);
 	return (token);
 }
 

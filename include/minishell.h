@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 10:07:39 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/12 14:40:52 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define CHRS_QUOTE		"\"'"
 
 typedef struct s_token {
-	char	*token;
-	int		tokenflag;
+	char	*str;
+	int		flag;
 }	t_token;
 
 typedef struct s_shell {
@@ -51,6 +51,12 @@ typedef struct s_shell {
 // void	pp_file_close(t_cmd *cmd);
 
 void	init_global(char *envp[]);
+
+t_token	*ms_lexer(char *line);
+size_t	ms_lexer_tokensize(char *line);
+
+t_token	*ms_lexer_gettoken(char *line, size_t size);
+int		ms_lexer_gettoken_classify(char *line);
 
 size_t	ms_lexer_tokenlen(char *line);
 size_t	ms_lexer_tokenlen_delim(char *line);

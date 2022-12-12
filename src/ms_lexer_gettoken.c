@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_gettoken.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 02:12:37 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/12 14:45:49 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	ms_lexer_gettoken(char *line, size_t size);
+t_token	*ms_lexer_gettoken(char *line, size_t size);
 int		ms_lexer_gettoken_classify(char *line);
 
 t_token	*ms_lexer_gettoken(char *line, size_t size)
@@ -35,16 +35,16 @@ t_token	*ms_lexer_gettoken(char *line, size_t size)
 		token[i].str = ft_substr(line, pos, len);
 		if (token[i].str == NULL)
 			exit(ENOMEM);
+		token[i].str = ms_lexer_string(token[i].str);
 		token[i].flag = ms_lexer_gettoken_classify(token[i].str);
 		pos += len;
 	}
-	token[size]->token == NULL;
+	token[size].str = NULL;
 	return (token);
 }
 
 int	ms_lexer_gettoken_classify(char *line)
 {
-	char	p_chr;
 	int		flag;
 
 	if (line == NULL)

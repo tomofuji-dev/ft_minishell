@@ -6,7 +6,7 @@
 #    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/12 10:39:57 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/12 14:37:20 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ LIBNAME			= libft
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= test_lexer_expansion.c \
+SRC				= test_lexer_gettoken.c \
+				  src/ms_lexer.c \
+				  src/ms_lexer_gettoken.c \
 				  src/ms_lexer_string.c \
 				  src/ms_lexer_string_env.c \
 				  src/ms_lexer_string_lst.c \
