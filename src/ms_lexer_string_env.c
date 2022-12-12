@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 10:25:29 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/12 10:56:25 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ char	*ms_search_env(char *env_key)
 	while (*cur != NULL)
 	{
 		if (ft_strncmp(*cur, env_key, key_len) == 0)
-			return (ft_substr(*cur, key_len + 1, \
-						ft_strlen(*cur + key_len + 1)));
+			return (ft_substr(*cur, key_len + 2, \
+						ft_strlen(*cur + key_len)));
 		cur++;
 	}
 	return (NULL);
@@ -48,8 +48,6 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	char	*env_key;
 	char	*env_val;
 
-	if (line[*pos] != '$')
-		return (NULL);
 	*pos += 1;
 	i = 1;
 	if (line[*pos] == '?')
@@ -62,6 +60,7 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	if (i == 1)
 		return (ft_lstnew("$"));
 	env_key = ft_substr(line, *pos, i - 1);
+	*pos += i;
 	if (errno == ENOMEM)
 		return (NULL);
 	env_val = ms_search_env(env_key);
@@ -88,7 +87,7 @@ t_list	*ms_expand_envvar_dquote(char *line, size_t len)
 			ft_lstadd_back(&head, ms_expand_envvar(line, &pos, len - pos));
 		else
 		{
-			if (dollar == NULL)
+			if (dollar == NULL || dollar >= line + len)
 				dollar = line + len;
 			ms_lstadd_back_substr(&head, line, pos, dollar - &line[pos]);
 			pos = dollar - line;
