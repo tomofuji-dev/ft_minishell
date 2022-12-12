@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 14:40:52 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/12 15:43:31 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ typedef struct s_shell {
 // bool	pp_check_argc(int argc);
 // bool	pp_check_argc(int argc);
 // t_cmd	*pp_args_to_cmdlst(int argc, char *argv[], char **envp);
-// bool	pp_cmd_add_back(t_cmd **cmd_lst, char *cmd_str, \
-// 						char *envp[], char **env_split);
+// bool	pp_cmd_add_back(t_cmd **cmd_lst, char *cmd_str,	char *envp[], char **env_split);
 // void	pp_clear_cmdlst(t_cmd *cmd_lst, int free_size);
 // void	pp_file_open(int argc, char *argv[], t_cmd *cmd);
 // void	pp_file_close(t_cmd *cmd);

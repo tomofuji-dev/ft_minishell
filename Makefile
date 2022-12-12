@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
+#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/12 15:04:31 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/12 15:42:21 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ re: fclean all
 
 # Additional targets
 debug_lib: 
-	$(MAKE) debug -C $(LIBDIR_FT)
+	$(MAKE) debug -C $(LIBDIR)
 debug: fclean debug_lib all
 test_lexer_expansion:	all
 test_lexer_gettoken:	all	
@@ -93,8 +93,7 @@ test_lexer_gettoken:	all
 $(NAME): $(OBJS)
 	$(CC) $(LDFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(NAME)
 $(LIBS):
-	$(MAKE) -C $(LIBDIR_FT)
-	$(MAKE) -C $(LIBDIR_MLX)
+	$(MAKE) -C $(LIBDIR)
 $(OBJDIR):
 	@mkdir -p $@
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
