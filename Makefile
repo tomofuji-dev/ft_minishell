@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/11/19 21:05:08 by ykosaka          ###   ########.fr        #
+#    Updated: 2022/12/12 15:42:21 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,20 @@ LIBNAME			= libft
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= ms_main.c \
-				  ms_lexer.c ms_parser.c \
-				  ms_expand.c ms_exec.c ms_redirect.c \
-				  ms_echo.c ms_cd.c ms_pwd.c ms_export.c ms_unset.c \
-				  ms_env.c ms_exit.c
-SRC				+= debug_common.c debug_ms.c
+SRC				= src/ms_lexer.c \
+				  src/ms_lexer_gettoken.c \
+				  src/ms_lexer_string.c \
+				  src/ms_lexer_string_env.c \
+				  src/ms_lexer_string_lst.c \
+				  src/ms_lexer_tokenlen.c
+
+ifeq ($(MAKECMDGOALS), test_lexer_expansion)
+	SRC			+= test_lexer_expansion.c
+endif
+
+ifeq ($(MAKECMDGOALS), test_lexer_gettoken)
+	SRC			+= test_lexer_gettoken.c
+endif
 
 # Enumeration of directories
 SRCDIR			= ./src
@@ -76,15 +84,16 @@ re: fclean all
 
 # Additional targets
 debug_lib: 
-	$(MAKE) debug -C $(LIBDIR_FT)
+	$(MAKE) debug -C $(LIBDIR)
 debug: fclean debug_lib all
+test_lexer_expansion:	all
+test_lexer_gettoken:	all	
 
 # Recipes
 $(NAME): $(OBJS)
 	$(CC) $(LDFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(NAME)
 $(LIBS):
-	$(MAKE) -C $(LIBDIR_FT)
-	$(MAKE) -C $(LIBDIR_MLX)
+	$(MAKE) -C $(LIBDIR)
 $(OBJDIR):
 	@mkdir -p $@
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
