@@ -6,7 +6,7 @@
 #    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/12 14:52:27 by t.fuji            #+#    #+#              #
-#    Updated: 2022/12/13 12:39:18 by tfujiwar         ###   ########.fr        #
+#    Updated: 2022/12/13 13:12:53 by tfujiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,4 +63,4 @@
 ./minishell 'DoubleQuotedEnvVar "$HOME"HOGE'
 
 # combination
-./minishell "echo \"$HOME\" | ls | echo \'\"in single quote str\"\' | echo \"\'$ZENO_PID'\" > \"a.txt\" >>> error.txt <<< error.txt << correct_heredoc < correct_input"
+./minishell "echo \"\$HOME\" | ls | echo '\"in single quote str\"' | echo \"'\$HOME'\" > \"a.txt\" >>> error.txt <<< error.txt << correct_heredoc < correct_input"
