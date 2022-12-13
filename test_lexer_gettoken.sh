@@ -1,16 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    test_lexer.sh                                      :+:      :+:    :+:    #
+#    test_lexer_gettoken.sh                             :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
+#    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/12 14:52:27 by t.fuji            #+#    #+#              #
-#    Updated: 2022/12/13 05:57:55 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/13 12:39:18 by tfujiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-./minishell "echo \"$HOME\""
+# make cmd: make test_lexer_gettoken
+
+./minishell "echo \"\$HOME\""
 
 # string
 ./minishell ""
