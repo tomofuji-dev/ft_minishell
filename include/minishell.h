@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 16:12:46 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:44:52 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ typedef struct s_cmd {
 	char	**arg;
 	t_fd	*input;
 	t_fd	*output;
-	t_cmd	*next_cmd;
-	t_cmd	*prev_cmd;
+	t_cmd	*next;
+	t_cmd	*prev;
 	pid_t	pid;
 	int		ret_status;
 	char	**envp;
-} t_cmd;
+}	t_cmd;
 
 typedef struct s_fd {
 	char	*path;
