@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 13:25:45 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/14 14:42:38 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ char	*ms_lexer_string(char *line);
 
 t_cmd	*ms_parser(t_token* token)
 t_cmd	*ms_parser_cmdnew(t_token **token)
-char	**ms_parser_cmdnew_arg(t_token *token);
-size_t	ms_parser_cmdnew_arg_size(*token);
+char	**ms_parser_cmdnew_arg(t_token *token, size_t i_token);
+size_t	ms_parser_cmdnew_arg_size(t_token *token, size_t idx);
 
 bool	ms_isenvchar(int c);
 char	*ms_search_env(char *env_key);
