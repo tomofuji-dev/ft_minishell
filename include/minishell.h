@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 15:39:43 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:12:46 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,7 @@ void	*ms_lstclear_return_null(t_list **head);
 void	ms_lstadd_back_substr(t_list **head, char *line, \
 								size_t pos, size_t len);
 char	*ms_linkedls_to_str(t_list *head);
+
+void	*free_and_return(void *malloc_obj);
 
 #endif
