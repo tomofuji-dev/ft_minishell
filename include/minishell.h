@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 14:42:38 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/14 14:45:04 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ size_t	ms_lexer_tokenlen_plain(char *line);
 char	*ms_lexer_string(char *line);
 
 t_cmd	*ms_parser(t_token* token)
-t_cmd	*ms_parser_cmdnew(t_token **token)
+t_cmd	*ms_parser_cmdnew(t_token *token, size_t *idx);
 char	**ms_parser_cmdnew_arg(t_token *token, size_t i_token);
 size_t	ms_parser_cmdnew_arg_size(t_token *token, size_t idx);
 
