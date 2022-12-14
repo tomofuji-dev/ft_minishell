@@ -6,14 +6,14 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 15:39:18 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:52:46 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_fd		*ms_parser_cmdnew_output(t_token *token, size_t i_token);
-static void	ms_parser_cmdnew_sub(t_fd *output, t_token *token, size_t *i_token);
+static void	ms_parser_output_sub(t_fd *output, t_token *token, size_t *i_token);
 
 t_fd	*ms_parser_cmdnew_output(t_token *token, size_t i_token)
 {
@@ -26,11 +26,11 @@ t_fd	*ms_parser_cmdnew_output(t_token *token, size_t i_token)
 	output = (t_fd *)malloc((size + 1) * sizeof(t_fd));
 	if (output == NULL)
 		retun (NULL);
-	ms_parser_cmdnew_sub(output, token, &i_token);
+	ms_parser_output_sub(output, token, &i_token);
 	return (output);
 }
 
-static void	ms_parser_cmdnew_sub(t_fd *output, t_token *token, size_t *i_token)
+static void	ms_parser_output_sub(t_fd *output, t_token *token, size_t *i_token)
 {
 	ssize_t	size;
 	ssize_t	i_output;

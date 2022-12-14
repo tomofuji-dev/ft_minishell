@@ -6,13 +6,14 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 15:16:47 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:52:16 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_fd		*ms_parser_cmdnew_input(t_token *token, size_t i_token);
+static void	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token);
 static int	get_heredoc_pipe(const char *eof);
 static void	get_heredoc_txt(char *eof, int fd);
 
@@ -20,7 +21,6 @@ t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 {
 	t_fd	*input;
 	ssize_t	size;
-	ssize_t	i_input;
 
 	size = ms_parser_cmdnew_fdsize(token, i_token, FLAG_IN);
 	if (size == SIZE_INVALID)
@@ -28,21 +28,32 @@ t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 	input = (t_fd *)malloc((size + 1) * sizeof(t_fd));
 	if (input == NULL)
 		retun (NULL);
+	ms_parser_cmdnew_sub(input, token, &i_token);
+	return (input);
+}
+
+static void	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token)
+{
+	ssize_t	size;
+	ssize_t	i_input;
+
 	i_input = 0;
-	while (token[i_token].str != NULL && token[i_token].flag != FLAG_PIPE)
+	while (token[*i_token].str != NULL && token[*i_token].flag != FLAG_PIPE)
 	{
-		if (token[i_token].flag & FLAG_IN == FLAG_IN)
+		if (token[*i_token].flag & FLAG_IN == FLAG_IN)
 		{
-			if (token[i_token].flag == FLAG_IN)
-				input[i_input].fd = open(token[++i_token].str, O_RDONLY);
-			else if (token[i_token].flag == FLAG_HEREDOC)
-				input[i_input].fd = get_heredoc_pipe(token[++i_token].str);
-			input[i_input++].path == token[i_token].str;
+			if (token[*i_token].flag == FLAG_IN)
+				input[i_input].fd = open(token[++(*i_token)].str, O_RDONLY);
+			else if (token[*i_token].flag == FLAG_HEREDOC)
+				input[i_input].fd = get_heredoc_pipe(token[++(*i_token)].str);
+			if (input[i_input].fd < 0)
+				return (NULL);
+			input[i_input++].path == token[*i_token].str;
 		}
-		i_token++;
+		(*i_token)++;
 	}
 	input[size].path == NULL;
-	return (input);
+	return ;
 }
 
 static int	get_heredoc_pipe(const char *eof)
