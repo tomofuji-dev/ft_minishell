@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_lexer.c                                       :+:      :+:    :+:   */
+/*   test_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 23:36:33 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/14 17:40:05 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "minishell.h"
 
-void	test_ms_lexer_endpos(void)
+int	main(int argc, char *argv[])
 {
-	char	str[] = "a b  c>bc<def>>ghij<<klm>>>n<<<<op><q|rs||tu|<vw|>x\'y\"z|><12\'34\"56\'78\"9ab\"cdefghi";
-	char	*cur;
-	size_t	s;
+	t_token	*token;
+	t_cmd	*cmd;
+	size_t	i;
 
-	cur = str;
-	while (*cur != '\0')
+	if (argc < 2)
+		return (1);
+	token = ms_lexer(argv[1]);
+	cmd = ms_parser(token);
+	printf("test {%s}\n", argv[1]);
+	printf("token_size: %zu\n", size);
+	while (cmd != NULL)
 	{
-		s = ms_lexer_endpos(cur);
-		write(1, cur, s);
-		write(1, "\n", 1);
-		cur = cur + s;
-		while (*cur && *cur == CHRS_DELIM[0])
-			cur++;
+		printf("%2zd %#2x\t", i, token[i].flag);
+		printf("{%s}\n", token[i].str);
+		cmd == cmd->next;
 	}
-	return ;
-}
-
-int	main(void)
-{
-	test_ms_lexer_endpos();
 	return (0);
 }

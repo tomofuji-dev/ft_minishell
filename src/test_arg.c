@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_lexer.c                                       :+:      :+:    :+:   */
+/*   test_arg.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 23:36:33 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/13 15:53:38 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "minishell.h"
 
-void	test_ms_lexer_endpos(void)
+void	test_print_argv(int argc, char *argv[])
 {
-	char	str[] = "a b  c>bc<def>>ghij<<klm>>>n<<<<op><q|rs||tu|<vw|>x\'y\"z|><12\'34\"56\'78\"9ab\"cdefghi";
-	char	*cur;
-	size_t	s;
+	int	i;
 
-	cur = str;
-	while (*cur != '\0')
+	i = 0;
+	while (i < argc)
 	{
-		s = ms_lexer_endpos(cur);
-		write(1, cur, s);
-		write(1, "\n", 1);
-		cur = cur + s;
-		while (*cur && *cur == CHRS_DELIM[0])
-			cur++;
+		printf("argv[%d]: {%s}\n", i, argv[i]);
+		i++;
 	}
 	return ;
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	test_ms_lexer_endpos();
+	if (argc > 1)
+		test_print_argv(argc, argv);
 	return (0);
 }
