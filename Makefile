@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/12 15:42:21 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/14 14:09:24 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,14 @@ SRC				= src/ms_lexer.c \
 				  src/ms_lexer_string.c \
 				  src/ms_lexer_string_env.c \
 				  src/ms_lexer_string_lst.c \
-				  src/ms_lexer_tokenlen.c
+				  src/ms_lexer_tokenlen.c \
+				  src/ms_parser.c \
+				  src/ms_parser_cmdnew.c \
+				  src/ms_parser_cmdnew_arg.c \
+				  src/ms_parser_cmdnew_input.c \
+				  src/ms_parser_cmdnew_output.c \
+				  src/ms_parser_cmdnew_fdsize.c \
+
 
 ifeq ($(MAKECMDGOALS), test_lexer_expansion)
 	SRC			+= test_lexer_expansion.c

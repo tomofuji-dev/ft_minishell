@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 15:43:31 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/14 13:25:45 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,35 @@
 //# define CHRS_DELIM		" <>|;&()" for bonus+
 # define CHRS_DELIM		" <>|"
 # define CHRS_QUOTE		"\"'"
+# define SIZE_INVALID	-1
+# define FLAG_STRING	0x10
+# define FLAG_IN		0x20
+# define FLAG_HEREDOC	0x22
+# define FLAG_OUT		0x40
+# define FLAG_APPEND	0x44
+# define FLAG_PIPE		0x80
 
 typedef struct s_token {
 	char	*str;
 	int		flag;
 }	t_token;
+
+typedef struct s_cmd {
+	char	*path;
+	char	**arg;
+	t_fd	*input;
+	t_fd	*output;
+	t_cmd	*next_cmd;
+	t_cmd	*prev_cmd;
+	pid_t	pid;
+	int		ret_status;
+	char	**envp;
+} t_cmd;
+
+typedef struct s_fd {
+	char	*path;
+	int		fd;
+}	t_fd;
 
 typedef struct s_shell {
 	char	**envp;
@@ -63,6 +87,11 @@ size_t	ms_lexer_tokenlen_quoted(char *line);
 size_t	ms_lexer_tokenlen_plain(char *line);
 
 char	*ms_lexer_string(char *line);
+
+t_cmd	*ms_parser(t_token* token)
+t_cmd	*ms_parser_cmdnew(t_token **token)
+char	**ms_parser_cmdnew_arg(t_token *token);
+size_t	ms_parser_cmdnew_arg_size(*token);
 
 bool	ms_isenvchar(int c);
 char	*ms_search_env(char *env_key);
