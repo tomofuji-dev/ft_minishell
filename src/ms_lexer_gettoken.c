@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_gettoken.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 14:55:41 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/15 17:25:02 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_token	*ms_lexer_gettoken(char *line, size_t size)
 		token[i].str = ft_substr(line, pos, len);
 		if (token[i].str == NULL)
 			exit(ENOMEM);
-		token[i].str = ms_lexer_string(token[i].str);
 		token[i].flag = ms_lexer_gettoken_classify(token[i].str);
+		token[i].str = ms_lexer_string(token[i].str);
 		pos += len;
 		i++;
 	}
