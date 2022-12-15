@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/15 13:54:12 by tfujiwar         ###   ########.fr        #
+#    Updated: 2022/12/15 20:56:29 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,11 +109,11 @@ debug_lib:
 debug: fclean debug_lib all
 test_lexer_expansion:	all
 test_lexer_gettoken:	all	
-test_parser:			debug	
+test_parser:			all	
 
 # Recipes
 $(NAME): $(OBJS)
-	$(CC) $(LDFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(INCLUDES) $(OBJS) $(LIBS) $(LDFLAGS) -o $(NAME)
 $(LIBS):
 	$(MAKE) -C $(LIBDIR)
 $(OBJDIR):
