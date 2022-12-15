@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 16:44:52 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:00:50 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,22 @@ typedef struct s_token {
 	int		flag;
 }	t_token;
 
-typedef struct s_cmd {
-	char	*path;
-	char	**arg;
-	t_fd	*input;
-	t_fd	*output;
-	t_cmd	*next;
-	t_cmd	*prev;
-	pid_t	pid;
-	int		ret_status;
-	char	**envp;
-}	t_cmd;
-
 typedef struct s_fd {
 	char	*path;
 	int		fd;
 }	t_fd;
+
+typedef struct s_cmd {
+	char			*path;
+	char			**arg;
+	t_fd			*input;
+	t_fd			*output;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+	pid_t			pid;
+	int				ret_status;
+	char			**envp;
+}	t_cmd;
 
 typedef struct s_shell {
 	char	**envp;

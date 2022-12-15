@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
+#    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/14 23:39:16 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/15 13:23:03 by tfujiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC				= src/ms_lexer.c \
 				  src/ms_parser_cmdnew_input.c \
 				  src/ms_parser_cmdnew_output.c \
 				  src/ms_parser_cmdnew_fdsize.c \
-
+				  src/ms_utils.c
 
 ifeq ($(MAKECMDGOALS), test_lexer_expansion)
 	SRC			+= test_lexer_expansion.c
@@ -69,6 +69,7 @@ DEBUGCFLAGS		= -g -ggdb -fstack-usage -fno-omit-frame-pointer
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
+LDFLAGS			= -lreadline
 
 # Redefination when the specific target
 ifeq ($(MAKECMDGOALS), debug)

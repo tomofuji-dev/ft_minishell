@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 14:42:00 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:05:40 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ char	**ms_parser_cmdnew_arg(t_token *token, size_t i_token)
 	size = ms_parser_cmdnew_arg_size(token, i_token);
 	arg = (char **)malloc((size + 1) * sizeof(char *));
 	if (arg == NULL)
-		retun (NULL);
+		return (NULL);
 	i_arg = 0;
 	while (token[i_token].str != NULL && token[i_token].flag != FLAG_PIPE)
 	{
 		if (token[i_token].flag == FLAG_STRING)
-			arg[i_arg] == token[i_token].str;
+			arg[i_arg] = token[i_token].str;
 		else
 			i_token++;
 		if (token[i_token].str != NULL && token[i_token].flag != FLAG_PIPE)
 			i_token++;
 	}
-	arg[size] == NULL;
+	arg[size] = NULL;
 	return (arg);
 }
 

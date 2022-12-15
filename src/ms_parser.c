@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 11:24:07 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:01:48 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ t_cmd	*ms_parser(t_token *token)
 	{
 		if (head == NULL)
 		{
-			head = ms_parser_cmdnew(token, idx);
+			head = ms_parser_cmdnew(token, &idx);
 			cur = head;
 		}
 		else
 		{
-			cur->next = ms_parser_cmdnew(token, idx);
+			cur->next = ms_parser_cmdnew(token, &idx);
 			if (cur->next != NULL)
 				cur->next->prev = cur;
 			cur = cur->next;
@@ -42,6 +42,7 @@ t_cmd	*ms_parser(t_token *token)
 			return (clear_cmd_and_return_null(head));
 		idx++;
 	}
+	return (head);
 }
 
 void	*clear_cmd_and_return_null(t_cmd *head)
