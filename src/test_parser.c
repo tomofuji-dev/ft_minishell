@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 14:25:43 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:58:30 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	main(int argc, char *argv[])
 
 	if (argc < 2)
 		return (1);
+	printf("test {%s}\n", argv[1]);
 	token = ms_lexer(argv[1]);
 	cmd = ms_parser(token);
-	printf("test {%s}\n", argv[1]);
 	while (cmd != NULL)
 	{
 		printf("path: %s\n", cmd->path);
@@ -43,6 +43,7 @@ int	main(int argc, char *argv[])
 			printf("%d -> ", cmd->output->fd);
 			(cmd->output)++;
 		}
+		printf("\n");
 		cmd = cmd->next;
 	}
 	return (0);

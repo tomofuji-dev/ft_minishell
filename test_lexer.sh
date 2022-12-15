@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    test_lexer_gettoken.sh                             :+:      :+:    :+:    #
+#    test_lexer.sh                                      :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/12 14:52:27 by t.fuji            #+#    #+#              #
-#    Updated: 2022/12/13 13:12:53 by tfujiwar         ###   ########.fr        #
+#    Updated: 2022/12/15 14:56:57 by tfujiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,12 @@
 
 # redirect and pipe
 ./minishell "cmd | cmd"
-./minishell "cmd < infile"
+touch infile1 infile2 infile3
+./minishell "cmd < infile1"
+./minishell "cmd < infile1 < infile2 < infile3"
 ./minishell "cmd << EOF"
 ./minishell "cmd > outfile"
+./minishell "cmd > outfile1 > outfile2 > outfile3"
 ./minishell "cmd >> appendfile"
 ./minishell "noSpace<infile"
 ./minishell "noSpace<<EOF"
@@ -63,4 +66,4 @@
 ./minishell 'DoubleQuotedEnvVar "$HOME"HOGE'
 
 # combination
-./minishell "echo \"\$HOME\" | ls | echo '\"in single quote str\"' | echo \"'\$HOME'\" > \"a.txt\" >>> error.txt <<< error.txt << correct_heredoc < correct_input"
+# ./minishell "echo \"\$HOME\" | ls | echo '\"in single quote str\"' | echo \"'\$HOME'\" > \"a.txt\" >>> error.txt <<< error.txt << correct_heredoc < infile1"
