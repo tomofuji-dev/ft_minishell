@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 13:20:46 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:25:43 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char *argv[])
 	while (cmd != NULL)
 	{
 		printf("path: %s\n", cmd->path);
-		while (cmd->arg != NULL)
+		while (*(cmd->arg) != NULL)
 		{
 			printf("arg: %s\n", *(cmd->arg));
 			(cmd->arg)++;

@@ -6,7 +6,7 @@
 #    By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/15 13:23:03 by tfujiwar         ###   ########.fr        #
+#    Updated: 2022/12/15 13:54:12 by tfujiwar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,14 @@ ifeq ($(MAKECMDGOALS), debug)
 	DEF		= -D DEBUG_MODE=1
 endif
 
+ifeq ($(MAKECMDGOALS), test_*)
+	ifneq ($(OS), Darwin)
+		CFLAGS	+= $(DEBUGCFLAGS)
+		LDFLAGS	+= $(DEBUGLDFLAGS)
+	endif
+	DEF		= -D DEBUG_MODE=1
+endif
+
 # ********************* Section for targets and commands ********************* #
 # Phonies
 .PHONY: all clean fclean re clean_partly debug_lib debug \
@@ -101,7 +109,7 @@ debug_lib:
 debug: fclean debug_lib all
 test_lexer_expansion:	all
 test_lexer_gettoken:	all	
-test_parser:			all	
+test_parser:			debug	
 
 # Recipes
 $(NAME): $(OBJS)

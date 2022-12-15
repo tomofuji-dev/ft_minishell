@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 13:01:48 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:23:16 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_cmd	*ms_parser(t_token *token)
 		}
 		if (cur == NULL)
 			return (clear_cmd_and_return_null(head));
-		idx++;
 	}
 	return (head);
 }
@@ -52,7 +51,7 @@ void	*clear_cmd_and_return_null(t_cmd *head)
 	cur = head;
 	while (cur != NULL)
 	{
-		free(cur->path);
+		// free(cur->path);
 		free_string_lst(cur->arg, sizeof(cur->arg) / sizeof(char *));
 		free(cur->input);
 		free(cur->output);
