@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/14 14:09:24 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/14 23:39:16 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,10 @@ ifeq ($(MAKECMDGOALS), test_lexer_gettoken)
 	SRC			+= test_lexer_gettoken.c
 endif
 
+ifeq ($(MAKECMDGOALS), test_parser)
+	SRC			+= test_parser.c
+endif
+
 # Enumeration of directories
 SRCDIR			= ./src
 INCDIR			= ./include
@@ -77,7 +81,8 @@ endif
 
 # ********************* Section for targets and commands ********************* #
 # Phonies
-.PHONY: all clean fclean re clean_partly debug_lib debug
+.PHONY: all clean fclean re clean_partly debug_lib debug \
+		test_lexer_expansion test_lexer_gettoken test_parser
 
 # Mandatory targets
 all: $(LIBS) $(NAME)
@@ -95,6 +100,7 @@ debug_lib:
 debug: fclean debug_lib all
 test_lexer_expansion:	all
 test_lexer_gettoken:	all	
+test_parser:			all	
 
 # Recipes
 $(NAME): $(OBJS)
