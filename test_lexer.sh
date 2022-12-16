@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/12 14:52:27 by t.fuji            #+#    #+#              #
-#    Updated: 2022/12/16 14:59:35 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/16 15:27:32 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,17 +84,17 @@ echo	 OK  	expansion
 ./minishell 'EnvVars_w/_Alpha $SHELLHOGE'
 ./minishell 'EnvVars_w/_Num $SHELL99'
 ./minishell 'DoubleQuotedEnvVar "$HOME"HOGE'
-./minishell "echo \"\$HOME\""
-./minishell "Status code $?"
-./minishell "Status code$?HOGE"
+./minishell 'echo "$HOME"'
+./minishell 'Status code $?'
+./minishell 'Status code$?HOGE'
 
 echo	 No  	expansion
 ./minishell "SingleQuotedEnvVar '\$HOME'"
-./minishell "Orphan $ dollar"
-./minishell "Double $$ dollars"
-./minishell "Parameter $1"
-./minishell "Parameter $1HOGE"
-./minishell "$_ $_HOGE"
+./minishell 'Orphan $ dollar'
+./minishell 'Double $$ dollars'
+./minishell 'Parameter $1'
+./minishell 'Parameter $1HOGE'
+./minishell '$_ $_HOGE'
 
 echo	 Edge	expansion
 export VAR_SPACE=" "
