@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 14:58:30 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:08:21 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char *argv[])
 			(cmd->input)++;
 		}
 		printf("\noutput: ");
-		while (cmd->input->path != NULL)
+		while (cmd->output->path != NULL)
 		{
 			printf("%d -> ", cmd->output->fd);
 			(cmd->output)++;
