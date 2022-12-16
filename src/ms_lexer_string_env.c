@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/13 12:56:51 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:22:27 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	char	*env_val;
 
 	*pos += 1;
-	i = 1;
+	i = 0;
 	if (line[*pos] == '?')
 	{
 		*pos += 1;
 		return (ft_lstnew(ft_strdup("?")));
 	}
-	while (i < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))
+	while (i + 1 < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))
 		i++;
-	if (i == 1)
-		return (ft_lstnew("$"));
+	if (i == 0)
+		return (ft_lstnew(ft_strdup("$")));
 	env_key = ft_substr(line, *pos, i);
 	*pos += i;
 	if (errno == ENOMEM)
