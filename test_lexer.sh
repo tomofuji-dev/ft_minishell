@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/12 14:52:27 by t.fuji            #+#    #+#              #
-#    Updated: 2022/12/15 21:24:40 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/16 14:59:35 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,7 +105,7 @@ echo	 OK  	multi pipes
 ./minishell "cmd1|cmd2|cmd3|cmd4"
 ./minishell "cmd1 arg1a arg1b|cmd2 arg2a arg2b|cmd3 arg3a arg3b|cmd4 arg4a arg4b"
 
-echo# NG  	multi pipes
+echo  	NG  	multi pipes
 ./minishell '|'
 ./minishell 'end is pipe |'
 ./minishell '| begin is pipe'
