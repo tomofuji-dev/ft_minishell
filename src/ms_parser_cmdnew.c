@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/16 14:48:43 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/18 15:16:08 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ t_cmd	*ms_parser_cmdnew(t_token *token, size_t *idx)
 //	printf("parser_cmdnew/cmd->arg: %s\n", cmd->arg[0]);
 	if (cmd->arg == NULL)
 		return (free_and_return(cmd));
-	// cmd->path = ms_parser_cmdnew_path(cmd->arg[0]);
-	cmd->path = cmd->arg[0];
+	cmd->path = ms_getpath_cmd(cmd->arg[0]);
 	if (cmd->path == NULL)
 		return (free_and_return(cmd));
 	cmd->input = ms_parser_cmdnew_input(token, *idx);

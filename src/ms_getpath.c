@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_getpath.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/18 15:03:42 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/18 15:11:36 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ms_getpath_cmd(char *name)
 	if (name == NULL)
 		return (NULL);
 	if (*name == CHR_DIR)
-		return (ft_strdup(name));	
+		return (ft_strdup(name));
 	else if (ft_strchr(name, CHR_DIR))
 		return (ms_getpath_relative(name));
 	return (ms_getpath_envpath(name));
