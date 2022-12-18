@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/18 15:11:36 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/18 15:22:36 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ char	*ms_getpath_envpath(char *name)
 {
 	char	*cmdpath;
 	char	*envpath;
-	char	*envpath_split;
+	char	**envpath_split;
 
 	envpath = getenv(ENV_PATH);
-	envpath_split = ft_split(envpath);
+	envpath_split = ft_split(envpath, ':');
 	if (envpath_split == NULL)
 		return (NULL);
 	while (*envpath_split)
 	{
-		cmdpath = ms_getpath_join(envpath_split, name);
+		cmdpath = ms_getpath_join(*envpath_split, name);
 		if (cmdpath == NULL)
 			return (NULL);
-		if (access(cmdpath) == X_OK)
+		if (access(cmdpath, X_OK) == 0)
 			return (cmdpath);
 		envpath_split++;
 	}

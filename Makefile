@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
+#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/15 20:56:29 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/18 15:18:55 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC				= src/ms_lexer.c \
 				  src/ms_parser_cmdnew_input.c \
 				  src/ms_parser_cmdnew_output.c \
 				  src/ms_parser_cmdnew_fdsize.c \
+				  src/ms_getpath.c \
 				  src/ms_utils.c
 
 ifeq ($(MAKECMDGOALS), test_lexer_expansion)
