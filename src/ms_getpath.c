@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/18 15:22:36 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/18 16:15:08 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ char	*ms_getpath_relative(char *name)
 
 char	*ms_getpath_envpath(char *name)
 {
-	char	*cmdpath;
-	char	*envpath;
-	char	**envpath_split;
+	char		*cmdpath;
+	char		*envpath;
+	char		**envpath_split;
+	struct stat	stat_buf;
 
 	envpath = getenv(ENV_PATH);
 	envpath_split = ft_split(envpath, ':');
@@ -60,7 +61,8 @@ char	*ms_getpath_envpath(char *name)
 		cmdpath = ms_getpath_join(*envpath_split, name);
 		if (cmdpath == NULL)
 			return (NULL);
-		if (access(cmdpath, X_OK) == 0)
+		stat(cmdpath, &stat_buf);
+		if ((stat_buf.st_mode & S_IFMT) == S_IFREG)
 			return (cmdpath);
 		envpath_split++;
 	}
