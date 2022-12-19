@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/18 16:12:16 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/19 13:19:32 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 # define FLAG_OUT		0x40
 # define FLAG_APPEND	0x44
 # define FLAG_PIPE		0x80
+# define STDIN			0
+# define STDOUT			1
+
 
 typedef struct s_token {
 	char	*str;
