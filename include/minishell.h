@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 23:42:00 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/18 16:12:16 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,11 @@ void	*ms_lstclear_return_null(t_list **head);
 void	ms_lstadd_back_substr(t_list **head, char *line, \
 								size_t pos, size_t len);
 char	*ms_linkedls_to_str(t_list *head);
+
+char	*ms_getpath_cmd(char *name);
+char	*ms_getpath_relative(char *name);
+char	*ms_getpath_envpath(char *name);
+char	*ms_getpath_join(char *dirpath, char *name);
 
 void	*free_and_return(void *malloc_obj);
 

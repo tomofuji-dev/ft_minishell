@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
+#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/11/17 17:42:10 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/18 16:44:48 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC			= ft_isalpha.c ft_isdigit.c ft_isalnum.c \
 			  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 			  ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 			  ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c \
-			  ft_lstiter.c ft_lstmap.c
+			  ft_lstiter.c ft_lstmap.c ft_strcmp.c
 
 # Enumeration of directories
 SRCDIR		= ./src

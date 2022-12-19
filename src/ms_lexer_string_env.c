@@ -3,23 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/13 12:56:51 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/18 13:43:54 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 bool	ms_isenvchar(int c);
-char	*ms_search_env(char *env_key);
+t_list	*ms_expand_special_env(char *line, size_t *pos);
 t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len);
 t_list	*ms_expand_envvar_dquote(char *line, size_t len);
 
 bool	ms_isenvchar(int c)
 {
 	return (ft_isalnum(c) || c == '_');
+}
+
+t_list	*ms_expand_special_env(char *line, size_t *pos)
+{
+	if (line[*pos] == '?')
+	{
+		*pos += 1;
+		return (ft_lstnew(ft_strdup("?")));
+	}
+	else if (ft_isdigit(line[*pos]))
+	{
+		*pos += 1;
+		return (ft_lstnew(ft_strdup("")));
+	}
+	return (NULL);
 }
 
 // "$abc def" -> return "($abc_expanded)", and pos is set to " def"
@@ -31,16 +46,13 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	char	*env_val;
 
 	*pos += 1;
-	i = 1;
-	if (line[*pos] == '?')
-	{
-		*pos += 1;
-		return (ft_lstnew(ft_strdup("?")));
-	}
-	while (i < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))
+	i = 0;
+	if (line[*pos] == '?' || ft_isdigit(line[*pos]))
+		return (ms_expand_special_env(line, pos));
+	while (i + 1 < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))
 		i++;
-	if (i == 1)
-		return (ft_lstnew("$"));
+	if (i == 0)
+		return (ft_lstnew(ft_strdup("$")));
 	env_key = ft_substr(line, *pos, i);
 	*pos += i;
 	if (errno == ENOMEM)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
+#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/14 23:39:16 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/18 15:18:55 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC				= src/ms_lexer.c \
 				  src/ms_parser_cmdnew_input.c \
 				  src/ms_parser_cmdnew_output.c \
 				  src/ms_parser_cmdnew_fdsize.c \
-
+				  src/ms_getpath.c \
+				  src/ms_utils.c
 
 ifeq ($(MAKECMDGOALS), test_lexer_expansion)
 	SRC			+= test_lexer_expansion.c
@@ -69,9 +70,18 @@ DEBUGCFLAGS		= -g -ggdb -fstack-usage -fno-omit-frame-pointer
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
+LDFLAGS			= -lreadline
 
 # Redefination when the specific target
 ifeq ($(MAKECMDGOALS), debug)
+	ifneq ($(OS), Darwin)
+		CFLAGS	+= $(DEBUGCFLAGS)
+		LDFLAGS	+= $(DEBUGLDFLAGS)
+	endif
+	DEF		= -D DEBUG_MODE=1
+endif
+
+ifeq ($(MAKECMDGOALS), test_*)
 	ifneq ($(OS), Darwin)
 		CFLAGS	+= $(DEBUGCFLAGS)
 		LDFLAGS	+= $(DEBUGLDFLAGS)
@@ -104,7 +114,7 @@ test_parser:			all
 
 # Recipes
 $(NAME): $(OBJS)
-	$(CC) $(LDFLAGS) $(INCLUDES) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(INCLUDES) $(OBJS) $(LIBS) $(LDFLAGS) -o $(NAME)
 $(LIBS):
 	$(MAKE) -C $(LIBDIR)
 $(OBJDIR):

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 16:47:31 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/16 15:01:28 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,21 @@ t_cmd	*ms_parser(t_token *token)
 	t_cmd	*cur;
 
 	idx = 0;
-	head = NULL;
-	while (token[idx].str != NULL)
+	head = ms_parser_cmdnew(token, &idx);
+	if (head == NULL)
+		return (NULL);
+	cur = head;
+//	while (token[idx++].flag == FLAG_PIPE && token[idx].str)
+	while (token[idx++].flag == FLAG_PIPE)
 	{
-		if (head == NULL)
-		{
-			head = ms_parser_cmdnew(token, idx);
-			cur = head;
-		}
-		else
-		{
-			cur->next = ms_parser_cmdnew(token, idx);
-			cur = cur->next;
-			if (cur->next != NULL)
-				cur->next->prev = cur;
-		}
+		cur->next = ms_parser_cmdnew(token, &idx);
+		if (cur->next != NULL)
+			cur->next->prev = cur;
+		cur = cur->next;
 		if (cur == NULL)
 			return (clear_cmd_and_return_null(head));
-		idx++;
 	}
+	return (head);
 }
 
 void	*clear_cmd_and_return_null(t_cmd *head)
@@ -51,8 +47,8 @@ void	*clear_cmd_and_return_null(t_cmd *head)
 	cur = head;
 	while (cur != NULL)
 	{
-		free(cur->path);
-		free_string_lst(cur->arg, sizeof(cur->arg) / sizeof(char *));
+		// free(cur->path);
+//		free_string_lst(cur->arg, sizeof(cur->arg) / sizeof(char *));
 		free(cur->input);
 		free(cur->output);
 		cur = cur->next;
