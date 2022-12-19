@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:53:14 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 14:43:19 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/19 15:36:21 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ t_token	*ms_lexer(char *line)
 	size_t	size;
 
 	size = ms_lexer_tokensize(line);
-	token = ms_lexer_gettoken(line, size);
+	token = (t_token *)malloc((size + 1) * sizeof(t_token));
+	if (token == NULL)
+		exit(ENOMEM);
+	ms_lexer_gettoken(token, line);
 	return (token);
 }
 

@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/19 13:19:32 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/19 15:36:01 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	init_global(char *envp[]);
 t_token	*ms_lexer(char *line);
 size_t	ms_lexer_tokensize(char *line);
 
-t_token	*ms_lexer_gettoken(char *line, size_t size);
+void	ms_lexer_gettoken(t_token *token, char *line);
 int		ms_lexer_gettoken_classify(char *line);
 
 size_t	ms_lexer_tokenlen(char *line);

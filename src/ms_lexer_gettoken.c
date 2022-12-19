@@ -3,28 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_gettoken.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 17:25:02 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:48:45 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*ms_lexer_gettoken(char *line, size_t size);
+void	ms_lexer_gettoken(t_token *token, char *line);
 int		ms_lexer_gettoken_classify(char *line);
 
-t_token	*ms_lexer_gettoken(char *line, size_t size)
+void	ms_lexer_gettoken(t_token *token, char *line)
 {
-	t_token	*token;
+	char	*str;
 	size_t	pos;
 	size_t	len;
 	size_t	i;
 
-	token = (t_token *)malloc((size + 1) * sizeof(t_token));
-	if (token == NULL)
-		exit(ENOMEM);
 	pos = 0;
 	i = 0;
 	while (*(line + pos) != '\0')
@@ -32,16 +29,18 @@ t_token	*ms_lexer_gettoken(char *line, size_t size)
 		while (*(line + pos) == CHRS_DELIM[0])
 			pos++;
 		len = ms_lexer_tokenlen(line + pos);
-		token[i].str = ft_substr(line, pos, len);
-		if (token[i].str == NULL)
+		str = ft_substr(line, pos, len);
+		if (str == NULL)
 			exit(ENOMEM);
-		token[i].flag = ms_lexer_gettoken_classify(token[i].str);
-		token[i].str = ms_lexer_string(token[i].str);
+		token[i].flag = ms_lexer_gettoken_classify(str);
+		token[i].str = ms_lexer_string(str);
+		free(str);
 		pos += len;
-		i++;
+		if (token[i].str != NULL)
+			i++;
 	}
-	token[size].str = NULL;
-	return (token);
+	token[i].str = NULL;
+	return ;
 }
 
 int	ms_lexer_gettoken_classify(char *line)
