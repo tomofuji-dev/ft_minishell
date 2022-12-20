@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_input.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 14:48:15 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/20 11:37:28 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static void	get_heredoc_txt(const char *eof, int fd)
 	while (1)
 	{
 		buf = readline("> ");
+		if (!buf)
+			return ;
 		if (ft_strncmp(buf, eof, INT_MAX) == 0)
 			return (free(buf));
 		ft_putendl_fd(buf, fd);
