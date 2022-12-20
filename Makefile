@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
+#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/18 15:18:55 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/20 11:06:44 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,16 +36,8 @@ SRC				= src/ms_lexer.c \
 				  src/ms_getpath.c \
 				  src/ms_utils.c
 
-ifeq ($(MAKECMDGOALS), test_lexer_expansion)
-	SRC			+= test_lexer_expansion.c
-endif
-
-ifeq ($(MAKECMDGOALS), test_lexer_gettoken)
-	SRC			+= test_lexer_gettoken.c
-endif
-
-ifeq ($(MAKECMDGOALS), test_parser)
-	SRC			+= test_parser.c
+ifneq (, $(findstring test_, $(MAKECMDGOALS)))
+	SRC			+= $(MAKECMDGOALS).c
 endif
 
 # Enumeration of directories
@@ -81,7 +73,7 @@ ifeq ($(MAKECMDGOALS), debug)
 	DEF		= -D DEBUG_MODE=1
 endif
 
-ifeq ($(MAKECMDGOALS), test_*)
+ifneq (, $(findstring test_, $(MAKECMDGOALS)))
 	ifneq ($(OS), Darwin)
 		CFLAGS	+= $(DEBUGCFLAGS)
 		LDFLAGS	+= $(DEBUGLDFLAGS)
@@ -92,7 +84,7 @@ endif
 # ********************* Section for targets and commands ********************* #
 # Phonies
 .PHONY: all clean fclean re clean_partly debug_lib debug \
-		test_lexer_expansion test_lexer_gettoken test_parser
+		test_lexer_expansion test_lexer_gettoken test_parser test_builtin
 
 # Mandatory targets
 all: $(LIBS) $(NAME)
@@ -111,6 +103,7 @@ debug: fclean debug_lib all
 test_lexer_expansion:	all
 test_lexer_gettoken:	all	
 test_parser:			all	
+test_builtin:			all	
 
 # Recipes
 $(NAME): $(OBJS)
