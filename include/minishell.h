@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/19 15:36:01 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/20 11:50:32 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 # define FLAG_PIPE		0x80
 # define STDIN			0
 # define STDOUT			1
-
 
 typedef struct s_token {
 	char	*str;
