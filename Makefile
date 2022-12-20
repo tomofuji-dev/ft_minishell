@@ -21,20 +21,30 @@ LIBNAME			= libft
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= src/ms_lexer.c \
-				  src/ms_lexer_gettoken.c \
-				  src/ms_lexer_string.c \
-				  src/ms_lexer_string_env.c \
-				  src/ms_lexer_string_lst.c \
-				  src/ms_lexer_tokenlen.c \
-				  src/ms_parser.c \
-				  src/ms_parser_cmdnew.c \
-				  src/ms_parser_cmdnew_arg.c \
-				  src/ms_parser_cmdnew_input.c \
-				  src/ms_parser_cmdnew_output.c \
-				  src/ms_parser_cmdnew_fdsize.c \
-				  src/ms_getpath.c \
-				  src/ms_utils.c
+SRC				= ms_main.c \
+				  ms_init.c \
+				  ms_lexer.c \
+				  ms_lexer_gettoken.c \
+				  ms_lexer_string.c \
+				  ms_lexer_string_env.c \
+				  ms_lexer_string_lst.c \
+				  ms_lexer_tokenlen.c \
+				  ms_parser.c \
+				  ms_parser_cmdnew.c \
+				  ms_parser_cmdnew_arg.c \
+				  ms_parser_cmdnew_input.c \
+				  ms_parser_cmdnew_output.c \
+				  ms_parser_cmdnew_fdsize.c \
+				  ms_getpath.c \
+				  ms_exec_builtin.c \
+				  ms_exec_child.c \
+				  ms_builtin.c \
+				  ms_builtin_cd.c \
+				  ms_builtin_echo.c \
+				  ms_builtin_env.c \
+				  ms_builtin_exit.c \
+				  ms_builtin_pwd.c \
+				  ms_utils.c
 
 ifneq (, $(findstring test_, $(MAKECMDGOALS)))
 	SRC			+= $(MAKECMDGOALS).c
@@ -59,6 +69,7 @@ RM				= rm
 # Command options (flags)
 CFLAGS			= -MMD -Wall -Wextra -Werror
 DEBUGCFLAGS		= -g -ggdb -fstack-usage -fno-omit-frame-pointer
+DEBUGCFLAGS		= -g -ggdb -fno-omit-frame-pointer
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
@@ -74,10 +85,10 @@ ifeq ($(MAKECMDGOALS), debug)
 endif
 
 ifneq (, $(findstring test_, $(MAKECMDGOALS)))
-	ifneq ($(OS), Darwin)
+#	ifneq ($(OS), Darwin)
 		CFLAGS	+= $(DEBUGCFLAGS)
 		LDFLAGS	+= $(DEBUGLDFLAGS)
-	endif
+#	endif
 	DEF		= -D DEBUG_MODE=1
 endif
 

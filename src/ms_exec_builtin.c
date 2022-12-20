@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_builtin_exit.c                                  :+:      :+:    :+:   */
+/*   ms_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/19 15:39:26 by Yoshihiro K      ###   ########.fr       */
+/*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
+/*   Updated: 2022/12/20 14:18:59 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ms_builtin_exit(char *argv[])
+void	ms_exec_a_builtin(t_cmd *cmd, (void *)builtin(char *arg[]))
 {
-	int	status;
-
-	printf("%s\n", MSG_EXIT);
-	if (argv[1] == NULL)
-		status = g_env->status;
-	else
-		ft_atoi(argv[1]);
-	exit(status);
+	g_shell->status = builtin(cmd->arg);
 }

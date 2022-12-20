@@ -10,27 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include "minishell.h"
 
-#define ENV_HOME	"HOME"
-#define STR_DIR		"/"
-#define CHR_DIR		'/'
-#define CHR_HOME	'~'
-
-void		ms_builtin_cd(char	*argv[]);
+int		ms_builtin_cd(char *argv[]);
 static void	ms_builtin_cd_setpath_home(char	*path, char	*arg);
 static void	ms_builtin_cd_setpath_absolute(char	*path, char	*arg);
 static void	ms_builtin_cd_setpath_relative(char	*path, char	*arg);
 
-void	ms_builtin_cd(char	*argv[])
+int	ms_builtin_cd(char	*argv[])
 {
 	char	path[PATH_MAX + 1];
 
 	if (argv == NULL)
 		return ;
 	if (argv[1] == NULL)
-		chdir(getenv(ENV_HOME));
+		return (chdir(getenv(ENV_HOME)));
 	else if ft_strchr(argv[1][0] == CHR_HOME \
 		&& (argv[1][1] == CHR_DIR || argv[1][1] == '\0'))
 		ms_builtin_cd_setpath_home(path, argv[1])
@@ -38,7 +32,7 @@ void	ms_builtin_cd(char	*argv[])
 		ms_builtin_cd_setpath_absolute(path, argv[1])
 	else
 		ms_builtin_cd_setpath_relative(path, argv[1])
-	chdir(path);
+	return (chdir(path));
 }
 
 static void	ms_builtin_cd_setpath_home(char	*path, char	*arg)

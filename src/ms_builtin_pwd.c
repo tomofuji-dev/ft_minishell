@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ms_builtin_pwd(char *argv[])
+int	ms_builtin_pwd(char *argv[])
 {
 	char	*buf;
 

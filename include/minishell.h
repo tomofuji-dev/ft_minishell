@@ -25,12 +25,18 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <limits.h>
 # include <errno.h>
 # include "libft.h"
 
 //# define CHRS_DELIM		" <>|;&()" for bonus+
 # define CHRS_DELIM		" <>|"
 # define CHRS_QUOTE		"\"'"
+# define ENV_HOME		"HOME"
+# define MSG_EXIT		"exit"
+# define STR_DIR		"/"
+# define CHR_DIR		'/'
+# define CHR_HOME		'~'
 # define SIZE_INVALID	-1
 # define FLAG_STRING	0x10
 # define FLAG_IN		0x20
@@ -40,8 +46,6 @@
 # define FLAG_PIPE		0x80
 # define STDIN			0
 # define STDOUT			1
-
-extern char	**g_shell;
 
 typedef struct s_token {
 	char	*str;
@@ -68,6 +72,8 @@ typedef struct s_shell {
 	int		status;
 }	t_shell;
 
+extern t_shell	g_shell;
+
 // bool	pp_check_argc(int argc);
 // bool	pp_check_argc(int argc);
 // t_cmd	*pp_args_to_cmdlst(int argc, char *argv[], char **envp);
@@ -76,7 +82,7 @@ typedef struct s_shell {
 // void	pp_file_open(int argc, char *argv[], t_cmd *cmd);
 // void	pp_file_close(t_cmd *cmd);
 
-void	init_global(char *envp[]);
+void	init_global(void);
 
 t_token	*ms_lexer(char *line);
 size_t	ms_lexer_tokensize(char *line);
@@ -113,6 +119,17 @@ char	*ms_getpath_cmd(char *name);
 char	*ms_getpath_relative(char *name);
 char	*ms_getpath_envpath(char *name);
 char	*ms_getpath_join(char *dirpath, char *name);
+
+void	ms_exec_in_child_process(t_cmd *cmd);
+void	ms_exec_a_builtin(t_cmd *cmd, (void *)builtin(char *arg[]));
+
+int		(*ms_builtin_getfunc(char *arg))(char *argv[]);
+int		ms_builtin_cd(char *argv[]);
+int		ms_builtin_echo(char *argv[]);
+int		ms_builtin_env(char *argv[]);
+int		ms_builtin_exit(char *argv[]);
+int		ms_builtin_pwd(char *argv[]);
+
 
 void	*free_and_return(void *malloc_obj);
 
