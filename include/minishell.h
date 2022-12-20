@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/20 11:50:32 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/20 13:43:28 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef struct s_cmd {
 }	t_cmd;
 
 typedef struct s_shell {
-	char	**envp;
+	char	**environ;
+	int		status;
 }	t_shell;
 
 // bool	pp_check_argc(int argc);
