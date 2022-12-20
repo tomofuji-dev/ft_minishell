@@ -6,14 +6,14 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/20 13:45:18 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:27:01 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char		**environ;
-int				status;
+void	(*ms_get_builtin(t_cmd *cmd))(t_cmd *s);
+void	exec(t_cmd *cmd);
 
 void	(*ms_get_builtin(t_cmd *cmd))(t_cmd *s)
 {
@@ -36,13 +36,13 @@ void	(*ms_get_builtin(t_cmd *cmd))(t_cmd *s)
 
 void	exec(t_cmd *cmd)
 {
-	(void *) buitin;
+	(void *) builtin;
 
 	builtin = ms_isbuiltin(cmd->arg[0]);
 	if (builtin != NULL && ms_cmd_size(cmd) == 1)
-		return (ms_exec_a_builtin(cmd, f));
+		return (ms_exec_a_builtin(cmd, builtin));
 	else
-		return (ms_exec_in_child_process(cmd)); // 最初がbuiltinだったらforkせずに関数を実行してからforkを始める
+		return (ms_exec_in_child_process(cmd));
 }
 
 int	main(void)

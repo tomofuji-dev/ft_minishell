@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/20 13:43:28 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/20 14:14:07 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define STDIN			0
 # define STDOUT			1
 
+extern char	**g_shell;
+
 typedef struct s_token {
 	char	*str;
 	int		flag;
@@ -59,8 +61,6 @@ typedef struct s_cmd {
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	pid_t			pid;
-	int				ret_status;
-	char			**envp;
 }	t_cmd;
 
 typedef struct s_shell {
