@@ -6,13 +6,13 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/21 14:34:10 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:41:39 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell		g_shell;
+t_shell		*g_shell;
 extern char	**environ;
 
 void	init_global(void);
