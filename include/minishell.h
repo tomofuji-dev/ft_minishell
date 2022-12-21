@@ -121,7 +121,7 @@ char	*ms_getpath_envpath(char *name);
 char	*ms_getpath_join(char *dirpath, char *name);
 
 void	ms_exec_in_child_process(t_cmd *cmd);
-void	ms_exec_a_builtin(t_cmd *cmd, (void *)builtin(char *arg[]));
+void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]));
 
 int		(*ms_builtin_getfunc(char *arg))(char *argv[]);
 int		ms_builtin_cd(char *argv[]);

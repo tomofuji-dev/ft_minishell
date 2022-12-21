@@ -18,8 +18,8 @@ int	ms_builtin_exit(char *argv[])
 
 	printf("%s\n", MSG_EXIT);
 	if (argv[1] == NULL)
-		status = g_env->status;
+		status = g_shell.status;
 	else
-		ft_atoi(argv[1]);
+		status = ft_atoi(argv[1]);
 	exit(status);
 }

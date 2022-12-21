@@ -14,9 +14,13 @@
 
 int	ms_builtin_pwd(char *argv[])
 {
-	char	*buf;
+	char	buf[PATH_MAX];
 
+	if (argv == NULL)
+		return(0);
+	errno = 0;
 	printf("%s\n", getcwd(buf, PATH_MAX));
+	return (errno);
 }
 
 /*

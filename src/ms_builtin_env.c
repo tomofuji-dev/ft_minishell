@@ -17,6 +17,8 @@ int	ms_builtin_env(char *argv[])
 	extern char	**environ;
 	size_t		i;
 
+	if (argv == NULL)
+		return (0);
 	i = 0;
 	while (environ[i] != NULL)
 		ft_putendl_fd(environ[i++], STDOUT);

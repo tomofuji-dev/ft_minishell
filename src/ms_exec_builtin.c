@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ms_exec_a_builtin(t_cmd *cmd, (void *)builtin(char *arg[]))
+void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]))
 {
-	g_shell->status = builtin(cmd->arg);
+	g_shell.status = builtin(cmd->arg);
 }
