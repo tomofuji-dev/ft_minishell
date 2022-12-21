@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/21 14:33:05 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/21 14:34:10 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_global(void)
 
 	env_count = ms_count_str(environ);
 	g_shell->environ = malloc(sizeof(char *) * (env_count + 1));
-	if (g_shell->environ)
+	if (g_shell->environ == NULL)
 		exit(EXIT_FAILURE);
 	ms_strlst_cpy(g_shell->environ, environ);
 	g_shell->status = 0;
