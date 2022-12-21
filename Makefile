@@ -68,8 +68,10 @@ RM				= rm
 
 # Command options (flags)
 CFLAGS			= -MMD -Wall -Wextra -Werror
-DEBUGCFLAGS		= -g -ggdb -fstack-usage -fno-omit-frame-pointer
 DEBUGCFLAGS		= -g -ggdb -fno-omit-frame-pointer
+ifneq ($(OS), Darwin)
+	DEBUGCFLAGS	+= -fstack-usage		
+endif
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
@@ -81,15 +83,13 @@ ifeq ($(MAKECMDGOALS), debug)
 		CFLAGS	+= $(DEBUGCFLAGS)
 		LDFLAGS	+= $(DEBUGLDFLAGS)
 	endif
-	DEF		= -D DEBUG_MODE=1
+	DEF			= -D DEBUG_MODE=1
 endif
 
 ifneq (, $(findstring test_, $(MAKECMDGOALS)))
-#	ifneq ($(OS), Darwin)
-		CFLAGS	+= $(DEBUGCFLAGS)
-		LDFLAGS	+= $(DEBUGLDFLAGS)
-#	endif
-	DEF		= -D DEBUG_MODE=1
+	CFLAGS		+= $(DEBUGCFLAGS)
+	LDFLAGS		+= $(DEBUGLDFLAGS)
+	DEF			= -D DEBUG_MODE=1
 endif
 
 # ********************* Section for targets and commands ********************* #

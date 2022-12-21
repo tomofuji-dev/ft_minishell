@@ -60,5 +60,5 @@ int	main(void)
 			exec(cmd);
 		}
 	}
-	return (g_shell.status);
+	return (g_shell->status);
 }

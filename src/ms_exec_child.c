@@ -56,7 +56,7 @@ void	ms_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2])
 		ms_close_pipe(fd);
 		ms_close_pipe(prev_pipe);
 		ms_close_pipe(now_pipe);
-		execve(cmd->path, cmd->arg, g_shell.environ);
+		execve(cmd->path, cmd->arg, g_shell->environ);
 	}
 	else
 		return ;
@@ -87,6 +87,6 @@ void	ms_wait_all(t_cmd *cmd_lst)
 		waitpid(now_cmd->pid, &status, 1);
 		now_cmd = now_cmd->next;
 	}
-	g_shell.status = status;
+	g_shell->status = status;
 	return ;
 }
