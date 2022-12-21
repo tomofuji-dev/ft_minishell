@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/20 14:14:07 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:41:29 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_shell {
 	int		status;
 }	t_shell;
 
-extern t_shell	g_shell;
+extern t_shell	*g_shell;
 
 // bool	pp_check_argc(int argc);
 // bool	pp_check_argc(int argc);
