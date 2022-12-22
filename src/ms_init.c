@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/22 14:57:44 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/22 15:07:24 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_shell		g_shell;
 
 void	init_global(char *envp[]);
+t_list	*ms_tlst_from_strlst(char *envp[]);
 
 void	init_global(char *envp[])
 {
