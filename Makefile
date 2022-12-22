@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/22 10:24:58 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/22 10:53:25 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,6 @@ SRC				= ms_main.c \
 				  ms_builtin_env.c \
 				  ms_builtin_exit.c \
 				  ms_builtin_pwd.c \
-				  ms_strlst.c \
 				  ms_lst2map.c \
 				  ms_utils.c
 
