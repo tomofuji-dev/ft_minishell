@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/23 06:07:48 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/23 06:08:47 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,7 @@ t_list	*ms_tlst_from_strlst(char *envp[]);
 
 void	init_global(char *envp[])
 {
-<<<<<<< HEAD
-
-	g_shell.environ->content = ms_tlst_from_strlst(envp);
-=======
 	g_shell.environ = ms_tlst_from_strlst(envp);
->>>>>>> 53221feb0165b917fc63b0e7b437ac0eef7fb2bd
 	g_shell.status = 0;
 }
 
