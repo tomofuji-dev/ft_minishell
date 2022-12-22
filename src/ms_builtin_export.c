@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/22 16:21:20 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/23 10:50:29 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		ms_builtin_export(char *argv[]);
 int		ms_print_env_with_declare(void);
-bool	ms_is_validenv(char *env_candidate);
 int		ms_set_environ(char **argv);
 void	ms_search_env_and_set(char *env_key);
 t_list	*ms_lstnew_env(char *env_key);
@@ -25,7 +24,7 @@ int	ms_builtin_export(char *argv[])
 
 	if (argv[1] == NULL)
 		return (ms_print_env_with_declare());
-	return_status = ms_set_environ(argv);
+	return_status = ms_set_environ(&argv[1]);
 	return (return_status);
 }
 
@@ -62,20 +61,18 @@ int	ms_set_environ(char **argv)
 	i = 0;
 	while (argv[i] != NULL)
 	{
-		if (ms_is_valid_env(argv[i]) == false)
+		eq = ft_strchr(argv[i], '=');
+		if (eq != NULL)
+			*eq = '\0';
+		if (ms_is_validenv(argv[i]) == false)
 		{
+			*eq = '=';
 			printf("bash: export: `%s\" : not a valid identifier\n", argv[i]);
 			return_status = 1;
 			continue ;
 		}
-		else
-		{
-			eq = ft_strchr(argv[i], '=');
-			if (eq == NULL)
-				continue ;
-			*eq = '\0';
+		else if (eq != NULL)
 			ms_search_env_and_set(argv[i]);
-		}
 		i++;
 	}
 	return (return_status);
@@ -91,7 +88,7 @@ void	ms_search_env_and_set(char *env_key)
 	prev = NULL;
 	while (cur != NULL)
 	{
-		if (ms_is_same_envkey(cur->content, env_key)
+		if (ms_is_same_envkey(cur->content, env_key))
 		{
 			free(cur->content);
 			env_key[ft_strlen(env_key)] = '=';
