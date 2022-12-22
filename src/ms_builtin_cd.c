@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/19 18:34:19 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/22 09:18:14 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	ms_builtin_cd_setpath_absolute(char	*path, char	*arg)
 static void	ms_builtin_cd_setpath_relative(char	*path, char	*arg)
 {
 	getcwd(path, PATH_MAX);
-	ft_strlcat(path, "STR_DIR", PATH_MAX + 1);
+	ft_strlcat(path, STR_DIR, PATH_MAX + 1);
 	ft_strlcat(path, arg, PATH_MAX + 1);
 }
 

@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/20 11:06:44 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/22 08:46:09 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC				= ms_main.c \
 				  ms_builtin_env.c \
 				  ms_builtin_exit.c \
 				  ms_builtin_pwd.c \
+				  ms_strlst.c \
 				  ms_utils.c
 
 ifneq (, $(findstring test_, $(MAKECMDGOALS)))

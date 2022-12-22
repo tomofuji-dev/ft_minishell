@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_exec.c                                          :+:      :+:    :+:   */
+/*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/20 14:18:59 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/22 09:12:32 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	ms_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2])
 
 	fd[0] = prev_pipe[0];
 	fd[1] = now_pipe[1];
-	if (cmd->input >= 0)
+	if (cmd->input->fd >= 0)
 		fd[0] = cmd->input->fd;
-	if (cmd->output >= 0)
+	if (cmd->output->fd >= 0)
 		fd[1] = cmd->output->fd;
 	cmd->pid = fork();
 	if (cmd->pid == 0)
@@ -56,7 +56,7 @@ void	ms_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2])
 		ms_close_pipe(fd);
 		ms_close_pipe(prev_pipe);
 		ms_close_pipe(now_pipe);
-		execve(cmd->path, cmd->arg, g_shell->environ);
+		execve(cmd->path, cmd->arg, g_shell.environ);
 	}
 	else
 		return ;
@@ -87,6 +87,6 @@ void	ms_wait_all(t_cmd *cmd_lst)
 		waitpid(now_cmd->pid, &status, 1);
 		now_cmd = now_cmd->next;
 	}
-	g_shell->status = status;
+	g_shell.status = status;
 	return ;
 }
