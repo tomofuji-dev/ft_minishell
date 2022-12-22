@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_builtin_env.c                                   :+:      :+:    :+:   */
+/*   ms_lst2map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 11:39:36 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/22 10:40:35 by Yoshihiro K      ###   ########.fr       */
+/*   Created: 2022/11/09 13:03:00 by ykosaka           #+#    #+#             */
+/*   Updated: 2022/12/22 10:26:27 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ms_builtin_env(char *argv[])
+char	**ms_lst2map(t_list **lst)
 {
-	t_list	*cur;
+	char	**map;
+	t_list	*ele;
+	size_t	size;
+	size_t	i;
 
-	if (argv == NULL)
-		return (0);
-	cur = g_shell.environ;
-	while (cur != NULL)
+	size = ft_lstsize(*lst);
+	ele = *lst;
+	map = (char **)malloc((size + 1) * sizeof(char *));
+	if (map == NULL)
+		return (NULL);
+	i = 0;
+	while (i < size)
 	{
-		ft_putendl_fd(cur->content, STDOUT);
-		cur = cur->next;
+		map[i] = ele->content;
+		ele = ele->next;
+		i++;
 	}
-	return (0);
+	map[i] = NULL;
+	ft_lstclear(lst, NULL);
+	return (map);
 }

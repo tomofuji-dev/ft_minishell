@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/22 15:07:24 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/22 10:37:31 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ t_list	*ms_tlst_from_strlst(char *envp[]);
 
 void	init_global(char *envp[])
 {
-	size_t	env_count;
-
-	g_shell.environ = ms_tlst_from_strlst(envp);
+	g_shell.environ->content = ms_tlst_from_strlst(envp);
 	g_shell.status = 0;
 }
 
@@ -45,5 +43,5 @@ t_list	*ms_tlst_from_strlst(char *envp[])
 			exit(EXIT_FAILURE);
 		cur = cur->next;
 	}
-	return (head->next);
+	return (head.next);
 }
