@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/22 14:21:53 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:22:50 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ms_cmdsize(t_cmd *cmd);
 
 void	exec(t_cmd *cmd)
 {
-	int (*builtin)(char *arg[]);
+	int	(*builtin)(char *arg[]);
 
 	builtin = ms_builtin_getfunc(cmd->arg[0]);
 	if (builtin != NULL && ms_cmdsize(cmd) == 1)
