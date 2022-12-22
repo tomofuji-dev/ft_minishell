@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 10:50:29 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/23 06:23:16 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,15 @@ int	ms_builtin_export(char *argv[])
 int	ms_print_env_with_declare(void)
 {
 	t_list	*cur;
-	size_t	i;
 	char	*eq;
 	int		return_status;
 
-	i = 0;
-	cur = g_shell->environ;
+	cur = g_shell.environ;
 	while (cur != NULL)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		eq = ft_strchr(cur->content, '=');
-		write(cur->content, STDOUT_FILENO, eq - cur->content + 1);
+		write(STDOUT_FILENO, cur->content, eq - (char *)cur->content + 1);
 		ft_putchar_fd('"', STDOUT_FILENO);
 		ft_putstr_fd(eq + 1, STDOUT_FILENO);
 		ft_putendl_fd("\"", STDOUT_FILENO);

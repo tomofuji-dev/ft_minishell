@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/22 10:27:45 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/23 06:26:01 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,10 @@ bool	ms_isenvchar(int c);
 char	*ms_search_env(char *env_key);
 t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len);
 t_list	*ms_expand_envvar_dquote(char *line, size_t len);
+char	*ms_getenv_line(char *env_key);
+char	*ms_getenv_val(char *env_key);
+bool	ms_is_same_envkey(char *dest, char *src);
+bool	ms_is_validenv(char *env_candidate);
 
 void	*ms_lstclear_return_null(t_list **head);
 void	ms_lstadd_back_substr(t_list **head, char *line, \
@@ -128,7 +132,9 @@ int		ms_builtin_cd(char *argv[]);
 int		ms_builtin_echo(char *argv[]);
 int		ms_builtin_env(char *argv[]);
 int		ms_builtin_exit(char *argv[]);
+int		ms_builtin_export(char *argv[]);
 int		ms_builtin_pwd(char *argv[]);
+int		ms_builtin_unset(char *argv[]);
 
 size_t	ms_strlst_count(char *str_lst[]);
 void	ms_strlst_cpy(char **dest, char **src);

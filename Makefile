@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/22 10:53:25 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/23 06:26:30 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,12 +38,15 @@ SRC				= ms_main.c \
 				  ms_getpath.c \
 				  ms_exec_builtin.c \
 				  ms_exec_child.c \
+				  ms_env.c \
 				  ms_builtin.c \
 				  ms_builtin_cd.c \
 				  ms_builtin_echo.c \
 				  ms_builtin_env.c \
 				  ms_builtin_exit.c \
+				  ms_builtin_export.c \
 				  ms_builtin_pwd.c \
+				  ms_builtin_unset.c \
 				  ms_lst2map.c \
 				  ms_utils.c
 

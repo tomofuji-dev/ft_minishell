@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_unset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:42:18 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 11:08:46 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/23 06:21:46 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include "minishell.h"
 
 int		ms_builtin_unset(char *argv[]);
-int		ms_search_env_and_unset(void);
+void	ms_search_env_and_unset(char *env_key);
 
 int	ms_builtin_unset(char *argv[])
 {

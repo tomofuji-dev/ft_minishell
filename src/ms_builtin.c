@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_main.c                                          :+:      :+:    :+:   */
+/*   ms_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/20 14:27:01 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/23 06:22:30 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	(*ms_builtin_getfunc(char *arg))(char *argv[])
 		return (ms_builtin_cd);
 	else if (ft_strcmp(arg, "pwd") == 0)
 		return (ms_builtin_pwd);
-//	else if (ft_strcmp(arg, "export") == 0)
-//		return (ms_builtin_export);
-//	else if (ft_strcmp(arg, "unset") == 0)
-//		return (ms_builtin_unset);
+	else if (ft_strcmp(arg, "export") == 0)
+		return (ms_builtin_export);
+	else if (ft_strcmp(arg, "unset") == 0)
+		return (ms_builtin_unset);
 	else if (ft_strcmp(arg, "env") == 0)
 		return (ms_builtin_env);
 	else if (ft_strcmp(arg, "exit") == 0)
