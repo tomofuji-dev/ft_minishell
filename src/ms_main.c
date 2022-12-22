@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/20 14:27:01 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:21:53 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ int	ms_cmdsize(t_cmd *cmd)
 	return (size);
 }
 
-
-int	main(void)
+int	main(int argc, char *argv, char *envp[])
 {
 	char	*line;
 	t_token	*token;
 	t_cmd	*cmd;
 
-	init_global();
+	init_global(envp);
 	while (1)
 	{
 		line = readline("minishell $ ");
