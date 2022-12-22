@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/22 16:16:44 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:21:20 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*ms_lstnew_env(char *env_key);
 
 int	ms_builtin_export(char *argv[])
 {
-	int			return_status;
+	int	return_status;
 
 	if (argv[1] == NULL)
 		return (ms_print_env_with_declare());

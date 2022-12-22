@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_pwd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/19 14:44:46 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/22 16:21:40 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ms_builtin_pwd(char *argv[])
 	char	buf[PATH_MAX];
 
 	if (argv == NULL)
-		return(0);
+		return (0);
 	errno = 0;
 	printf("%s\n", getcwd(buf, PATH_MAX));
 	return (errno);
