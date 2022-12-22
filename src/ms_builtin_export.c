@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/22 11:55:29 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/22 14:30:45 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,15 @@ size_t	ms_count_add_env(char *argv[])
 
 bool	ms_is_validenv(char *env_candidate)
 {
-	if (ft_strchr(env_candidate, '=') == env_candidate)
+	if (!(ft_isalpha(*env_candidate) || *env_candidate == '_'))
 		return (false);
+	env_candidate++;
+	while (*env_candidate)
+	{
+		if (!ms_isenvchar(*env_candidate))
+			return (false);
+		env_candidate++;
+	}
 	return (true);
 }
 
