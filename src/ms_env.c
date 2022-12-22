@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_init.c                                          :+:      :+:    :+:   */
+/*   ms_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/22 11:27:39 by t.fuji           ###   ########.fr       */
+/*   Created: 2022/12/22 11:50:25 by t.fuji            #+#    #+#             */
+/*   Updated: 2022/12/22 11:54:18 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell		g_shell;
-
-void	init_global(void);
-
-void	init_global(void)
+char	*ms_getenv_line(char *env_key)
 {
-	size_t	env_count;
+	size_t	i;
 
-	env_count = ms_strlst_count(environ);
-	g_shell.environ = malloc(sizeof(char *) * (env_count + 1));
-	if (g_shell.environ == NULL)
-		exit(EXIT_FAILURE);
-	ms_strlst_cpy(g_shell.environ, environ);
-	g_shell.status = 0;
+	i = 0;
+	while (g_shell.environ[i] != NULL)
+	{
+		if (ft_strncmp(g_shell.environ[i], env_key, ft_strlen(env_key)) == 0)
+			return (&g_shell.environ[i]);
+		i++;
+	}
+	return (NULL);
 }
 
+char	*ms_getenv_val(char *env_key)
+{
+	char	*env_line;
+
+	env_line = ms_getenv_line(env_key);
+	if (env_line == NULL)
+		return (NULL);
+	return (ft_strchr(env_line, '=') + 1);
+}
