@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/22 11:28:17 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/22 15:00:19 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_cmd {
 }	t_cmd;
 
 typedef struct s_shell {
-	char	**environ;
+	t_list	*environ;
 	int		status;
 }	t_shell;
 
@@ -129,7 +129,6 @@ int		ms_builtin_echo(char *argv[]);
 int		ms_builtin_env(char *argv[]);
 int		ms_builtin_exit(char *argv[]);
 int		ms_builtin_pwd(char *argv[]);
-
 
 void	*free_and_return(void *malloc_obj);
 
