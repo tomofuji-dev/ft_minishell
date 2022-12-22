@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:50:25 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/22 15:03:34 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/22 15:17:27 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*ms_getenv_line(char *env_key)
 	cur = g_shell.environ;
 	while (cur != NULL)
 	{
-		if (ft_strncmp(cur->environ[i], env_key, ft_strlen(env_key)) == 0)
-			return (cur->environ);
-		cur->cur->next;
+		if (ft_strncmp(cur->content, env_key, ft_strlen(env_key)) == 0)
+			return (cur->content);
+		cur = cur->next;
 	}
 	return (NULL);
 }
