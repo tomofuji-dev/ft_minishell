@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/23 11:23:45 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/23 11:33:43 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_list	*ms_tlst_from_strlst(char *envp[])
 		if (cur->next == NULL)
 			exit(EXIT_FAILURE);
 		cur = cur->next;
+		i++;
 	}
 	return (head.next);
 }
