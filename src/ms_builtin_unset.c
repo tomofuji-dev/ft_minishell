@@ -1,12 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
+/*   ms_builtin_unset.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/23 10:42:18 by t.fuji            #+#    #+#             */
+/*   Updated: 2022/12/23 10:42:45 by t.fuji           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   ms_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 10:50:29 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/23 10:41:46 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +36,7 @@ int	ms_builtin_export(char *argv[])
 
 	if (argv[1] == NULL)
 		return (ms_print_env_with_declare());
-	return_status = ms_set_environ(&argv[1]);
+	return_status = ms_set_environ(argv);
 	return (return_status);
 }
 
@@ -61,18 +73,20 @@ int	ms_set_environ(char **argv)
 	i = 0;
 	while (argv[i] != NULL)
 	{
-		eq = ft_strchr(argv[i], '=');
-		if (eq != NULL)
-			*eq = '\0';
-		if (ms_is_validenv(argv[i]) == false)
+		if (ms_is_valid_env(argv[i]) == false)
 		{
-			*eq = '=';
 			printf("bash: export: `%s\" : not a valid identifier\n", argv[i]);
 			return_status = 1;
 			continue ;
 		}
-		else if (eq != NULL)
+		else
+		{
+			eq = ft_strchr(argv[i], '=');
+			if (eq == NULL)
+				continue ;
+			*eq = '\0';
 			ms_search_env_and_set(argv[i]);
+		}
 		i++;
 	}
 	return (return_status);
@@ -107,13 +121,3 @@ void	ms_search_env_and_set(char *env_key)
 		prev->next = new;
 }
 
-t_list	*ms_lstnew_env(char *env_key)
-{
-	t_list	*new;
-
-	env_key[ft_strlen(env_key)] = '=';
-	new = ft_lstnew(ft_strdup(env_key));
-	if (new == NULL || new->content == NULL)
-		exit(EXIT_FAILURE);
-	return (new);
-}
