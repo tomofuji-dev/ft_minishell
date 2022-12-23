@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:42:18 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 10:42:45 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/23 11:08:46 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,79 +24,29 @@
 
 #include "minishell.h"
 
-int		ms_builtin_export(char *argv[]);
-int		ms_print_env_with_declare(void);
-int		ms_set_environ(char **argv);
-void	ms_search_env_and_set(char *env_key);
-t_list	*ms_lstnew_env(char *env_key);
+int		ms_builtin_unset(char *argv[]);
+int		ms_search_env_and_unset(void);
 
-int	ms_builtin_export(char *argv[])
+int	ms_builtin_unset(char *argv[])
 {
 	int	return_status;
+	int	i;
 
-	if (argv[1] == NULL)
-		return (ms_print_env_with_declare());
-	return_status = ms_set_environ(argv);
-	return (return_status);
-}
-
-int	ms_print_env_with_declare(void)
-{
-	t_list	*cur;
-	size_t	i;
-	char	*eq;
-	int		return_status;
-
-	i = 0;
-	cur = g_shell->environ;
-	while (cur != NULL)
-	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		eq = ft_strchr(cur->content, '=');
-		write(cur->content, STDOUT_FILENO, eq - cur->content + 1);
-		ft_putchar_fd('"', STDOUT_FILENO);
-		ft_putstr_fd(eq + 1, STDOUT_FILENO);
-		ft_putendl_fd("\"", STDOUT_FILENO);
-		cur = cur->next;
-	}
-	return_status = 0;
-	return (return_status);
-}
-
-int	ms_set_environ(char **argv)
-{
-	int		return_status;
-	size_t	i;
-	char	*eq;
-
-	return_status = 0;
-	i = 0;
+	i = 1;
 	while (argv[i] != NULL)
 	{
-		if (ms_is_valid_env(argv[i]) == false)
-		{
-			printf("bash: export: `%s\" : not a valid identifier\n", argv[i]);
-			return_status = 1;
-			continue ;
-		}
-		else
-		{
-			eq = ft_strchr(argv[i], '=');
-			if (eq == NULL)
-				continue ;
-			*eq = '\0';
-			ms_search_env_and_set(argv[i]);
-		}
+		ms_search_env_and_unset(argv[i]);
 		i++;
 	}
+	return_status = 0;
 	return (return_status);
 }
 
-void	ms_search_env_and_set(char *env_key)
+void	ms_search_env_and_unset(char *env_key)
 {
 	t_list	*cur;
 	t_list	*prev;
-	t_list	*new;
+	t_list	*tmp;
 
 	cur = g_shell.environ;
 	prev = NULL;
@@ -104,20 +54,20 @@ void	ms_search_env_and_set(char *env_key)
 	{
 		if (ms_is_same_envkey(cur->content, env_key))
 		{
-			free(cur->content);
-			env_key[ft_strlen(env_key)] = '=';
-			cur->content = ft_strdup(env_key);
-			if (cur->content == NULL)
-				exit(EXIT_FAILURE);
+			if (prev == NULL)
+				g_shell.environ = cur->next;
+			else
+				prev->next = cur->next;
+			tmp = cur->next;
+			ft_lstdelone(cur, &free);
+			cur = tmp;
 			return ;
 		}
-		prev = cur;
-		cur = cur->next;
+		else
+		{
+			prev = cur;
+			cur = cur->next;
+		}
 	}
-	new = ms_lstnew_env(env_key);
-	if (prev == NULL)
-		g_shell.environ = new;
-	else
-		prev->next = new;
 }
 
