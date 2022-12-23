@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 06:23:16 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/23 09:44:15 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	ms_set_environ(char **argv)
 			*eq = '=';
 			printf("bash: export: `%s\" : not a valid identifier\n", argv[i]);
 			return_status = 1;
+			i++;
 			continue ;
 		}
 		else if (eq != NULL)
