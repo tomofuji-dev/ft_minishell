@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/22 10:32:29 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/23 15:37:42 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ms_wait_all(t_cmd *cmd_lst)
 	now_cmd = cmd_lst;
 	while (now_cmd != NULL)
 	{
-		waitpid(now_cmd->pid, &status, 1);
+		waitpid(now_cmd->pid, &status, 0);
 		now_cmd = now_cmd->next;
 	}
 	g_shell.status = status;
