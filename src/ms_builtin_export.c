@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 09:44:15 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/23 17:36:54 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ int	ms_set_environ(char **argv)
 	while (argv[i] != NULL)
 	{
 		eq = ft_strchr(argv[i], '=');
-		if (eq != NULL)
-			*eq = '\0';
+		if (eq == NULL)
+			continue ;
+		*eq = '\0';
 		if (ms_is_validenv(argv[i]) == false)
 		{
 			*eq = '=';
-			printf("bash: export: `%s\" : not a valid identifier\n", argv[i]);
+			printf("bash: export: `%s\" : not a valid identifier\n", argv[i++]);
 			return_status = 1;
-			i++;
 			continue ;
 		}
 		else if (eq != NULL)
