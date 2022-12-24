@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 17:51:27 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:29:49 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ms_exec_in_child_process(t_cmd *cmd);
 void	\
 ms_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2], char **envp);
 void	ms_wait_all(t_cmd *cmd_lst);
+void	ms_init_fd(int fd[2]);
 
 void	ms_exec_in_child_process(t_cmd *cmd)
 {
@@ -27,12 +28,14 @@ void	ms_exec_in_child_process(t_cmd *cmd)
 	envp = ms_lst2map(&g_shell.environ);
 	if (envp == NULL)
 		return ;
-	prev_pipe[0] = 0;
-	prev_pipe[1] = 1;
+	ms_init_fd(prev_pipe);
 	now_cmd = cmd;
 	while (now_cmd != NULL)
 	{
-		pipe(now_pipe);
+		if (now_cmd->next != NULL)
+			pipe(now_pipe);
+		else
+			ms_init_fd(now_pipe);
 		ms_exec_a_cmd(now_cmd, prev_pipe, now_pipe, envp);
 		ms_pipe_close(prev_pipe);
 		ms_pipe_copy(prev_pipe, now_pipe);
@@ -50,10 +53,9 @@ void	\
 	fd[0] = prev_pipe[0];
 	fd[1] = now_pipe[1];
 	if (ms_pipe_last_fd(cmd->input) > 0)
-		fd[0] = cmd->input->fd;
+		fd[0] = ms_pipe_last_fd(cmd->output);
 	if (ms_pipe_last_fd(cmd->output) > 0)
-		fd[1] = cmd->output->fd;
-	printf("fd[0]: %d, fd[1] %d\n", fd[0], fd[1]);
+		fd[1] = ms_pipe_last_fd(cmd->output);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
@@ -81,4 +83,10 @@ void	ms_wait_all(t_cmd *cmd_lst)
 	}
 	g_shell.status = status;
 	return ;
+}
+
+void	ms_init_fd(int fd[2])
+{
+	fd[0] = 0;
+	fd[1] = 1;
 }
