@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
+#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/24 17:13:34 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/24 18:50:12 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRC				= ms_main.c \
 				  ms_getpath.c \
 				  ms_exec_builtin.c \
 				  ms_exec_child.c \
-				  ms_exec_pipe.c \
+				  ms_fd.c \
 				  ms_env.c \
 				  ms_builtin.c \
 				  ms_builtin_cd.c \

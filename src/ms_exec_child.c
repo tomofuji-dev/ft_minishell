@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 18:29:49 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:48:14 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	ms_exec_in_child_process(t_cmd *cmd)
 		else
 			ms_init_fd(now_pipe);
 		ms_exec_a_cmd(now_cmd, prev_pipe, now_pipe, envp);
-		ms_pipe_close(prev_pipe);
-		ms_pipe_copy(prev_pipe, now_pipe);
+		ms_fd_close(prev_pipe);
+		ms_fd_copy(prev_pipe, now_pipe);
 		now_cmd = now_cmd->next;
 	}
 	free(envp);
@@ -52,18 +52,18 @@ void	\
 
 	fd[0] = prev_pipe[0];
 	fd[1] = now_pipe[1];
-	if (ms_pipe_last_fd(cmd->input) > 0)
-		fd[0] = ms_pipe_last_fd(cmd->output);
-	if (ms_pipe_last_fd(cmd->output) > 0)
-		fd[1] = ms_pipe_last_fd(cmd->output);
+	if (ms_fd_last_fd(cmd->input) > 0)
+		fd[0] = ms_fd_last_fd(cmd->output);
+	if (ms_fd_last_fd(cmd->output) > 0)
+		fd[1] = ms_fd_last_fd(cmd->output);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
 		dup2(fd[0], 0);
 		dup2(fd[1], 1);
-		ms_pipe_close(fd);
-		ms_pipe_close(prev_pipe);
-		ms_pipe_close(now_pipe);
+		ms_fd_close(fd);
+		ms_fd_close(prev_pipe);
+		ms_fd_close(now_pipe);
 		execve(cmd->path, cmd->arg, envp);
 	}
 	else

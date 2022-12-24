@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/20 11:37:28 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/24 18:40:54 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ static bool	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token)
 	{
 		if ((token[*i_token].flag & FLAG_IN) == FLAG_IN)
 		{
-			if (token[*i_token].flag == FLAG_IN)
-				input[i_input].fd = open(token[++(*i_token)].str, O_RDONLY);
-			else if (token[*i_token].flag == FLAG_HEREDOC)
+			if (token[*i_token].flag == FLAG_HEREDOC)
 				input[i_input].fd = get_heredoc_pipe(token[++(*i_token)].str);
+			else
+				input[i_input].fd = open(token[++(*i_token)].str, O_RDONLY);
 			if (input[i_input].fd < 0)
 				return (false);
 			input[i_input++].path = token[*i_token].str;
@@ -56,6 +56,7 @@ static bool	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token)
 		(*i_token)++;
 	}
 	input[i_input].path = NULL;
+	input[i_input].fd = -1;
 	return (true);
 }
 
