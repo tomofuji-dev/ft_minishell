@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 18:48:14 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/24 19:16:27 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	\
 	fd[0] = prev_pipe[0];
 	fd[1] = now_pipe[1];
 	if (ms_fd_last_fd(cmd->input) > 0)
-		fd[0] = ms_fd_last_fd(cmd->output);
+		fd[0] = ms_fd_last_fd(cmd->input);
 	if (ms_fd_last_fd(cmd->output) > 0)
 		fd[1] = ms_fd_last_fd(cmd->output);
 	cmd->pid = fork();
