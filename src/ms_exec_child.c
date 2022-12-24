@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 19:16:27 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/24 19:22:23 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ms_wait_all(t_cmd *cmd_lst)
 		waitpid(now_cmd->pid, &status, 0);
 		now_cmd = now_cmd->next;
 	}
+	ms_fd_close_all_cmd(cmd_lst);
 	g_shell.status = status;
 	return ;
 }
