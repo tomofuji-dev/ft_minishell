@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_exec_pipe.c                                     :+:      :+:    :+:   */
+/*   ms_fd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:01:43 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/24 18:48:14 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/24 19:20:30 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	ms_fd_close_all_cmd(t_cmd *cmd)
 	cur = cmd;
 	while (cur != NULL)
 	{
-		ms_fd_close_fds(cmd->input);
-		ms_fd_close_fds(cmd->output);
+		ms_fd_close_fds(cur->input);
+		ms_fd_close_fds(cur->output);
 		cur = cur->next;
 	}
 }
