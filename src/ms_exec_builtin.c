@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 18:48:14 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/24 19:03:16 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,6 @@ void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]))
 	ms_fd_close_all_cmd(cmd);
 	dup2(tmp_fd[0], 0);
 	dup2(tmp_fd[1], 1);
+	close(tmp_fd[0]);
+	close(tmp_fd[1]);
 }
