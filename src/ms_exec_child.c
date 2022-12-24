@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 17:13:16 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/24 17:51:27 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ void	\
 
 	fd[0] = prev_pipe[0];
 	fd[1] = now_pipe[1];
-	if (ms_pipe_last_fd(cmd->input) >= 0)
+	if (ms_pipe_last_fd(cmd->input) > 0)
 		fd[0] = cmd->input->fd;
-	if (ms_pipe_last_fd(cmd->output) >= 0)
+	if (ms_pipe_last_fd(cmd->output) > 0)
 		fd[1] = cmd->output->fd;
+	printf("fd[0]: %d, fd[1] %d\n", fd[0], fd[1]);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{

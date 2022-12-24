@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 17:11:14 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/24 17:47:04 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]));
 void	ms_pipe_close(int fd[2]);
 void	ms_pipe_copy(int dest[2], int src[2]);
 int		ms_pipe_last_fd(t_fd *fd_lst);
+void	ms_pipe_close_all_cmd(t_cmd *cmd);
+void	ms_pipe_close_fds(t_fd *fd);
 
 int		(*ms_builtin_getfunc(char *arg))(char *argv[]);
 int		ms_builtin_cd(char *argv[]);
