@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 17:36:54 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/24 14:46:14 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ms_set_environ(char **argv)
 			return_status = 1;
 			continue ;
 		}
-		else if (eq != NULL)
+		else
 			ms_search_env_and_set(argv[i]);
 		i++;
 	}

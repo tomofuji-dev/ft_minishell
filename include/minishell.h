@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/23 06:26:01 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/24 17:11:14 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,10 @@ char	*ms_getpath_join(char *dirpath, char *name);
 
 void	ms_exec_in_child_process(t_cmd *cmd);
 void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]));
+
+void	ms_pipe_close(int fd[2]);
+void	ms_pipe_copy(int dest[2], int src[2]);
+int		ms_pipe_last_fd(t_fd *fd_lst);
 
 int		(*ms_builtin_getfunc(char *arg))(char *argv[]);
 int		ms_builtin_cd(char *argv[]);
