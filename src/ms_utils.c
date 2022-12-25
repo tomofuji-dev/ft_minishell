@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 14:36:05 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/25 15:11:29 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*free_and_return(void *malloc_obj)
 void	*print_err_set_status_return_null(char *str, int status)
 {
 	if (str != NULL)
-		ft_putendl_fd(str);
+		ft_putendl_fd(str, 2);
 	if (status >= 0)
 		g_shell.status = status;
 	return (NULL);

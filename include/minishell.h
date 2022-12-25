@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 14:18:46 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/25 15:08:20 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <errno.h>
+# include <string.h>
 # include "libft.h"
 
 //# define CHRS_DELIM		" <>|;&()" for bonus+
@@ -148,6 +149,7 @@ void	ms_strlst_free(char *argv[]);
 char	**ms_lst2map(t_list **lst);
 
 void	*free_and_return(void *malloc_obj);
+void	*print_err_set_status_return_null(char *str, int status);
 void	*ms_clear_cmd_and_return_null(t_cmd *head);
 
 #endif

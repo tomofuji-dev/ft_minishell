@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_input.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 18:40:54 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/25 15:09:41 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 
 	size = ms_parser_cmdnew_fdsize(token, i_token, FLAG_IN);
 	if (size == SIZE_INVALID)
-		return (NULL);
+		return (print_err_set_status_return_null("syntax error", 2));
 	input = (t_fd *)malloc((size + 1) * sizeof(t_fd));
 	if (input == NULL)
-		return (NULL);
+		exit(EXIT_FAILURE);
+	errno = 0;
 	if (ms_parser_input_sub(input, token, &i_token) == false)
 	{
 		free(input);
-		return (NULL);
+		return (print_err_set_status_return_null(strerror(errno), 1));
 	}
 	return (input);
 }
