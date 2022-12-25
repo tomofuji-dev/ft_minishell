@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/24 17:45:59 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/25 14:10:28 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		if (*line)
 		{
+			printf("ms_lexer\n");
 			token = ms_lexer(line);
+			printf("ms_parser\n");
 			cmd = ms_parser(token);
+			printf("ms_exec\n");
 			exec(cmd);
 		}
 	}

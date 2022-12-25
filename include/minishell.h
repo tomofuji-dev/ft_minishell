@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 18:48:48 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/25 14:18:46 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,6 @@ void	ms_strlst_free(char *argv[]);
 char	**ms_lst2map(t_list **lst);
 
 void	*free_and_return(void *malloc_obj);
+void	*ms_clear_cmd_and_return_null(t_cmd *head);
 
 #endif
