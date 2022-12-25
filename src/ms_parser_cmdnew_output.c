@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 18:41:11 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/25 15:32:37 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ t_fd	*ms_parser_cmdnew_output(t_token *token, size_t i_token)
 
 	size = ms_parser_cmdnew_fdsize(token, i_token, FLAG_OUT);
 	if (size == SIZE_INVALID)
-		return (NULL);
+		return (print_err_set_status_return_null("syntax error", 2));
 	output = (t_fd *)malloc((size + 1) * sizeof(t_fd));
 	if (output == NULL)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	if (ms_parser_output_sub(output, token, &i_token) == false)
 	{
 		free(output);
-		return (NULL);
+		return (print_err_set_status_return_null(strerror(errno), 1));
 	}
 	return (output);
 }
