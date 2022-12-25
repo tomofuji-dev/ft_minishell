@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/24 19:22:23 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/25 17:28:07 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	\
 		ms_fd_close(prev_pipe);
 		ms_fd_close(now_pipe);
 		execve(cmd->path, cmd->arg, envp);
+		exit (-1);
 	}
 	else
 		return ;
