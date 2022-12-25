@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/19 16:03:30 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/25 15:18:50 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*ms_expand_special_env(char *line, size_t *pos)
 	if (line[*pos] == '?')
 	{
 		*pos += 1;
-		return (ft_lstnew(ft_strdup("?")));
+		return (ft_lstnew(ft_itoa(g_shell.status)));
 	}
 	else if (ft_isdigit(line[*pos]))
 	{
