@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 14:22:31 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/25 14:28:10 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,9 @@ void	*ms_clear_cmd_and_return_null(t_cmd *head)
 	cur = head;
 	while (cur != NULL)
 	{
-		printf("free path\n");
 		free(cur->path);
-		printf("free arg\n");
 		free_string_lst(cur->arg);
-		printf("free input\n");
 		free(cur->input);
-		printf("free output\n");
 		free(cur->output);
 		cur = cur->next;
 	}

@@ -6,17 +6,17 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/25 14:10:28 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/25 14:36:37 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		main(int argc, char *argv[], char *envp[]);
-void	exec(t_cmd *cmd);
+void	ms_exec(t_cmd *cmd);
 int		ms_cmdsize(t_cmd *cmd);
 
-void	exec(t_cmd *cmd)
+void	ms_exec(t_cmd *cmd)
 {
 	int	(*builtin)(char *arg[]);
 
@@ -56,12 +56,10 @@ int	main(int argc, char *argv[], char *envp[])
 			break ;
 		if (*line)
 		{
-			printf("ms_lexer\n");
 			token = ms_lexer(line);
-			printf("ms_parser\n");
 			cmd = ms_parser(token);
-			printf("ms_exec\n");
-			exec(cmd);
+			if (cmd != NULL)
+				ms_exec(cmd);
 		}
 	}
 	return (g_shell.status);
