@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 14:28:10 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/25 15:52:25 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_cmd	*ms_parser(t_token *token);
+bool	ms_parser_chktokenflag(t_token *token);
 void	*ms_clear_cmd_and_return_null(t_cmd *head);
 void	free_string_lst(char **lst);
 
@@ -22,6 +23,8 @@ t_cmd	*ms_parser(t_token *token)
 	t_cmd	*head;
 	t_cmd	*cur;
 
+	if (!ms_parser_chktokenflag(token))
+		return (print_err_set_status_return_null("syntax error", 2));
 	idx = 0;
 	head = ms_parser_cmdnew(token, &idx);
 	if (head == NULL)
@@ -37,6 +40,20 @@ t_cmd	*ms_parser(t_token *token)
 			return (ms_clear_cmd_and_return_null(head));
 	}
 	return (head);
+}
+
+bool	ms_parser_chktokenflag(t_token *token)
+{
+	size_t	idx;
+
+	idx = 0;
+	while (token[idx++].str != NULL)
+	{
+		if (token[idx++].flag == 0)
+			return (false);
+		idx++;
+	}
+	return (true);
 }
 
 void	*ms_clear_cmd_and_return_null(t_cmd *head)
