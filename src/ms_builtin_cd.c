@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/26 15:53:56 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 16:58:39 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,26 @@ static void	ms_builtin_cd_setpath_relative(char	*path, char	*arg)
 
 int	ms_builin_cd_chdir(char *path, char *argv[])
 {
-	int		status;
 	char	*arg_tmp;
 
-	status = chdir(path);
-	if (status)
-		ft_putendl_fd("No such file or directory", 2);
-	else
+	if (chdir(path))
 	{
-		arg_tmp = argv[1];
-		argv[1] = ft_strjoin("PWD=", path);
-		ms_builtin_export(argv);
-		argv[1] = arg_tmp;
+		ft_putendl_fd("No such file or directory", 2);
+		return (1);
 	}
-	return (status);
+	arg_tmp = argv[1];
+	argv[1] = ft_strjoin("OLDPWD=", ms_getenv_val(ENV_PWD));
+	if (argv[1] == NULL)
+		return (errno);
+	ms_builtin_export(argv);
+	free(argv[1]);
+	argv[1] = ft_strjoin("PWD=", getcwd(path, PATH_MAX));
+	if (argv[1] == NULL)
+		return (errno);
+	ms_builtin_export(argv);
+	free(argv[1]);
+	argv[1] = arg_tmp;
+	return (0);
 }
 
 /*
