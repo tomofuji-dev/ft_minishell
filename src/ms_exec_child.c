@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 12:03:51 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/26 12:10:15 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	\
 		ms_fd_close(fd);
 		ms_fd_close(prev_pipe);
 		ms_fd_close(now_pipe);
-		execve(cmd->path, cmd->arg, envp);
+		if (cmd->path != NULL)
+			execve(cmd->path, cmd->arg, envp);
 		exit (-1);
 	}
 	else
