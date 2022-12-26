@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/26 16:06:37 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:54:11 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int		main(int argc, char *argv[], char *envp[]);
 void	ms_exec(t_cmd *cmd);
 int		ms_cmdsize(t_cmd *cmd);
+char	*ms_readline(void);
 
 void	ms_exec(t_cmd *cmd)
 {
@@ -51,7 +52,7 @@ int	main(int argc, char *argv[], char *envp[])
 	init_global(envp);
 	while (1)
 	{
-		line = readline("minishell $ ");
+		line = ms_readline();
 		if (line == NULL)
 			break ;
 		if (*line)
@@ -63,4 +64,19 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 	}
 	return (g_shell.status);
+}
+
+char	*ms_readline(void)
+{
+	char	*line;
+
+	line = readline("minishell $ ");
+	if (line == NULL)
+		return (NULL);
+	add_history(line);
+//	rl_replace_line("", 0);
+//	rl_on_new_line();
+//	rl_redisplay();
+//	rl_clear_history();
+	return (line);
 }
