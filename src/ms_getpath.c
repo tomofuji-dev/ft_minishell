@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 12:06:41 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 14:19:01 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ms_getpath_envpath(char *name)
 			return (cmdpath);
 		envpath_split++;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 char	*ms_getpath_join(char *dirpath, char *name)
