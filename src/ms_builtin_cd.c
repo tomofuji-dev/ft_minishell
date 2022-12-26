@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/22 09:18:14 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 15:21:40 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ int		ms_builtin_cd(char *argv[]);
 static void	ms_builtin_cd_setpath_home(char	*path, char	*arg);
 static void	ms_builtin_cd_setpath_absolute(char	*path, char	*arg);
 static void	ms_builtin_cd_setpath_relative(char	*path, char	*arg);
+static int	ms_builin_cd_chdir(char *path, char *argv[]);
 
 int	ms_builtin_cd(char	*argv[])
 {
 	char	path[PATH_MAX + 1];
+	int		status;
 
 	if (argv == NULL || argv[1] == NULL)
-		return (chdir(getenv(ENV_HOME)));
+		return (ms_builin_cd_chdir(ms_getenv_val(ENV_HOME), argv));
 	else if (argv[1][0] == CHR_HOME \
 		&& (argv[1][1] == CHR_DIR || argv[1][1] == '\0'))
 		ms_builtin_cd_setpath_home(path, argv[1]);
@@ -30,12 +32,13 @@ int	ms_builtin_cd(char	*argv[])
 		ms_builtin_cd_setpath_absolute(path, argv[1]);
 	else
 		ms_builtin_cd_setpath_relative(path, argv[1]);
-	return (chdir(path));
+	status = ms_builin_cd_chdir(path, argv);
+	return (status);
 }
 
 static void	ms_builtin_cd_setpath_home(char	*path, char	*arg)
 {
-	ft_strlcpy(path, getenv(ENV_HOME), PATH_MAX + 1);
+	ft_strlcpy(path, ms_getenv_val(ENV_HOME), PATH_MAX + 1);
 	ft_strlcat(path, &arg[1], PATH_MAX + 1);
 }
 
@@ -46,9 +49,27 @@ static void	ms_builtin_cd_setpath_absolute(char	*path, char	*arg)
 
 static void	ms_builtin_cd_setpath_relative(char	*path, char	*arg)
 {
-	getcwd(path, PATH_MAX);
+	ft_strlcpy(path, ms_getenv_val(ENV_HOME), PATH_MAX + 1);
 	ft_strlcat(path, STR_DIR, PATH_MAX + 1);
 	ft_strlcat(path, arg, PATH_MAX + 1);
+}
+
+int	ms_builin_cd_chdir(char *path, char *argv[])
+{
+	int		status;
+	char	*arg_tmp;
+
+	status = chdir(path);
+	if (status)
+		ft_putendl_fd("No such file or directory", 2);
+	else
+	{
+		arg_tmp = argv[1];
+		argv[1] = ft_strjoin("PWD=", path);
+		ms_builtin_export(argv);
+		argv[1] = arg_tmp;
+	}
+	return (status);
 }
 
 /*
