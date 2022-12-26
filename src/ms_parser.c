@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 16:41:22 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 15:10:09 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cmd	*ms_parser(t_token *token)
 	t_cmd	*head;
 	t_cmd	*cur;
 
-	if (!ms_parser_chktokenflag(token) || token->flag == FLAG_PIPE)
+	if (!ms_parser_chktokenflag(token))
 		return (print_err_set_status_return_null("syntax error", 2));
 	idx = 0;
 	head = ms_parser_cmdnew(token, &idx);
@@ -50,12 +50,16 @@ bool	ms_parser_chktokenflag(t_token *token)
 	size_t	idx;
 
 	idx = 0;
+	if (token[idx].flag == FLAG_PIPE)
+		return (false);
 	while (token[idx].str != NULL)
 	{
 		if (token[idx].flag == 0)
 			return (false);
 		idx++;
 	}
+	if (idx > 0 && token[idx - 1].flag == FLAG_PIPE)
+		return (false);
 	return (true);
 }
 
