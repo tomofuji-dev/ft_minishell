@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 16:06:38 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 16:41:30 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void	ms_fd_copy(int dest[2], int src[2]);
 int		ms_fd_last_fd(t_fd *fd_lst);
 void	ms_fd_close_all_cmd(t_cmd *cmd);
 void	ms_fd_close_fds(t_fd *fd);
+void	ms_init_fd(int fd[2]);
 
 int		(*ms_builtin_getfunc(char *arg))(char *argv[]);
 int		ms_builtin_cd(char *argv[]);
