@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 16:41:30 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/26 21:15:13 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define CHRS_QUOTE		"\"'"
 # define ENV_HOME		"HOME"
 # define ENV_PWD		"PWD"
+# define ENV_OLDPWD		"OLDPWD"
 # define MSG_EXIT		"exit"
 # define STR_DIR		"/"
 # define CHR_DIR		'/'
@@ -115,6 +116,9 @@ char	*ms_getpath_cmd(char *name);
 char	*ms_getpath_relative(char *name);
 char	*ms_getpath_envpath(char *name);
 char	*ms_getpath_join(char *dirpath, char *name);
+void	ms_setpath_home(char *path, char *arg);
+void	ms_setpath_absolute(char *path, char *arg);
+void	ms_setpath_relative(char *path, char *arg);
 
 void	ms_exec_in_child_process(t_cmd *cmd);
 void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]));
@@ -132,6 +136,7 @@ int		ms_builtin_echo(char *argv[]);
 int		ms_builtin_env(char *argv[]);
 int		ms_builtin_exit(char *argv[]);
 int		ms_builtin_export(char *argv[]);
+void	ms_search_env_and_set(char *env_key);
 int		ms_builtin_pwd(char *argv[]);
 int		ms_builtin_unset(char *argv[]);
 

@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/24 18:50:12 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/26 21:07:20 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC				= ms_main.c \
 				  ms_parser_cmdnew_output.c \
 				  ms_parser_cmdnew_fdsize.c \
 				  ms_getpath.c \
+				  ms_setpath.c \
 				  ms_exec_builtin.c \
 				  ms_exec_child.c \
 				  ms_fd.c \
