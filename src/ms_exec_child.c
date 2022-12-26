@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 17:28:07 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 12:03:51 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ms_exec_in_child_process(t_cmd *cmd)
 	t_cmd	*now_cmd;
 	char	**envp;
 
-	envp = ms_lst2map(&g_shell.environ);
+	envp = ms_lst2map(g_shell.environ);
 	if (envp == NULL)
 		return ;
 	ms_init_fd(prev_pipe);

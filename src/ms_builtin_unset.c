@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:42:18 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/26 11:23:41 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/26 11:24:32 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,3 @@ void	ms_search_env_and_unset(char *env_key)
 		}
 	}
 }
-

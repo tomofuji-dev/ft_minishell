@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 06:22:30 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 11:38:47 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
