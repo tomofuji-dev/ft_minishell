@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 15:44:05 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/26 16:06:38 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define CHRS_DELIM		" <>|"
 # define CHRS_QUOTE		"\"'"
 # define ENV_HOME		"HOME"
+# define ENV_PWD		"PWD"
 # define MSG_EXIT		"exit"
 # define STR_DIR		"/"
 # define CHR_DIR		'/'
