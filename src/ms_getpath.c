@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 14:19:01 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 14:46:18 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ms_getpath_envpath(char *name)
 	char		**envpath_split;
 	struct stat	stat_buf;
 
-	envpath = getenv(ENV_PATH);
+	envpath = ms_getenv_val(ENV_PATH);
 	envpath_split = ft_split(envpath, ':');
 	if (envpath_split == NULL)
 		return (NULL);

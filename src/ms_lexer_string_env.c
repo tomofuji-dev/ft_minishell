@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 15:18:50 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/26 14:46:44 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	*pos += i;
 	if (errno == ENOMEM)
 		exit(EXIT_FAILURE);
-	env_val = getenv(env_key);
+	env_val = ms_getenv_val(env_key);
 	free(env_key);
 	if (env_val == NULL)
 		return (NULL);
