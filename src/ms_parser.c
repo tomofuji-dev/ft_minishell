@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 15:10:09 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 15:27:49 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ t_cmd	*ms_parser(t_token *token)
 			cur->next->prev = cur;
 		cur = cur->next;
 		if (cur == NULL)
-		{
-			print_err_set_status_return_null("syntax error", 2);
 			return (ms_clear_cmd_and_return_null(head));
-		}
 	}
 	return (head);
 }
