@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/26 21:07:20 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/26 22:06:03 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC				= ms_main.c \
 				  ms_builtin_pwd.c \
 				  ms_builtin_unset.c \
 				  ms_lst2map.c \
+				  ms_strisdigit.c \
 				  ms_utils.c
 
 ifneq (, $(findstring test_, $(MAKECMDGOALS)))

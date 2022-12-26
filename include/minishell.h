@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 21:15:13 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 22:07:36 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void	ms_strlst_cpy(char **dest, char **src);
 void	ms_strlst_free(char *argv[]);
 char	**ms_lst2map(t_list *lst);
 
+bool	ms_strisdigit(char *str);
 void	*free_and_return(void *malloc_obj);
 void	*print_err_set_status_return_null(char *str, int status);
 void	*ms_clear_cmd_and_return_null(t_cmd *head);
