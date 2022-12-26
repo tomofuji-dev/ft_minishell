@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 16:42:40 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/26 17:56:35 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,29 @@ void	\
 		ms_fd_close(fd);
 		ms_fd_close(prev_pipe);
 		ms_fd_close(now_pipe);
-		if (cmd->path[0] == '\0')
-			exit(127);
 		ms_exec_a_cmd_sub(cmd, envp);
 	}
-	else if (cmd->path[0] == '\0')
-		ft_putendl_fd("command not found", 2);
 }
 
 void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp)
 {
 	int		(*builtin)(char *arg[]);
 
+	if (cmd->path[0] == '\0')
+	{
+		ft_putendl_fd("command not found", 2);
+		exit(127);
+	}
 	builtin = ms_builtin_getfunc(cmd->arg[0]);
 	if (builtin != NULL)
 		exit(builtin(cmd->arg));
 	else
+	{
+		errno = 0;
 		execve(cmd->path, cmd->arg, envp);
+		ft_putendl_fd(strerror(errno), 2);
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	ms_wait_all(t_cmd *cmd_lst)
@@ -102,18 +108,8 @@ void	ms_wait_all(t_cmd *cmd_lst)
 
 void	ms_handle_status(int status)
 {
-	int	upper;
-
 	if (WIFEXITED(status))
-	{
 		g_shell.status = WEXITSTATUS(status);
-		if (g_shell.status > 0)
-		{
-			upper = status >> 8 & 0xff;
-			if ((upper & 0x80) == 0x80)
-				ft_putendl_fd(strerror(upper & 0x7f), 2);
-		}
-	}
 	else
 		return ;
 }
