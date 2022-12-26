@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_unset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:42:18 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 06:21:46 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 11:23:41 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,19 @@ int	ms_builtin_unset(char *argv[])
 	int	return_status;
 	int	i;
 
+	return_status = 0;
 	i = 1;
 	while (argv[i] != NULL)
 	{
+		if (ms_is_validenv(argv[i]) == false)
+		{
+			printf("bash: unset: `%s\" : not a valid identifier\n", argv[i++]);
+			return_status = 1;
+			continue ;
+		}
 		ms_search_env_and_unset(argv[i]);
 		i++;
 	}
-	return_status = 0;
 	return (return_status);
 }
 
