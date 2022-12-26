@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:10:25 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/20 11:40:39 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:44:13 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ms_builtin_echo(char *argv[])
 
 	if (argv[0] == NULL)
 	{
-		ft_putstr_fd("\n", STDOUT);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		return (1);
 	}
 	print_nl = !(argv[1] && ft_strcmp(argv[1], "-n") == 0);
@@ -29,11 +29,11 @@ int	ms_builtin_echo(char *argv[])
 	while (argv[i] != NULL)
 	{
 		if (i > start)
-			ft_putstr_fd(" ", STDOUT);
-		ft_putstr_fd(argv[i++], STDOUT);
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		ft_putstr_fd(argv[i++], STDOUT_FILENO);
 	}
 	if (print_nl)
-		ft_putstr_fd("\n", STDOUT);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
 }
 

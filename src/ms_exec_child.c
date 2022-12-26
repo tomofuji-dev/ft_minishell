@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 12:10:15 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 15:42:04 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ms_exec_in_child_process(t_cmd *cmd);
 void	\
 ms_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2], char **envp);
 void	ms_wait_all(t_cmd *cmd_lst);
+void	ms_handle_status(int status);
 void	ms_init_fd(int fd[2]);
 
 void	ms_exec_in_child_process(t_cmd *cmd)
@@ -64,12 +65,15 @@ void	\
 		ms_fd_close(fd);
 		ms_fd_close(prev_pipe);
 		ms_fd_close(now_pipe);
-		if (cmd->path != NULL)
-			execve(cmd->path, cmd->arg, envp);
-		exit (-1);
+		if (cmd->path[0] == '\0')
+			exit(127);
+		execve(cmd->path, cmd->arg, envp);
 	}
 	else
-		return ;
+	{
+		if (cmd->path[0] == '\0')
+			ft_putendl_fd("command not found", 2);
+	}	
 }
 
 void	ms_wait_all(t_cmd *cmd_lst)
@@ -81,11 +85,29 @@ void	ms_wait_all(t_cmd *cmd_lst)
 	while (now_cmd != NULL)
 	{
 		waitpid(now_cmd->pid, &status, 0);
+		ms_handle_status(status);
 		now_cmd = now_cmd->next;
 	}
 	ms_fd_close_all_cmd(cmd_lst);
-	g_shell.status = status;
 	return ;
+}
+
+void	ms_handle_status(int status)
+{
+	int	upper;
+
+	if (WIFEXITED(status))
+	{
+		g_shell.status = WEXITSTATUS(status);
+		if (g_shell.status > 0)
+		{
+			upper = status >> 8 & 0xff;
+			if ((upper & 0x80) == 0x80)
+				ft_putendl_fd(strerror(upper & 0x7f), 2);
+		}
+	}
+	else
+		return ;
 }
 
 void	ms_init_fd(int fd[2])

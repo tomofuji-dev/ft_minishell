@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 12:04:35 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:44:05 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@
 # define FLAG_OUT		0x40
 # define FLAG_APPEND	0x44
 # define FLAG_PIPE		0x80
-# define STDIN			0
-# define STDOUT			1
 
 typedef struct s_token {
 	char	*str;
@@ -74,14 +72,6 @@ typedef struct s_shell {
 }	t_shell;
 
 extern t_shell	g_shell;
-
-// bool	pp_check_argc(int argc);
-// bool	pp_check_argc(int argc);
-// t_cmd	*pp_args_to_cmdlst(int argc, char *argv[], char **envp);
-// bool	pp_cmd_add_back(t_cmd **cmd_lst, char *cmd_str,	char *envp[], char **env_split);
-// void	pp_clear_cmdlst(t_cmd *cmd_lst, int free_size);
-// void	pp_file_open(int argc, char *argv[], t_cmd *cmd);
-// void	pp_file_close(t_cmd *cmd);
 
 void	init_global(char *envp[]);
 

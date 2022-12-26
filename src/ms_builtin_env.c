@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 11:39:36 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/22 10:40:35 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 15:10:00 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ms_builtin_env(char *argv[])
 	cur = g_shell.environ;
 	while (cur != NULL)
 	{
-		ft_putendl_fd(cur->content, STDOUT);
+		ft_putendl_fd(cur->content, STDOUT_FILENO);
 		cur = cur->next;
 	}
 	return (0);

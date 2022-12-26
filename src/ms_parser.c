@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 16:41:22 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 15:05:39 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ t_cmd	*ms_parser(t_token *token)
 			cur->next->prev = cur;
 		cur = cur->next;
 		if (cur == NULL)
-		{
-			print_err_set_status_return_null("syntax error", 2);
 			return (ms_clear_cmd_and_return_null(head));
-		}
 	}
 	return (head);
 }
