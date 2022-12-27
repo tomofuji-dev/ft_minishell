@@ -6,7 +6,7 @@
 #    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/27 17:14:25 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/27 18:09:50 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -145,3 +145,12 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 -include $(DEPS)
 
 # ******** ******** ******** ******** **** ******** ******** ******** ******** #
+
+
+# Linux OS
+sudo apt install libreadline-dev
+
+# mac OS
+curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+brew install readline
+# brew update && brew upgrade
