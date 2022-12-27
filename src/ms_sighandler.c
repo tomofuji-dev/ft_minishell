@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_sighandler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:04:04 by ykosaka           #+#    #+#             */
-/*   Updated: 2022/12/27 16:39:44 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/27 17:22:39 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	ms_sighandler_rl(int signum, siginfo_t *info, void *context)
 		ms_builtin_exit(NULL);
 	if (signum == SIGINT)
 	{
-		rl_replace_line("replace\n", 0);
-//		rl_on_new_line();
-//		rl_redisplay();
+		rl_replace_line("", 0);
+		ft_putchar_fd('\n', 1);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 //	write(2, ft_itoa(info->si_pid), 6);
 //	write(2, STR_INFO, ft_strlen(STR_INFO));

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
+#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/27 15:45:49 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/27 17:14:25 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,8 +79,9 @@ RM				= rm
 CFLAGS			= -MMD -Wall -Wextra -Werror
 DEBUGCFLAGS		= -g -ggdb -fno-omit-frame-pointer
 ifneq ($(OS), Darwin)
-	DEBUGCFLAGS	+= -fstack-usage		
+	DEBUGCFLAGS	+= -fstack-usage
 endif
+
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
@@ -99,6 +100,11 @@ ifneq (, $(findstring test_, $(MAKECMDGOALS)))
 	CFLAGS		+= $(DEBUGCFLAGS)
 	LDFLAGS		+= $(DEBUGLDFLAGS)
 	DEF			= -D DEBUG_MODE=1
+endif
+
+ifeq ($(OS), Darwin)
+	INCLUDES	+= -I$(shell brew --prefix readline)/include/
+	LDFLAGS 	= -L$(shell brew --prefix readline)/lib -lreadline
 endif
 
 # ********************* Section for targets and commands ********************* #
