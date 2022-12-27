@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/26 22:06:03 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/27 15:45:49 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ OS				= $(shell uname)
 # Enumeration of files
 SRC				= ms_main.c \
 				  ms_init.c \
+				  ms_sigset.c \
+				  ms_sighandler.c \
 				  ms_lexer.c \
 				  ms_lexer_gettoken.c \
 				  ms_lexer_string.c \

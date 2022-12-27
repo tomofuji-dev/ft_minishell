@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/27 00:54:11 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/27 16:26:55 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char *argv[], char *envp[])
 	init_global(envp);
 	while (1)
 	{
+		ms_sigset_rl();
 		line = ms_readline();
 		if (line == NULL)
 			break ;
@@ -59,10 +60,12 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			token = ms_lexer(line);
 			cmd = ms_parser(token);
+			ms_sigset_exec();
 			if (cmd != NULL)
 				ms_exec(cmd);
 		}
 	}
+	ms_builtin_exit(NULL);
 	return (g_shell.status);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/26 22:06:42 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/27 16:30:42 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ms_builtin_exit(char *argv[])
 	int	status;
 
 	printf("%s\n", MSG_EXIT);
-	if (argv[1] == NULL)
+	if (argv == NULL || argv[0] == NULL || argv[1] == NULL)
 		status = g_shell.status;
 	else if (argv[2] == NULL)
 	{

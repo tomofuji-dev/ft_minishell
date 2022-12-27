@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/27 14:17:53 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/27 16:17:22 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 # define FLAG_APPEND	0x44
 # define FLAG_PIPE		0x80
 
+typedef struct sigaction	t_sa;
+
 typedef struct s_token {
 	char	*str;
 	int		flag;
@@ -76,6 +78,10 @@ typedef struct s_shell {
 extern t_shell	g_shell;
 
 void	init_global(char *envp[]);
+void	ms_sigset_rl(void);
+void	ms_sigset_exec(void);
+void	ms_sighandler_rl(int signum, siginfo_t *info, void *context);
+void	ms_sighandler_exec(int signum, siginfo_t *info, void *context);
 
 t_token	*ms_lexer(char *line);
 size_t	ms_lexer_tokensize(char *line);
