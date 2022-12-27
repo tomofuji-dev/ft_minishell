@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/27 14:24:56 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/27 17:51:10 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp)
 	{
 		errno = 0;
 		execve(cmd->path, cmd->arg, envp);
-		ft_putendl_fd(strerror(errno), 2);
+		if (errno != 0)
+			ft_putendl_fd(strerror(errno), 2);
 		if (errno == ENOENT)
 			exit(127);
 		exit(126);

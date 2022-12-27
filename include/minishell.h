@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/27 16:17:22 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/27 17:45:03 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ extern t_shell	g_shell;
 
 void	init_global(char *envp[]);
 void	ms_sigset_rl(void);
+void	ms_sigset_rl_heredoc(void);
 void	ms_sigset_exec(void);
 void	ms_sighandler_rl(int signum, siginfo_t *info, void *context);
+void	ms_sighandler_rl_heredoc(int signum, siginfo_t *info, void *context);
 void	ms_sighandler_exec(int signum, siginfo_t *info, void *context);
 
 t_token	*ms_lexer(char *line);

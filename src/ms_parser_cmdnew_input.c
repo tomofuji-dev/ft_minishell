@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/25 15:21:23 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/27 17:53:12 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_fd		*ms_parser_cmdnew_input(t_token *token, size_t i_token);
 static bool	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token);
 static int	get_heredoc_pipe(const char *eof);
-static void	get_heredoc_txt(const char *eof, int fd);
+static bool	get_heredoc_txt(const char *eof, int fd);
 
 t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 {
@@ -32,6 +32,11 @@ t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 	if (ms_parser_input_sub(input, token, &i_token) == false)
 	{
 		free(input);
+		if (errno == 0)
+		{
+			g_shell.status = 0;
+			return (NULL);
+		}
 		return (print_err_set_status_return_null(strerror(errno), 1));
 	}
 	return (input);
@@ -66,23 +71,38 @@ static int	get_heredoc_pipe(const char *eof)
 	int	fd[2];
 
 	pipe(fd);
-	get_heredoc_txt(eof, fd[1]);
-	close(fd[1]);
-	return (fd[0]);
+	if (get_heredoc_txt(eof, fd[1]))
+	{
+		close(fd[1]);
+		return (fd[0]);
+	}
+	else
+	{
+		ms_fd_close(fd);
+		return (-1);
+	}
 }
 
-static void	get_heredoc_txt(const char *eof, int fd)
+static bool	get_heredoc_txt(const char *eof, int fd)
 {
 	char	*buf;
 
 	while (1)
 	{
+		ms_sigset_rl_heredoc();
 		buf = readline("> ");
 		if (!buf)
-			return ;
+		{
+			ft_putendl_fd("here-document delimited by end-of-file", 2);
+			return (false);
+		}
 		if (ft_strncmp(buf, eof, INT_MAX) == 0)
-			return (free(buf));
+		{
+			free(buf);
+			return (true);
+		}
 		ft_putendl_fd(buf, fd);
 		free(buf);
 	}
+	return (true);
 }
