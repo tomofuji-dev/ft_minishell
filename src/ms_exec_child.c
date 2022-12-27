@@ -6,7 +6,7 @@
 /*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 17:56:35 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/27 14:24:56 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp)
 		ft_putendl_fd("command not found", 2);
 		exit(127);
 	}
+	if (ms_is_directory(cmd->path))
+	{
+		ft_putendl_fd("Is a directory", 2);
+		exit(127);
+	}
 	builtin = ms_builtin_getfunc(cmd->arg[0]);
 	if (builtin != NULL)
 		exit(builtin(cmd->arg));
@@ -86,7 +91,9 @@ void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp)
 		errno = 0;
 		execve(cmd->path, cmd->arg, envp);
 		ft_putendl_fd(strerror(errno), 2);
-		exit(EXIT_FAILURE);
+		if (errno == ENOENT)
+			exit(127);
+		exit(126);
 	}
 }
 

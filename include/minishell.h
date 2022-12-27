@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 22:07:36 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/27 14:17:53 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,5 +149,6 @@ bool	ms_strisdigit(char *str);
 void	*free_and_return(void *malloc_obj);
 void	*print_err_set_status_return_null(char *str, int status);
 void	*ms_clear_cmd_and_return_null(t_cmd *head);
+bool	ms_is_directory(char *path);
 
 #endif
