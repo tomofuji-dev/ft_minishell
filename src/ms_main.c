@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/28 11:01:22 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/28 13:42:58 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ms_exec(t_cmd *cmd)
 {
 	int	(*builtin)(char *arg[]);
 
+	if (cmd == NULL)
+		return ;
 	builtin = ms_builtin_getfunc(cmd->arg[0]);
 	if (builtin != NULL && ms_cmdsize(cmd) == 1)
 		return (ms_exec_a_builtin(cmd, builtin));
@@ -45,7 +47,6 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char	*line;
 	t_token	*token;
-	t_cmd	*cmd;
 
 	(void)argc;
 	(void)argv;
@@ -60,10 +61,9 @@ int	main(int argc, char *argv[], char *envp[])
 		if (*line)
 		{
 			token = ms_lexer(line);
-			cmd = ms_parser(token);
+			g_shell.cmd = ms_parser(token);
 			ms_sigset_exec();
-			if (cmd != NULL)
-				ms_exec(cmd);
+			ms_exec(g_shell.cmd);
 		}
 	}
 	ms_builtin_exit(NULL);
