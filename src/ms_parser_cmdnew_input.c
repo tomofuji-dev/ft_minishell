@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_input.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/27 17:53:12 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/28 21:26:27 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static bool	get_heredoc_txt(const char *eof, int fd)
 		if (!buf)
 		{
 			ft_putendl_fd("here-document delimited by end-of-file", 2);
-			return (false);
+			return (true);
 		}
 		if (ft_strncmp(buf, eof, INT_MAX) == 0)
 		{
