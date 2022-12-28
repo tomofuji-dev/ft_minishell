@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/27 16:26:55 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/28 11:01:22 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		ms_sigset_rl();
+		ms_sigset_noquit();
 		line = ms_readline();
 		if (line == NULL)
 			break ;

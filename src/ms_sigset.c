@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_sigset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:04:04 by ykosaka           #+#    #+#             */
-/*   Updated: 2022/12/27 17:31:58 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/28 12:20:02 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,19 @@ void	ms_sigset_rl(void)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ms_sighandler_rl;
 	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
+//	sigaction(SIGQUIT, &sa, NULL);
 //	sigaction(SIGTERM, &sa, NULL);
+}
+
+void	ms_sigset_noquit(void)
+{
+	t_sa	sa;
+
+	ft_bzero(&sa, sizeof(t_sa));
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sa, NULL);
 }
 
 void	ms_sigset_rl_heredoc(void)
