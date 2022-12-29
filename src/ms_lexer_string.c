@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/29 02:11:47 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/29 09:04:45 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ms_lexer_string(char *line)
 		else if (line[pos] == '\"')
 			ms_lexer_string_dquote(line, &pos, &head);
 		else if (line[pos] == '$')
-			ms_lexer_string_dquote(line, &pos, &head);
+			ms_lexer_string_dollar(line, &pos, &head);
 		else
 			ms_lexer_string_plain(line, &pos, &head);
 	}
