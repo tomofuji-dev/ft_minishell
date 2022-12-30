@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 16:15:35 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 16:23:46 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ void	ms_wait_all(t_cmd *cmd_lst)
 
 void	ms_handle_status(int status)
 {
-	if (WIFEXITED(status) && g_shell.kill_child == false \
-		&& g_shell.heredoc_sigint == false)
+	if (WIFEXITED(status) && g_shell.kill_child == false)
 		g_shell.status = WEXITSTATUS(status);
 	else
 		return ;

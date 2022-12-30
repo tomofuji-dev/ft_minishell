@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 16:18:13 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 16:25:33 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 		free(input);
 		if (errno == 0)
 		{
-			g_shell.status = 0;
+			if (g_shell.heredoc_sigint == false)
+				g_shell.status = 0;
 			return (NULL);
 		}
 		return (print_err_set_status_return_null(strerror(errno), 1));
