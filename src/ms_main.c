@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/30 16:03:38 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 16:18:23 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char	*ms_readline(void)
 {
 	char	*line;
 
+	rl_done = 0;
+	rl_event_hook = NULL;
 	line = readline("minishell $ ");
 	if (line == NULL)
 		return (NULL);
