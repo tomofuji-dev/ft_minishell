@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 15:13:47 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 18:35:32 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ size_t	ms_strlst_count(char *str_lst[]);
 void	ms_strlst_cpy(char **dest, char **src);
 void	ms_strlst_free(char *argv[]);
 char	**ms_lst2map(t_list *lst);
+void	*ms_mapclear(char **map, size_t size);
+size_t	ms_mapsize(char **map);
 
 bool	ms_strisdigit(char *str);
 void	*free_and_return(void *malloc_obj);
