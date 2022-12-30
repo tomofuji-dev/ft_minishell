@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/26 11:12:55 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/30 16:43:41 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ms_set_environ(char **argv)
 		if (ms_is_validenv(argv[i]) == false)
 		{
 			*eq = '=';
-			printf("bash: export: `%s\" : not a valid identifier\n", argv[i++]);
+			printf("export: `%s\" : not a valid identifier\n", argv[i++]);
 			return_status = 1;
 		}
 		else
