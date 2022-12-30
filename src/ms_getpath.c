@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 14:46:18 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 00:29:21 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 char	*ms_getpath_cmd(char *name);
 char	*ms_getpath_relative(char *name);
 char	*ms_getpath_envpath(char *name);
+char	*ms_getpath_envpath_iter(char *name, char **envpath_split);
 char	*ms_getpath_join(char *dirpath, char *name);
 
 char	*ms_getpath_cmd(char *name)
@@ -52,23 +53,39 @@ char	*ms_getpath_envpath(char *name)
 	char		*cmdpath;
 	char		*envpath;
 	char		**envpath_split;
-	struct stat	stat_buf;
 
 	envpath = ms_getenv_val(ENV_PATH);
 	envpath_split = ft_split(envpath, ':');
 	if (envpath_split == NULL)
 		return (NULL);
-	while (*envpath_split)
+	cmdpath = ms_getpath_envpath_iter(name, envpath_split);
+	envpath_split = ms_mapclear(envpath_split, ms_mapsize(envpath_split));
+	if (!cmdpath)
+		cmdpath = ft_strdup("");
+	return (cmdpath);
+}
+
+char	*ms_getpath_envpath_iter(char *name, char **envpath_split)
+{
+	char		*cmdpath;
+	struct stat	stat_buf;
+	size_t		i;
+
+	if (envpath_split == NULL)
+		return (NULL);
+	i = 0;
+	while (envpath_split[i])
 	{
-		cmdpath = ms_getpath_join(*envpath_split, name);
+		cmdpath = ms_getpath_join(envpath_split[i], name);
 		if (cmdpath == NULL)
-			return (NULL);
+			return (ms_mapclear(envpath_split, ms_mapsize(envpath_split)));
 		stat(cmdpath, &stat_buf);
 		if ((stat_buf.st_mode & S_IFMT) == S_IFREG)
 			return (cmdpath);
-		envpath_split++;
+		cmdpath = free_and_return(cmdpath);
+		i++;
 	}
-	return (ft_strdup(""));
+	return (NULL);
 }
 
 char	*ms_getpath_join(char *dirpath, char *name)
@@ -88,6 +105,39 @@ char	*ms_getpath_join(char *dirpath, char *name)
 	return (path);
 }
 
+/*
+char	*ms_getpath_envpath(char *name)
+{
+	char		*cmdpath;
+	char		*envpath;
+	char		**envpath_split;
+	struct stat	stat_buf;
+	size_t		i;
+
+	envpath = ms_getenv_val(ENV_PATH);
+	envpath_split = ft_split(envpath, ':');
+	if (envpath_split == NULL)
+		return (NULL);
+	printf("AAA-BBB");
+	i = 0;
+	while (envpath_split[i])
+	{
+		cmdpath = ms_getpath_join(envpath_split[i], name);
+		if (cmdpath == NULL)
+			return (ms_mapclear(envpath_split, ms_mapsize(envpath_split)));
+		stat(cmdpath, &stat_buf);
+		if ((stat_buf.st_mode & S_IFMT) == S_IFREG)
+			break ;
+		cmdpath = free_and_return(cmdpath);
+		i++;
+	}
+	ms_mapclear(envpath_split, ms_mapsize(envpath_split));
+	if (!cmdpath)
+		cmdpath = ft_strdup("");
+	dprintf(2, "cmdpath: {%s}\n", cmdpath);
+	return (cmdpath);
+}
+*/
 /*
 bool	ms_getpath_test(char *envpath, char *name)
 {

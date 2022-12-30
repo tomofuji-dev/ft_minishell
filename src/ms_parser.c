@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 15:51:13 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 23:28:55 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,18 @@ bool	ms_parser_chktokenflag(t_token *token)
 void	*ms_clear_cmd_and_return_null(t_cmd *head)
 {
 	t_cmd	*cur;
+	t_cmd	*next;
 
 	cur = head;
 	while (cur != NULL)
 	{
+		next = cur->next;
 		free(cur->path);
 		free_string_lst(cur->arg);
 		free(cur->input);
 		free(cur->output);
-		cur = cur->next;
+		free(cur);
+		cur = next;
 	}
 	return (NULL);
 }

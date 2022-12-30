@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/30 16:18:23 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 19:36:42 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		main(int argc, char *argv[], char *envp[]);
 void	ms_exec(t_cmd *cmd);
 int		ms_cmdsize(t_cmd *cmd);
 char	*ms_readline(void);
+void	ms_clear_token(t_token *token);
 
 void	ms_exec(t_cmd *cmd)
 {
@@ -25,9 +26,10 @@ void	ms_exec(t_cmd *cmd)
 		return ;
 	builtin = ms_builtin_getfunc(cmd->arg[0]);
 	if (builtin != NULL && ms_cmdsize(cmd) == 1)
-		return (ms_exec_a_builtin(cmd, builtin));
+		ms_exec_a_builtin(cmd, builtin);
 	else
-		return (ms_exec_in_child_process(cmd));
+		ms_exec_in_child_process(cmd);
+	ms_clear_cmd_and_return_null(cmd);
 }
 
 int	ms_cmdsize(t_cmd *cmd)
@@ -64,6 +66,7 @@ int	main(int argc, char *argv[], char *envp[])
 			g_shell.cmd = ms_parser(token);
 			ms_sigset_exec();
 			ms_exec(g_shell.cmd);
+			free(token);
 		}
 	}
 	ms_builtin_exit(NULL);
@@ -85,4 +88,19 @@ char	*ms_readline(void)
 //	rl_redisplay();
 //	rl_clear_history();
 	return (line);
+}
+
+void	ms_clear_token(t_token *token)
+{
+	size_t	i;
+
+	if (token == NULL)
+		return ;
+	i = 0;
+	while (&token[i] && token[i].str)
+	{
+		free(token[i].str);
+		i++;
+	}
+	free(token);
 }
