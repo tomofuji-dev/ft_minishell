@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 14:49:24 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 15:13:47 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_shell {
 	int		status;
 	t_cmd	*cmd;
 	bool	kill_child;
+	bool	heredoc_sigint;
 }	t_shell;
 
 extern t_shell	g_shell;

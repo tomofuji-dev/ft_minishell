@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 14:50:48 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 15:14:02 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_global(char *envp[])
 	g_shell.status = 0;
 	g_shell.cmd = NULL;
 	g_shell.kill_child = false;
+	g_shell.heredoc_sigint = false;
 }
 
 t_list	*ms_tlst_from_strlst(char *envp[])

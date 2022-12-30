@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_input.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/28 21:26:27 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/30 15:56:53 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,27 @@ static int	get_heredoc_pipe(const char *eof)
 	}
 }
 
+static int	is_heredoc_sigint(void)
+{
+	if (g_shell.heredoc_sigint)
+		rl_done = 1;
+	return (0);
+}
+
 static bool	get_heredoc_txt(const char *eof, int fd)
 {
 	char	*buf;
 
-	while (1)
+	ms_sigset_rl_heredoc();
+	rl_event_hook = is_heredoc_sigint;
+	while (g_shell.heredoc_sigint == false)
 	{
-		ms_sigset_rl_heredoc();
 		buf = readline("> ");
 		if (!buf)
 		{
-			ft_putendl_fd("here-document delimited by end-of-file", 2);
-			return (true);
+			if (g_shell.heredoc_sigint)
+				return (true);
+			return (false);
 		}
 		if (ft_strncmp(buf, eof, INT_MAX) == 0)
 		{
@@ -104,5 +113,7 @@ static bool	get_heredoc_txt(const char *eof, int fd)
 		ft_putendl_fd(buf, fd);
 		free(buf);
 	}
+	rl_done = 0;
+	rl_event_hook = NULL;
 	return (true);
 }

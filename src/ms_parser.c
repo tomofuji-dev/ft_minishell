@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 15:46:45 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/30 15:51:13 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cmd	*ms_parser(t_token *token)
 	t_cmd	*head;
 	t_cmd	*cur;
 
+	g_shell.heredoc_sigint = false;
 	if (!ms_parser_chktokenflag(token))
 		return (print_err_set_status_return_null("syntax error", 2));
 	idx = 0;
