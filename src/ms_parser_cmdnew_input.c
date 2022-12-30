@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 15:56:53 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 16:09:30 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static bool	get_heredoc_txt(const char *eof, int fd)
 		{
 			if (g_shell.heredoc_sigint)
 				return (true);
+			ft_putendl_fd("here-document delimited end-of-file", 2);
 			return (false);
 		}
 		if (ft_strncmp(buf, eof, INT_MAX) == 0)
