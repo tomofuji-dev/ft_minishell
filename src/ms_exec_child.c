@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/27 17:51:10 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/30 14:51:23 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,14 @@ void	ms_wait_all(t_cmd *cmd_lst)
 		ms_handle_status(status);
 		now_cmd = now_cmd->next;
 	}
+	g_shell.kill_child = false;
 	ms_fd_close_all_cmd(cmd_lst);
 	return ;
 }
 
 void	ms_handle_status(int status)
 {
-	if (WIFEXITED(status))
+	if (WIFEXITED(status) && g_shell.kill_child == false)
 		g_shell.status = WEXITSTATUS(status);
 	else
 		return ;
