@@ -6,14 +6,14 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:53:14 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/19 15:36:21 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:50:15 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*ms_lexer(char *line);
-size_t	ms_lexer_tokensize(char *line);
+t_token			*ms_lexer(char *line);
+static size_t	ms_lexer_tokensize(char *line);
 
 t_token	*ms_lexer(char *line)
 {
@@ -28,7 +28,7 @@ t_token	*ms_lexer(char *line)
 	return (token);
 }
 
-size_t	ms_lexer_tokensize(char *line)
+static size_t	ms_lexer_tokensize(char *line)
 {
 	size_t	size;
 	size_t	pos;

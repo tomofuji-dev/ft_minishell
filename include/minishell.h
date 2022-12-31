@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 14:47:31 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:50:28 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	ms_sighandler_rl_heredoc(int signum, siginfo_t *info, void *context);
 void	ms_sighandler_exec(int signum, siginfo_t *info, void *context);
 
 t_token	*ms_lexer(char *line);
-size_t	ms_lexer_tokensize(char *line);
 
 void	ms_lexer_gettoken(t_token *token, char *line);
 int		ms_lexer_gettoken_classify(char *line);
