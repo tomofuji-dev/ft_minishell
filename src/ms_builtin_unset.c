@@ -6,14 +6,14 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:42:18 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 15:02:23 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 15:25:13 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ms_builtin_unset(char *argv[]);
-void	ms_search_env_and_unset(char *env_key);
+int			ms_builtin_unset(char *argv[]);
+static void	ms_search_env_and_unset(char *env_key);
 
 int	ms_builtin_unset(char *argv[])
 {
@@ -26,8 +26,7 @@ int	ms_builtin_unset(char *argv[])
 	{
 		if (ms_is_validenv(argv[i]) == false)
 		{
-			ft_putstr_fd(MSG_UNSET, STDOUT_FILENO);
-			printf(MSG_INVAL_ID, argv[i++]);
+			printf(MSG_INVAL_ID, CMD_UNSET, argv[i++]);
 			return_status = STATUS_FAILURE;
 			continue ;
 		}
@@ -37,7 +36,7 @@ int	ms_builtin_unset(char *argv[])
 	return (return_status);
 }
 
-void	ms_search_env_and_unset(char *env_key)
+static void	ms_search_env_and_unset(char *env_key)
 {
 	t_list	*cur;
 	t_list	*prev;

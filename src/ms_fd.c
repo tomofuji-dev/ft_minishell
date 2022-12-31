@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ms_fd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:01:43 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/24 19:20:30 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:48:47 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_fd_close(int fd[2]);
-void	ms_fd_copy(int dest[2], int src[2]);
-int		ms_fd_last_fd(t_fd *fd_lst);
-void	ms_fd_close_all_cmd(t_cmd *cmd);
-void	ms_fd_close_fds(t_fd *fd);
+void		ms_fd_close(int fd[2]);
+void		ms_fd_copy(int dest[2], int src[2]);
+int			ms_fd_last_fd(t_fd *fd_lst);
+void		ms_fd_close_all_cmd(t_cmd *cmd);
+static void	ms_fd_close_fds(t_fd *fd);
 
 void	ms_fd_close(int fd[2])
 {
-	if (fd[0] != 0)
+	if (fd[0] != STDIN_FILENO)
 		close(fd[0]);
-	if (fd[1] != 1)
+	if (fd[1] != STDOUT_FILENO)
 		close(fd[1]);
 }
 
@@ -38,7 +38,7 @@ int	ms_fd_last_fd(t_fd *fd_lst)
 	int		fd;
 
 	i = 0;
-	fd = -1;
+	fd = FD_INVALID;
 	while (fd_lst[i].path != NULL)
 	{
 		fd = fd_lst[i].fd;
@@ -67,7 +67,7 @@ void	ms_fd_close_fds(t_fd *fd)
 	i = 0;
 	while (fd[i].path != NULL)
 	{
-		if (fd[i].fd > STDOUT_FILENO)
+		if (fd[i].fd > STDERR_FILENO)
 			close(fd[i].fd);
 		i++;
 	}

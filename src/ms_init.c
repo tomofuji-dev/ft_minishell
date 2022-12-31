@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:14:42 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 15:14:02 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:51:16 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_shell		g_shell;
 
-void	init_global(char *envp[]);
-t_list	*ms_tlst_from_strlst(char *envp[]);
+void			init_global(char *envp[]);
+static t_list	*ms_tlst_from_strlst(char *envp[]);
 
 void	init_global(char *envp[])
 {
@@ -26,7 +26,7 @@ void	init_global(char *envp[])
 	g_shell.heredoc_sigint = false;
 }
 
-t_list	*ms_tlst_from_strlst(char *envp[])
+static t_list	*ms_tlst_from_strlst(char *envp[])
 {
 	t_list	head;
 	t_list	*cur;

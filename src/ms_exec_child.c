@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:35:42 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:37:33 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_exec_in_child_process(t_cmd *cmd);
-void	\
-ms_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2], char **envp);
-void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp);
-void	ms_wait_all(t_cmd *cmd_lst);
-void	ms_handle_status(int status);
+void		ms_exec_in_child_process(t_cmd *cmd);
+static void	ms_exec_a_cmd(t_cmd *cmd, \
+	int prev_pipe[2], int now_pipe[2], char **envp);
+static void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp);
+static void	ms_wait_all(t_cmd *cmd_lst);
+static void	ms_handle_status(int status);
 
 void	ms_exec_in_child_process(t_cmd *cmd)
 {
@@ -60,8 +60,8 @@ void	\
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
-		dup2(fd[0], 0);
-		dup2(fd[1], 1);
+		dup2(fd[0], STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
 		ms_fd_close(fd);
 		ms_fd_close(prev_pipe);
 		ms_fd_close(now_pipe);
@@ -75,26 +75,26 @@ void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp)
 
 	if (cmd->path[0] == '\0')
 	{
-		ft_putendl_fd("command not found", 2);
-		exit(127);
+		ft_putendl_fd(MSG_NO_CMD, STDERR_FILENO);
+		exit(STATUS_NO_CMD);
 	}
 	if (ms_is_directory(cmd->path))
 	{
-		ft_putendl_fd("Is a directory", 2);
-		exit(127);
+		ft_putendl_fd(MSG_ISDIR, STDERR_FILENO);
+		exit(STATUS_NOT_EXEC);
 	}
 	builtin = ms_builtin_getfunc(cmd->arg[0]);
 	if (builtin != NULL)
 		exit(builtin(cmd->arg));
 	else
 	{
-		errno = 0;
+		errno = ERR_NOERR;
 		execve(cmd->path, cmd->arg, envp);
-		if (errno != 0)
+		if (errno != ERR_NOERR)
 			ft_putendl_fd(strerror(errno), 2);
 		if (errno == ENOENT)
-			exit(127);
-		exit(126);
+			exit(STATUS_NO_CMD);
+		exit(STATUS_NOT_EXEC);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:14:51 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 15:50:08 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,27 @@
 # define OPTION_NONL	"-n"
 
 # define ENV_HOME		"HOME"
+# define ENV_PATH		"PATH"
 # define ENV_PWD		"PWD"
 # define ENV_OLDPWD		"OLDPWD"
 
-# define STATUS_SUCCESS	0
-# define STATUS_FAILURE	1
-# define STATUS_MASK	0xff
+# define FD_INVALID			-1
+# define ERR_NOERR			0
+# define STATUS_SUCCESS		0
+# define STATUS_FAILURE		1
+# define STATUS_NOT_EXEC	126
+# define STATUS_NO_CMD		127
+# define STATUS_MASK		0xff
 
 # define MSG_EXIT		"exit"
 # define MSG_NO_OLDPWD	"OLDPWD not set"
 # define MSG_ENOENT		"No such file or directory"
 # define MSG_ARG_NOTNUM	"numeric argument required"
-# define MSG_ARG_NOTNUM	"numeric argument required"
 # define MSG_ARG_MANY	"too many arguments"
 # define MSG_DECLARE	"declare -x "
-# define MSG_EXPORT		"export: "
-# define MSG_UNSET		"unset "
-# define MSG_INVAL_ID	"`%s\" : not a valid identifier\n"
+# define MSG_INVAL_ID	"bash: %s: `%s\" : not a valid identifier\n"
+# define MSG_NO_CMD		"command not found"
+# define MSG_ISDIR		"Is a directory"
 
 # define SIZE_INVALID	-1
 
@@ -175,7 +179,6 @@ void	ms_fd_close(int fd[2]);
 void	ms_fd_copy(int dest[2], int src[2]);
 int		ms_fd_last_fd(t_fd *fd_lst);
 void	ms_fd_close_all_cmd(t_cmd *cmd);
-void	ms_fd_close_fds(t_fd *fd);
 void	ms_init_fd(int fd[2]);
 
 int		(*ms_builtin_getfunc(char *arg))(char *argv[]);

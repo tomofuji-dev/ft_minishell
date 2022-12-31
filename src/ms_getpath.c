@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_getpath.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:35:27 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:50:11 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#define CHR_DIR		'/'
-#define ENV_PWD		"PWD"
-#define ENV_PATH	"PATH"
 
 char	*ms_getpath_cmd(char *name);
 char	*ms_getpath_relative(char *name);

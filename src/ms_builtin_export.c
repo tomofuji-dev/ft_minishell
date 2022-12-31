@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 15:03:40 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 15:24:32 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int	ms_set_environ(char **argv)
 		if (ms_is_validenv(argv[i]) == false)
 		{
 			*eq = CHR_EQUAL;
-			ft_putstr_fd(MSG_EXPORT, STDOUT_FILENO);
-			printf(MSG_INVAL_ID, argv[i++]);
+			printf(MSG_INVAL_ID, CMD_EXPORT, argv[i++]);
 			return_status = STATUS_FAILURE;
 		}
 		else
