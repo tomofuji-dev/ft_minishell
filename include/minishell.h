@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 14:42:02 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:47:31 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	ms_setpath_home(char *path, char *arg);
 void	ms_setpath_absolute(char *path, char *arg);
 void	ms_setpath_relative(char *path, char *arg);
 
+void	ms_exec(t_cmd *cmd);
 void	ms_exec_in_child_process(t_cmd *cmd);
 void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]));
 
