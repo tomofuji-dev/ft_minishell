@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 14:33:35 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:35:49 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 t_cmd		*ms_parser(t_token *token);
 void		*ms_clear_cmd_and_return_null(t_cmd *head);
 static bool	ms_parser_chktokenflag(t_token *token);
-static void	free_string_lst(char **lst);
 
 t_cmd	*ms_parser(t_token *token)
 {
@@ -80,14 +79,4 @@ static bool	ms_parser_chktokenflag(t_token *token)
 	if (idx > 0 && token[idx - 1].flag == FLAG_PIPE)
 		return (false);
 	return (true);
-}
-
-static void	free_string_lst(char **lst)
-{
-	size_t	i;
-
-	i = 0;
-	while (lst[i] != NULL)
-		free(lst[i++]);
-	free(lst);
 }
