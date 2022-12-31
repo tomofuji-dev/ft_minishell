@@ -6,7 +6,7 @@
 #    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/31 12:36:41 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/31 14:48:17 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC				= ms_main.c \
 				  ms_parser_cmdnew_fdsize.c \
 				  ms_getpath.c \
 				  ms_setpath.c \
+				  ms_exec.c \
 				  ms_exec_builtin.c \
 				  ms_exec_child.c \
 				  ms_fd.c \

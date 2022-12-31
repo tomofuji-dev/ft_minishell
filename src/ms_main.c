@@ -6,44 +6,16 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 12:18:02 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:46:41 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		main(int argc, char *argv[], char *envp[]);
-void	ms_exec(t_cmd *cmd);
-int		ms_cmdsize(t_cmd *cmd);
-char	*ms_readline(void);
-void	ms_clear_token(t_token *token);
+int			main(int argc, char *argv[], char *envp[]);
+static char	*ms_readline(void);
+static void	ms_clear_token(t_token *token);
 
-void	ms_exec(t_cmd *cmd)
-{
-	int	(*builtin)(char *arg[]);
-
-	if (cmd == NULL)
-		return ;
-	builtin = ms_builtin_getfunc(cmd->arg[0]);
-	if (builtin != NULL && ms_cmdsize(cmd) == 1)
-		ms_exec_a_builtin(cmd, builtin);
-	else
-		ms_exec_in_child_process(cmd);
-	ms_clear_cmd_and_return_null(cmd);
-}
-
-int	ms_cmdsize(t_cmd *cmd)
-{
-	int	size;
-
-	size = 0;
-	while (cmd != NULL)
-	{
-		size++;
-		cmd = cmd->next;
-	}
-	return (size);
-}
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -73,7 +45,7 @@ int	main(int argc, char *argv[], char *envp[])
 	return (g_shell.status);
 }
 
-char	*ms_readline(void)
+static char	*ms_readline(void)
 {
 	char	*line;
 
@@ -87,7 +59,7 @@ char	*ms_readline(void)
 	return (line);
 }
 
-void	ms_clear_token(t_token *token)
+static void	ms_clear_token(t_token *token)
 {
 	size_t	i;
 

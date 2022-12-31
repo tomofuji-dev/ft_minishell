@@ -6,16 +6,16 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:04:11 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:35:49 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "minishell_tfujiwar.h"
 
-t_cmd	*ms_parser(t_token *token);
-bool	ms_parser_chktokenflag(t_token *token);
-void	*ms_clear_cmd_and_return_null(t_cmd *head);
-void	free_string_lst(char **lst);
+t_cmd		*ms_parser(t_token *token);
+void		*ms_clear_cmd_and_return_null(t_cmd *head);
+static bool	ms_parser_chktokenflag(t_token *token);
 
 t_cmd	*ms_parser(t_token *token)
 {
@@ -25,7 +25,8 @@ t_cmd	*ms_parser(t_token *token)
 
 	g_shell.heredoc_sigint = false;
 	if (!ms_parser_chktokenflag(token))
-		return (print_err_set_status_return_null("syntax error", 2));
+		return (print_err_set_status_return_null(\
+				MSG_SYNTAX_ERR, STDERR_FILENO));
 	idx = 0;
 	head = ms_parser_cmdnew(token, &idx);
 	if (head == NULL)
@@ -41,24 +42,6 @@ t_cmd	*ms_parser(t_token *token)
 			return (ms_clear_cmd_and_return_null(head));
 	}
 	return (head);
-}
-
-bool	ms_parser_chktokenflag(t_token *token)
-{
-	size_t	idx;
-
-	idx = 0;
-	if (token[idx].flag == FLAG_PIPE)
-		return (false);
-	while (token[idx].str != NULL)
-	{
-		if (token[idx].flag == 0)
-			return (false);
-		idx++;
-	}
-	if (idx > 0 && token[idx - 1].flag == FLAG_PIPE)
-		return (false);
-	return (true);
 }
 
 void	*ms_clear_cmd_and_return_null(t_cmd *head)
@@ -80,12 +63,20 @@ void	*ms_clear_cmd_and_return_null(t_cmd *head)
 	return (NULL);
 }
 
-void	free_string_lst(char **lst)
+static bool	ms_parser_chktokenflag(t_token *token)
 {
-	size_t	i;
+	size_t	idx;
 
-	i = 0;
-	while (lst[i] != NULL)
-		free(lst[i++]);
-	free(lst);
+	idx = 0;
+	if (token[idx].flag == FLAG_PIPE)
+		return (false);
+	while (token[idx].str != NULL)
+	{
+		if (token[idx].flag == 0)
+			return (false);
+		idx++;
+	}
+	if (idx > 0 && token[idx - 1].flag == FLAG_PIPE)
+		return (false);
+	return (true);
 }

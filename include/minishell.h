@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:08:04 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 15:14:51 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	ms_sighandler_rl_heredoc(int signum, siginfo_t *info, void *context);
 void	ms_sighandler_exec(int signum, siginfo_t *info, void *context);
 
 t_token	*ms_lexer(char *line);
-size_t	ms_lexer_tokensize(char *line);
 
 void	ms_lexer_gettoken(t_token *token, char *line);
 int		ms_lexer_gettoken_classify(char *line);
@@ -142,7 +141,6 @@ char	*ms_lexer_string(char *line);
 t_cmd	*ms_parser(t_token *token);
 t_cmd	*ms_parser_cmdnew(t_token *token, size_t *idx);
 char	**ms_parser_cmdnew_arg(t_token *token, size_t i_token);
-size_t	ms_parser_cmdnew_arg_size(t_token *token, size_t idx);
 size_t	ms_parser_cmdnew_fdsize(t_token *token, size_t idx, int flag);
 t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token);
 t_fd	*ms_parser_cmdnew_output(t_token *token, size_t i_token);
@@ -169,6 +167,7 @@ void	ms_setpath_home(char *path, char *arg);
 void	ms_setpath_absolute(char *path, char *arg);
 void	ms_setpath_relative(char *path, char *arg);
 
+void	ms_exec(t_cmd *cmd);
 void	ms_exec_in_child_process(t_cmd *cmd);
 void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]));
 

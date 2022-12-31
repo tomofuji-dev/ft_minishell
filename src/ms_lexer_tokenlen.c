@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_tokenlen.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:54:46 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/13 05:35:40 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 15:02:00 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "minishell_tfujiwar.h"
 
 size_t	ms_lexer_tokenlen(char *line);
 size_t	ms_lexer_tokenlen_delim(char *line);
@@ -68,11 +69,10 @@ size_t	ms_lexer_tokenlen_quoted(char *line)
 
 size_t	ms_lexer_tokenlen_plain(char *line)
 {
-	const char	*plain_delim = "\'\"$";
 	size_t		i;
 
 	i = 0;
-	while (line[i] && !ft_strchr(plain_delim, line[i]))
+	while (line[i] && !ft_strchr(CHRS_PLAIN_DELIM, line[i]))
 		i++;
 	return (i);
 }
