@@ -6,35 +6,42 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:20:35 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:37:23 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ms_isenvchar(int c);
-t_list	*ms_expand_special_env(char *line, size_t *pos);
-t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len);
-t_list	*ms_expand_envvar_dquote(char *line, size_t len);
+t_list			*ms_expand_envvar_dquote(char *line, size_t len);
+t_list			*ms_expand_envvar(char *line, size_t *pos, size_t len);
+bool			ms_isenvchar(int c);
+static t_list	*ms_expand_special_env(char *line, size_t *pos);
 
-bool	ms_isenvchar(int c)
+t_list	*ms_expand_envvar_dquote(char *line, size_t len)
 {
-	return (ft_isalnum(c) || c == '_');
-}
+	size_t	pos;
+	char	*dollar;
+	t_list	*head;
 
-t_list	*ms_expand_special_env(char *line, size_t *pos)
-{
-	if (line[*pos] == '?')
+	head = NULL;
+	pos = 0;
+	while (pos < len)
 	{
-		*pos += 1;
-		return (ft_lstnew(ft_itoa(g_shell.status)));
+		dollar = ft_strchr(&line[pos], '$');
+		errno = 0;
+		if (dollar == &line[pos])
+			ft_lstadd_back(&head, ms_expand_envvar(line, &pos, len - pos));
+		else
+		{
+			if (dollar == NULL || dollar >= line + len)
+				dollar = line + len;
+			ms_lstadd_back_substr(&head, line, pos, dollar - &line[pos]);
+			pos = dollar - line;
+		}
+		if (errno == ENOMEM)
+			exit(EXIT_FAILURE);
 	}
-	else if (ft_isdigit(line[*pos]))
-	{
-		*pos += 1;
-		return (ft_lstnew(ft_strdup("")));
-	}
-	return (NULL);
+	return (head);
 }
 
 t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
@@ -53,7 +60,7 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 		return (ft_lstnew(ft_strdup("$")));
 	env_key = ft_substr(line, *pos, i);
 	*pos += i;
-	if (errno == ENOMEM)
+	if (env_key == NULL)
 		exit(EXIT_FAILURE);
 	env_val = ms_getenv_val(env_key);
 	free(env_key);
@@ -62,28 +69,22 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	return (ft_lstnew(ft_strdup(env_val)));
 }
 
-t_list	*ms_expand_envvar_dquote(char *line, size_t len)
+bool	ms_isenvchar(int c)
 {
-	size_t	pos;
-	char	*dollar;
-	t_list	*head;
+	return (ft_isalnum(c) || c == '_');
+}
 
-	head = NULL;
-	pos = 0;
-	while (pos < len)
+static t_list	*ms_expand_special_env(char *line, size_t *pos)
+{
+	if (line[*pos] == '?')
 	{
-		dollar = ft_strchr(&line[pos], '$');
-		if (dollar == &line[pos])
-			ft_lstadd_back(&head, ms_expand_envvar(line, &pos, len - pos));
-		else
-		{
-			if (dollar == NULL || dollar >= line + len)
-				dollar = line + len;
-			ms_lstadd_back_substr(&head, line, pos, dollar - &line[pos]);
-			pos = dollar - line;
-		}
-		if (errno == ENOMEM)
-			return (ms_lstclear_return_null(&head));
+		*pos += 1;
+		return (ft_lstnew(ft_itoa(g_shell.status)));
 	}
-	return (head);
+	else if (ft_isdigit(line[*pos]))
+	{
+		*pos += 1;
+		return (ft_lstnew(ft_strdup("")));
+	}
+	return (NULL);
 }
