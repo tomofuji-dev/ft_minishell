@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_pwd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/22 16:21:40 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:18:42 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,3 @@ int	ms_builtin_pwd(char *argv[])
 	printf("%s\n", getcwd(buf, PATH_MAX));
 	return (errno);
 }
-
-/*
-void	ms_builtin_pwd(t_cmd *cmd)
-{
-	char	**arg;
-
-	if (cmd->arg[1] == NULL)
-	{
-		arg = (char **)malloc(3 * sizeof(char *));
-		if (arg == NULL)
-			return ;
-		arg[1] = (char *)malloc((getenv(ENV_HOME) + ) * sizeof(char));
-		if (arg == NULL)
-			return ;
-		arg[0] = cmd->arg[0];
-		free (cmd->arg);
-		cmd->arg = arg;
-	}
-}
-*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_echo.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:10:25 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/26 15:44:13 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/31 12:18:16 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,3 @@ int	ms_builtin_echo(char *argv[])
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (0);
 }
-
-//  gcc src/ms_builtin_echo.c libft/libft.a -I include -I libft/include -o echo
-// ./echo
-// ./echo abc def
-// ./echo -n abc def
-// int	main(int argc, char *argv[])
-// {
-// 	return (ms_builtin_echo(argv));
-// }

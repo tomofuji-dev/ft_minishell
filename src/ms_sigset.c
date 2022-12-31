@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:04:04 by ykosaka           #+#    #+#             */
-/*   Updated: 2022/12/30 14:43:31 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 12:22:07 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	ms_sigset_rl(void)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ms_sighandler_rl;
 	sigaction(SIGINT, &sa, NULL);
-//	sigaction(SIGQUIT, &sa, NULL);
-//	sigaction(SIGTERM, &sa, NULL);
 }
 
 void	ms_sigset_noquit(void)
@@ -57,5 +55,4 @@ void	ms_sigset_exec(void)
 	sa.sa_sigaction = ms_sighandler_exec;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-//	sigaction(SIGTERM, &sa, NULL);
 }

@@ -6,13 +6,11 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:04:04 by ykosaka           #+#    #+#             */
-/*   Updated: 2022/12/30 16:03:12 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 12:21:59 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//static volatile sig_atomic_t	g_signum = SIG_NONE;
 
 void	ms_sighandler_rl(int signum, siginfo_t *info, void *context)
 {
@@ -28,9 +26,6 @@ void	ms_sighandler_rl(int signum, siginfo_t *info, void *context)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-//	write(2, ft_itoa(info->si_pid), 6);
-//	write(2, STR_INFO, ft_strlen(STR_INFO));
-//	g_signum = signum;
 }
 
 void	ms_sighandler_rl_heredoc(int signum, siginfo_t *info, void *context)
@@ -42,9 +37,6 @@ void	ms_sighandler_rl_heredoc(int signum, siginfo_t *info, void *context)
 		g_shell.status = 128 + signum;
 		g_shell.heredoc_sigint = true;
 	}
-//	write(2, ft_itoa(info->si_pid), 6);
-//	write(2, STR_INFO, ft_strlen(STR_INFO));
-//	g_signum = signum;
 }
 
 void	ms_sighandler_exec(int signum, siginfo_t *info, void *context)
@@ -68,7 +60,4 @@ void	ms_sighandler_exec(int signum, siginfo_t *info, void *context)
 		if (signum == SIGINT)
 			ft_putendl_fd("", 1);
 	}
-//	write(2, ft_itoa(info->si_pid), 6);
-//	write(2, STR_INFO, ft_strlen(STR_INFO));
-//	g_signum = signum;
 }

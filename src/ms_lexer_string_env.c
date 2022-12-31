@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/26 14:46:44 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 12:20:35 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ t_list	*ms_expand_special_env(char *line, size_t *pos)
 	return (NULL);
 }
 
-// "$abc def" -> return "($abc_expanded)", and pos is set to " def"
-// len is range to search
 t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 {
 	size_t	i;
@@ -64,8 +62,6 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	return (ft_lstnew(ft_strdup(env_val)));
 }
 
-// "abc $var def" -> "abc (expanded) def"
-// line: not include dquote
 t_list	*ms_expand_envvar_dquote(char *line, size_t len)
 {
 	size_t	pos;

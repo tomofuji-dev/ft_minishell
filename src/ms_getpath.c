@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_getpath.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 00:29:21 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 12:19:59 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,52 +104,3 @@ char	*ms_getpath_join(char *dirpath, char *name)
 	ft_strlcpy(path + len_dir + 1, name, len_name + 1);
 	return (path);
 }
-
-/*
-char	*ms_getpath_envpath(char *name)
-{
-	char		*cmdpath;
-	char		*envpath;
-	char		**envpath_split;
-	struct stat	stat_buf;
-	size_t		i;
-
-	envpath = ms_getenv_val(ENV_PATH);
-	envpath_split = ft_split(envpath, ':');
-	if (envpath_split == NULL)
-		return (NULL);
-	printf("AAA-BBB");
-	i = 0;
-	while (envpath_split[i])
-	{
-		cmdpath = ms_getpath_join(envpath_split[i], name);
-		if (cmdpath == NULL)
-			return (ms_mapclear(envpath_split, ms_mapsize(envpath_split)));
-		stat(cmdpath, &stat_buf);
-		if ((stat_buf.st_mode & S_IFMT) == S_IFREG)
-			break ;
-		cmdpath = free_and_return(cmdpath);
-		i++;
-	}
-	ms_mapclear(envpath_split, ms_mapsize(envpath_split));
-	if (!cmdpath)
-		cmdpath = ft_strdup("");
-	dprintf(2, "cmdpath: {%s}\n", cmdpath);
-	return (cmdpath);
-}
-*/
-/*
-bool	ms_getpath_test(char *envpath, char *name)
-{
-	char	path[MAX_PATH + 1];
-
-	ft_strlcpy(path, *envpath, MAX_PATH + 1);
-	// todo: over 1024 case
-	// todo: continue when return NULL
-	ft_strlcat(path, "/", MAX_PATH + 1);
-	ft_strlcat(path, name, MAX_PATH + 1);
-	if (access(path, X_OK) == 0)
-		return (true);
-	return (false);
-}
-*/

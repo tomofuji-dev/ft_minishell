@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/26 21:10:24 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 12:18:10 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,3 @@ int	ms_builtin_cd_export(char *key, char *val)
 	free(keyval);
 	return (0);
 }
-
-/*
-int	main()
-{
-	char	*buf;
-
-	printf("CWD: %s\n", getcwd(buf, PATH_MAX));
-	printf("HOME: %s\n", getenv("HOME"));
-	chdir("../");
-	printf("CWD: %s\n", getcwd(buf, PATH_MAX));
-	printf("PWD: %s\n", getenv("PWD"));
-}
-*/

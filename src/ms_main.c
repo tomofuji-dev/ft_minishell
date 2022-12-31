@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 12:13:26 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 12:18:02 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,6 @@ char	*ms_readline(void)
 	line = readline("minishell $ ");
 	if (line == NULL)
 		return (NULL);
-//	rl_replace_line("", 0);
-//	rl_on_new_line();
-//	rl_redisplay();
-//	rl_clear_history();
 	return (line);
 }
 
