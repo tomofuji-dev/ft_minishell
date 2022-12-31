@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 23:28:55 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 12:04:11 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	*ms_clear_cmd_and_return_null(t_cmd *head)
 	{
 		next = cur->next;
 		free(cur->path);
-		free_string_lst(cur->arg);
+		free(cur->arg);
 		free(cur->input);
 		free(cur->output);
 		free(cur);
