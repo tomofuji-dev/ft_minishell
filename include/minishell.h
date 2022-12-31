@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 16:43:10 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 17:12:25 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,109 +29,9 @@
 # include <errno.h>
 # include <string.h>
 # include "libft.h"
-
-//# define CHRS_DELIM		" <>|;&()" for bonus+
-# define CHRS_DELIM			" <>|"
-# define CHRS_QUOTE			"$\"'"
-
-# define CHR_DIR			'/'
-# define CHR_HOME			'~'
-# define CHR_SPACE			' '
-# define CHR_NL				'\n'
-# define CHR_SEP			':'
-# define CHR_EQUAL			'='
-# define CHR_SNAKE			'_'
-# define CHR_STATUS			'?'
-
-# define STR_EMPTY			""
-# define STR_DIR			"/"
-# define STR_OLDPWD			"-"
-# define STR_QUOTE			"\""
-# define STR_EXPAND			"$"
-
-# define CMD_CD				"cd"
-# define CMD_ECHO			"echo"
-# define CMD_ENV			"env"
-# define CMD_EXIT			"exit"
-# define CMD_EXPORT			"export"
-# define CMD_PWD			"pwd"
-# define CMD_UNSET			"unset"
-
-# define OPTION_NONL		"-n"
-
-# define ENV_HOME			"HOME"
-# define ENV_PATH			"PATH"
-# define ENV_PWD			"PWD"
-# define ENV_OLDPWD			"OLDPWD"
-
-# define INVALID_FILENO		-1
-# define ERR_NOERR			0
-# define STATUS_SUCCESS		0
-# define STATUS_FAILURE		1
-# define STATUS_NOT_EXEC	126
-# define STATUS_NO_CMD		127
-# define STATUS_BASE		128
-# define STATUS_MASK		0xff
-
-# define MSG_SIG_QUIT		"Quit: 3"
-# define MSG_SYNTAX_ERR		"syntax error"
-# define MSG_HEREDOC_EOF	"here-document delimited end-of-file"
-# define MSG_EXIT			"exit"
-# define MSG_NO_OLDPWD		"OLDPWD not set"
-# define MSG_ENOENT			"No such file or directory"
-# define MSG_ARG_NOTNUM		"numeric argument required"
-# define MSG_ARG_MANY		"too many arguments"
-# define MSG_DECLARE		"declare -x "
-# define MSG_INVAL_ID		"bash: %s: `%s\" : not a valid identifier\n"
-# define MSG_NO_CMD			"command not found"
-# define MSG_ISDIR			"Is a directory"
-
-# define PROMPT_MINISH		"minishell $ "
-# define PROMPT_HREDOC		"> "
-
-# define SIZE_INVALID		-1
-
-# define FLAG_NONE			0x00
-# define FLAG_STRING		0x10
-# define FLAG_IN			0x20
-# define FLAG_HEREDOC		0x22
-# define FLAG_OUT			0x40
-# define FLAG_APPEND		0x44
-# define FLAG_PIPE			0x80
-# define SHIFT_FLAG			4
-
-# define LEN_QUOTE_CLOSED	2
-# define LEN_QUOTE_UNCLOSED	1
-
-typedef struct sigaction	t_sa;
-
-typedef struct s_token {
-	char	*str;
-	int		flag;
-}	t_token;
-
-typedef struct s_fd {
-	char	*path;
-	int		fd;
-}	t_fd;
-
-typedef struct s_cmd {
-	char			*path;
-	char			**arg;
-	t_fd			*input;
-	t_fd			*output;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
-	pid_t			pid;
-}	t_cmd;
-
-typedef struct s_shell {
-	t_list	*environ;
-	int		status;
-	t_cmd	*cmd;
-	bool	kill_child;
-	bool	heredoc_sigint;
-}	t_shell;
+# include "minishell_const.h"
+# include "minishell_typedef.h"
+# include "minishell_string.h"
 
 extern t_shell	g_shell;
 
