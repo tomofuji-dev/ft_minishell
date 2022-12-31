@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/29 09:04:45 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 15:08:14 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ms_lexer_string(char *line);
-void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head);
-void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head);
-void	ms_lexer_string_dollar(char *line, size_t *pos, t_list **head);
-void	ms_lexer_string_plain(char *line, size_t *pos, t_list **head);
+char		*ms_lexer_string(char *line);
+static void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head);
+static void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head);
+static void	ms_lexer_string_dollar(char *line, size_t *pos, t_list **head);
+static void	ms_lexer_string_plain(char *line, size_t *pos, t_list **head);
 
 char	*ms_lexer_string(char *line)
 {
@@ -39,6 +39,7 @@ char	*ms_lexer_string(char *line)
 	}
 	if (head == NULL)
 		return (NULL);
+	errno = 0;
 	expand_str = ms_linkedls_to_str(head);
 	if (errno == ENOMEM)
 		return (ms_lstclear_return_null(&head));
@@ -46,11 +47,12 @@ char	*ms_lexer_string(char *line)
 	return (expand_str);
 }
 
-void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head)
+static void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head)
 {
 	size_t	stride;
 
 	stride = ms_lexer_tokenlen_quoted(&line[*pos]);
+	errno = 0;
 	if (stride > 2)
 	{
 		ms_lstadd_back_substr(head, line, *pos + 1, stride - 2);
@@ -72,11 +74,12 @@ void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head)
 	*pos += stride;
 }
 
-void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head)
+static void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head)
 {
 	size_t	stride;
 
 	stride = ms_lexer_tokenlen_quoted(&line[*pos]);
+	errno = 0;
 	if (stride > 2)
 	{
 		ft_lstadd_back(head, \
@@ -99,21 +102,23 @@ void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head)
 	*pos += stride;
 }
 
-void	ms_lexer_string_dollar(char *line, size_t *pos, t_list **head)
+static void	ms_lexer_string_dollar(char *line, size_t *pos, t_list **head)
 {
+	errno = 0;
 	ft_lstadd_back(head, \
 		ms_expand_envvar(line, pos, ft_strlen(&line[*pos])));
 	if (errno == ENOMEM)
 		ms_lstclear_return_null(head);
 }
 
-void	ms_lexer_string_plain(char *line, size_t *pos, t_list **head)
+static void	ms_lexer_string_plain(char *line, size_t *pos, t_list **head)
 {
 	size_t	stride;
 
 	stride = ms_lexer_tokenlen_plain(&line[*pos]);
 	if (stride > 0)
 	{
+		errno = 0;
 		ms_lstadd_back_substr(head, line, *pos, stride);
 		if (errno == ENOMEM)
 			ms_lstclear_return_null(head);

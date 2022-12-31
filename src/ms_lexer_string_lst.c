@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:12:29 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 15:35:16 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:06:37 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ms_linkedls_to_str(t_list *head)
 		cur = cur->next;
 	}
 	joined_str = ft_calloc(joined_str_size + 1, sizeof(char));
-	if (errno == ENOMEM)
+	if (joined_str == NULL)
 		return (NULL);
 	cur = head;
 	while (cur != NULL)
