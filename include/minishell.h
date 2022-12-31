@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:38:14 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 12:58:53 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,25 @@
 //# define CHRS_DELIM		" <>|;&()" for bonus+
 # define CHRS_DELIM		" <>|"
 # define CHRS_QUOTE		"\"'"
+
+# define CHR_DIR		'/'
+# define CHR_HOME		'~'
+
+# define STR_DIR		"/"
+
 # define ENV_HOME		"HOME"
 # define ENV_PWD		"PWD"
 # define ENV_OLDPWD		"OLDPWD"
+
+# define STATUS_SUCCESS	0
+# define STATUS_FAILURE	1
+
 # define MSG_EXIT		"exit"
-# define STR_DIR		"/"
-# define CHR_DIR		'/'
-# define CHR_HOME		'~'
+# define MSG_NO_OLDPWD	"OLDPWD not set"
+# define MSG_ENOENT		"No such file or directory"
+
 # define SIZE_INVALID	-1
+
 # define FLAG_STRING	0x10
 # define FLAG_IN		0x20
 # define FLAG_HEREDOC	0x22

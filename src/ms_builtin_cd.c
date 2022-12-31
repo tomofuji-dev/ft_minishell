@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 12:18:10 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 13:00:40 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ms_builtin_cd(char	*argv[])
 		&& (argv[1][1] == CHR_DIR || argv[1][1] == '\0'))
 		ms_setpath_home(path, argv[1]);
 	else if (!ft_strncmp(argv[1], "-", PATH_MAX + 1))
-		return (ms_builtin_cd_chdir(ms_getenv_val("OLDPWD")));
+		return (ms_builtin_cd_chdir(ms_getenv_val(ENV_OLDPWD)));
 	else if (argv[1][0] == CHR_DIR)
 		ms_setpath_absolute(path, argv[1]);
 	else
@@ -40,17 +40,17 @@ int	ms_builtin_cd_chdir(char *path)
 {
 	if (path == NULL)
 	{
-		ft_putendl_fd("OLDPWD not set", 2);
-		return (1);
+		ft_putendl_fd(MSG_NO_OLDPWD, 2);
+		return (STATUS_FAILURE);
 	}
 	else if (chdir(path))
 	{
-		ft_putendl_fd("No such file or directory", 2);
-		return (1);
+		ft_putendl_fd(MSG_ENOENT, 2);
+		return (STATUS_FAILURE);
 	}
 	ms_builtin_cd_export(ENV_OLDPWD, ms_getenv_val(ENV_PWD));
 	ms_builtin_cd_export(ENV_PWD, getcwd(path, PATH_MAX));
-	return (0);
+	return (STATUS_SUCCESS);
 }
 
 int	ms_builtin_cd_export(char *key, char *val)
@@ -59,7 +59,7 @@ int	ms_builtin_cd_export(char *key, char *val)
 	size_t	len;
 
 	if (key == NULL || val == NULL)
-		return (1);
+		return (STATUS_FAILURE);
 	len = ft_strlen(key) + 1;
 	keyval = (char *)malloc((len + ft_strlen(val) + 1) * sizeof(char));
 	if (keyval == NULL)
@@ -68,5 +68,5 @@ int	ms_builtin_cd_export(char *key, char *val)
 	ft_strlcpy(keyval + len, val, ft_strlen(val) + 1);
 	ms_search_env_and_set(keyval);
 	free(keyval);
-	return (0);
+	return (STATUS_SUCCESS);
 }
