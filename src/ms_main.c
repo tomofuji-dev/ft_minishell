@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 12:04:30 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 12:13:26 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,19 @@ int	main(int argc, char *argv[], char *envp[])
 	init_global(envp);
 	while (1)
 	{
-		ms_sigset_rl();
-		ms_sigset_noquit();
 		line = ms_readline();
 		if (line == NULL)
 			break ;
 		if (*line)
 		{
+			add_history(line);
 			token = ms_lexer(line);
 			g_shell.cmd = ms_parser(token);
 			ms_sigset_exec();
 			ms_exec(g_shell.cmd);
 			ms_clear_token(token);
-			free(line);
 		}
+		free(line);
 	}
 	ms_builtin_exit(NULL);
 	return (g_shell.status);
@@ -78,12 +77,13 @@ char	*ms_readline(void)
 {
 	char	*line;
 
+	ms_sigset_rl();
+	ms_sigset_noquit();
 	rl_done = 0;
 	rl_event_hook = NULL;
 	line = readline("minishell $ ");
 	if (line == NULL)
 		return (NULL);
-	add_history(line);
 //	rl_replace_line("", 0);
 //	rl_on_new_line();
 //	rl_redisplay();
