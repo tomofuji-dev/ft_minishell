@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 15:37:53 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/19 15:14:25 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ char	*ms_lexer_string(char *line)
 				if (errno == ENOMEM)
 					return (ms_lstclear_return_null(&head));
 			}
+			else if (stride == 2)
+			{
+				ft_lstadd_back(&head, ft_lstnew(ft_strdup("")));
+				if (errno == ENOMEM)
+					return (ms_lstclear_return_null(&head));
+			}
 			else if (stride == 1)
 			{
 				ft_lstadd_back(&head, ft_lstnew(ft_strdup("\'")));
@@ -47,6 +53,12 @@ char	*ms_lexer_string(char *line)
 			{
 				ft_lstadd_back(&head, \
 						ms_expand_envvar_dquote(&line[pos + 1], stride - 2));
+				if (errno == ENOMEM)
+					return (ms_lstclear_return_null(&head));
+			}
+			else if (stride == 2)
+			{
+				ft_lstadd_back(&head, ft_lstnew(ft_strdup("")));
 				if (errno == ENOMEM)
 					return (ms_lstclear_return_null(&head));
 			}
@@ -77,6 +89,8 @@ char	*ms_lexer_string(char *line)
 			pos += stride;
 		}
 	}
+	if (head == NULL)
+		return (NULL);
 	expand_str = ms_linkedls_to_str(head);
 	if (errno == ENOMEM)
 		return (ms_lstclear_return_null(&head));

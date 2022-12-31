@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/18 13:43:54 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/19 16:03:30 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	*pos += i;
 	if (errno == ENOMEM)
 		exit(EXIT_FAILURE);
-	env_val = ft_strdup(getenv(env_key));
+	env_val = getenv(env_key);
 	free(env_key);
-	if (errno == ENOMEM)
-		exit(EXIT_FAILURE);
-	return (ft_lstnew(env_val));
+	if (env_val == NULL)
+		return (NULL);
+	return (ft_lstnew(ft_strdup(env_val)));
 }
 
 // "abc $var def" -> "abc (expanded) def"

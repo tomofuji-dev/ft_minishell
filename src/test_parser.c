@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/16 15:08:21 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/19 15:40:24 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ int	main(int argc, char *argv[])
 		return (1);
 	printf("test {%s}\n", argv[1]);
 	token = ms_lexer(argv[1]);
+	printf("parsing\n");
 	cmd = ms_parser(token);
+	printf("printing\n");
 	while (cmd != NULL)
 	{
 		printf("path: %s\n", cmd->path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/18 16:12:16 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/23 06:26:01 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,18 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
+# include <limits.h>
 # include <errno.h>
 # include "libft.h"
 
 //# define CHRS_DELIM		" <>|;&()" for bonus+
 # define CHRS_DELIM		" <>|"
 # define CHRS_QUOTE		"\"'"
+# define ENV_HOME		"HOME"
+# define MSG_EXIT		"exit"
+# define STR_DIR		"/"
+# define CHR_DIR		'/'
+# define CHR_HOME		'~'
 # define SIZE_INVALID	-1
 # define FLAG_STRING	0x10
 # define FLAG_IN		0x20
@@ -38,6 +44,8 @@
 # define FLAG_OUT		0x40
 # define FLAG_APPEND	0x44
 # define FLAG_PIPE		0x80
+# define STDIN			0
+# define STDOUT			1
 
 typedef struct s_token {
 	char	*str;
@@ -57,13 +65,14 @@ typedef struct s_cmd {
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 	pid_t			pid;
-	int				ret_status;
-	char			**envp;
 }	t_cmd;
 
 typedef struct s_shell {
-	char	**envp;
+	t_list	*environ;
+	int		status;
 }	t_shell;
+
+extern t_shell	g_shell;
 
 // bool	pp_check_argc(int argc);
 // bool	pp_check_argc(int argc);
@@ -78,7 +87,7 @@ void	init_global(char *envp[]);
 t_token	*ms_lexer(char *line);
 size_t	ms_lexer_tokensize(char *line);
 
-t_token	*ms_lexer_gettoken(char *line, size_t size);
+void	ms_lexer_gettoken(t_token *token, char *line);
 int		ms_lexer_gettoken_classify(char *line);
 
 size_t	ms_lexer_tokenlen(char *line);
@@ -100,6 +109,10 @@ bool	ms_isenvchar(int c);
 char	*ms_search_env(char *env_key);
 t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len);
 t_list	*ms_expand_envvar_dquote(char *line, size_t len);
+char	*ms_getenv_line(char *env_key);
+char	*ms_getenv_val(char *env_key);
+bool	ms_is_same_envkey(char *dest, char *src);
+bool	ms_is_validenv(char *env_candidate);
 
 void	*ms_lstclear_return_null(t_list **head);
 void	ms_lstadd_back_substr(t_list **head, char *line, \
@@ -110,6 +123,23 @@ char	*ms_getpath_cmd(char *name);
 char	*ms_getpath_relative(char *name);
 char	*ms_getpath_envpath(char *name);
 char	*ms_getpath_join(char *dirpath, char *name);
+
+void	ms_exec_in_child_process(t_cmd *cmd);
+void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]));
+
+int		(*ms_builtin_getfunc(char *arg))(char *argv[]);
+int		ms_builtin_cd(char *argv[]);
+int		ms_builtin_echo(char *argv[]);
+int		ms_builtin_env(char *argv[]);
+int		ms_builtin_exit(char *argv[]);
+int		ms_builtin_export(char *argv[]);
+int		ms_builtin_pwd(char *argv[]);
+int		ms_builtin_unset(char *argv[]);
+
+size_t	ms_strlst_count(char *str_lst[]);
+void	ms_strlst_cpy(char **dest, char **src);
+void	ms_strlst_free(char *argv[]);
+char	**ms_lst2map(t_list **lst);
 
 void	*free_and_return(void *malloc_obj);
 

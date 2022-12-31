@@ -3,14 +3,15 @@
 #                                                         :::      ::::::::    #
 #    test_lexer.sh                                      :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
+#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/12 14:52:27 by t.fuji            #+#    #+#              #
-#    Updated: 2022/12/16 15:27:32 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/19 15:54:53 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # make cmd: make test_lexer_gettoken
+# gcc -o minishell -g -l readline -I include -I libft/include libft/libft.a src/ms_lexer.c src/test_parser.c src/ms_lexer_gettoken.c src/ms_lexer_string.c src/ms_lexer_string_env.c src/ms_lexer_string_lst.c src/ms_lexer_tokenlen.c src/ms_parser.c src/ms_parser_cmdnew.c src/ms_parser_cmdnew_arg.c src/ms_parser_cmdnew_input.c src/ms_parser_cmdnew_output.c src/ms_parser_cmdnew_fdsize.c src/ms_getpath.c src/ms_utils.c 
 
 echo	OK  	string
 ./minishell ""

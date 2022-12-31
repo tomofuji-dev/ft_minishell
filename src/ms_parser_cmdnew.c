@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/18 15:16:08 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/20 13:55:23 by tfujiwar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ t_cmd	*ms_parser_cmdnew(t_token *token, size_t *idx)
 		return (free_and_return(cmd));
 	while (token[*idx].str != NULL && token[*idx].flag != FLAG_PIPE)
 		(*idx)++;
+	cmd->next = NULL;
+	cmd->prev = NULL;
 	return (cmd);
 }

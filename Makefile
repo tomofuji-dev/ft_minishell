@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
+#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/18 15:18:55 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/23 06:26:30 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,31 +21,37 @@ LIBNAME			= libft
 OS				= $(shell uname)
 
 # Enumeration of files
-SRC				= src/ms_lexer.c \
-				  src/ms_lexer_gettoken.c \
-				  src/ms_lexer_string.c \
-				  src/ms_lexer_string_env.c \
-				  src/ms_lexer_string_lst.c \
-				  src/ms_lexer_tokenlen.c \
-				  src/ms_parser.c \
-				  src/ms_parser_cmdnew.c \
-				  src/ms_parser_cmdnew_arg.c \
-				  src/ms_parser_cmdnew_input.c \
-				  src/ms_parser_cmdnew_output.c \
-				  src/ms_parser_cmdnew_fdsize.c \
-				  src/ms_getpath.c \
-				  src/ms_utils.c
+SRC				= ms_main.c \
+				  ms_init.c \
+				  ms_lexer.c \
+				  ms_lexer_gettoken.c \
+				  ms_lexer_string.c \
+				  ms_lexer_string_env.c \
+				  ms_lexer_string_lst.c \
+				  ms_lexer_tokenlen.c \
+				  ms_parser.c \
+				  ms_parser_cmdnew.c \
+				  ms_parser_cmdnew_arg.c \
+				  ms_parser_cmdnew_input.c \
+				  ms_parser_cmdnew_output.c \
+				  ms_parser_cmdnew_fdsize.c \
+				  ms_getpath.c \
+				  ms_exec_builtin.c \
+				  ms_exec_child.c \
+				  ms_env.c \
+				  ms_builtin.c \
+				  ms_builtin_cd.c \
+				  ms_builtin_echo.c \
+				  ms_builtin_env.c \
+				  ms_builtin_exit.c \
+				  ms_builtin_export.c \
+				  ms_builtin_pwd.c \
+				  ms_builtin_unset.c \
+				  ms_lst2map.c \
+				  ms_utils.c
 
-ifeq ($(MAKECMDGOALS), test_lexer_expansion)
-	SRC			+= test_lexer_expansion.c
-endif
-
-ifeq ($(MAKECMDGOALS), test_lexer_gettoken)
-	SRC			+= test_lexer_gettoken.c
-endif
-
-ifeq ($(MAKECMDGOALS), test_parser)
-	SRC			+= test_parser.c
+ifneq (, $(findstring test_, $(MAKECMDGOALS)))
+	SRC			+= $(MAKECMDGOALS).c
 endif
 
 # Enumeration of directories
@@ -66,7 +72,10 @@ RM				= rm
 
 # Command options (flags)
 CFLAGS			= -MMD -Wall -Wextra -Werror
-DEBUGCFLAGS		= -g -ggdb -fstack-usage -fno-omit-frame-pointer
+DEBUGCFLAGS		= -g -ggdb -fno-omit-frame-pointer
+ifneq ($(OS), Darwin)
+	DEBUGCFLAGS	+= -fstack-usage		
+endif
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
@@ -78,21 +87,19 @@ ifeq ($(MAKECMDGOALS), debug)
 		CFLAGS	+= $(DEBUGCFLAGS)
 		LDFLAGS	+= $(DEBUGLDFLAGS)
 	endif
-	DEF		= -D DEBUG_MODE=1
+	DEF			= -D DEBUG_MODE=1
 endif
 
-ifeq ($(MAKECMDGOALS), test_*)
-	ifneq ($(OS), Darwin)
-		CFLAGS	+= $(DEBUGCFLAGS)
-		LDFLAGS	+= $(DEBUGLDFLAGS)
-	endif
-	DEF		= -D DEBUG_MODE=1
+ifneq (, $(findstring test_, $(MAKECMDGOALS)))
+	CFLAGS		+= $(DEBUGCFLAGS)
+	LDFLAGS		+= $(DEBUGLDFLAGS)
+	DEF			= -D DEBUG_MODE=1
 endif
 
 # ********************* Section for targets and commands ********************* #
 # Phonies
 .PHONY: all clean fclean re clean_partly debug_lib debug \
-		test_lexer_expansion test_lexer_gettoken test_parser
+		test_lexer_expansion test_lexer_gettoken test_parser test_builtin
 
 # Mandatory targets
 all: $(LIBS) $(NAME)
@@ -111,6 +118,7 @@ debug: fclean debug_lib all
 test_lexer_expansion:	all
 test_lexer_gettoken:	all	
 test_parser:			all	
+test_builtin:			all	
 
 # Recipes
 $(NAME): $(OBJS)
