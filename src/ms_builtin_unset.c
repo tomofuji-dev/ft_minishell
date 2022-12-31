@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_unset.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:42:18 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 12:18:53 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:02:23 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ int	ms_builtin_unset(char *argv[])
 	int	return_status;
 	int	i;
 
-	return_status = 0;
+	return_status = STATUS_SUCCESS;
 	i = 1;
 	while (argv[i] != NULL)
 	{
 		if (ms_is_validenv(argv[i]) == false)
 		{
-			printf("unset: `%s\" : not a valid identifier\n", argv[i++]);
-			return_status = 1;
+			ft_putstr_fd(MSG_UNSET, STDOUT_FILENO);
+			printf(MSG_INVAL_ID, argv[i++]);
+			return_status = STATUS_FAILURE;
 			continue ;
 		}
 		ms_search_env_and_unset(argv[i]);

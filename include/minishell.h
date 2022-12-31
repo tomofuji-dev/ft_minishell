@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:58:53 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:08:04 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <errno.h>
 # include <string.h>
 # include "libft.h"
+# include "minishell_tfujiwar.h"
 
 //# define CHRS_DELIM		" <>|;&()" for bonus+
 # define CHRS_DELIM		" <>|"
@@ -36,8 +37,25 @@
 
 # define CHR_DIR		'/'
 # define CHR_HOME		'~'
+# define CHR_SPACE		' '
+# define CHR_NL			'\n'
+# define CHR_SEP		':'
+# define CHR_EQUAL		'='
+# define CHR_SNAKE		'_'
 
 # define STR_DIR		"/"
+# define STR_OLDPWD		"-"
+# define STR_QUOTE		"\""
+
+# define CMD_CD			"cd"
+# define CMD_ECHO		"echo"
+# define CMD_ENV		"env"
+# define CMD_EXIT		"exit"
+# define CMD_EXPORT		"export"
+# define CMD_PWD		"pwd"
+# define CMD_UNSET		"unset"
+
+# define OPTION_NONL	"-n"
 
 # define ENV_HOME		"HOME"
 # define ENV_PWD		"PWD"
@@ -45,10 +63,18 @@
 
 # define STATUS_SUCCESS	0
 # define STATUS_FAILURE	1
+# define STATUS_MASK	0xff
 
 # define MSG_EXIT		"exit"
 # define MSG_NO_OLDPWD	"OLDPWD not set"
 # define MSG_ENOENT		"No such file or directory"
+# define MSG_ARG_NOTNUM	"numeric argument required"
+# define MSG_ARG_NOTNUM	"numeric argument required"
+# define MSG_ARG_MANY	"too many arguments"
+# define MSG_DECLARE	"declare -x "
+# define MSG_EXPORT		"export: "
+# define MSG_UNSET		"unset "
+# define MSG_INVAL_ID	"`%s\" : not a valid identifier\n"
 
 # define SIZE_INVALID	-1
 

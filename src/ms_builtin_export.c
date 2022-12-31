@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_export.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/30 16:43:41 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:03:40 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ms_builtin_export(char *argv[]);
-int		ms_print_env_with_declare(void);
-int		ms_set_environ(char **argv);
-void	ms_search_env_and_set(char *env_key);
-t_list	*ms_lstnew_env(char *env_key);
+int				ms_builtin_export(char *argv[]);
+static int		ms_print_env_with_declare(void);
+static int		ms_set_environ(char **argv);
+void			ms_search_env_and_set(char *env_key);
+static t_list	*ms_lstnew_env(char *env_key);
 
 int	ms_builtin_export(char *argv[])
 {
@@ -28,25 +28,23 @@ int	ms_builtin_export(char *argv[])
 	return (return_status);
 }
 
-int	ms_print_env_with_declare(void)
+static int	ms_print_env_with_declare(void)
 {
 	t_list	*cur;
 	char	*eq;
-	int		return_status;
 
 	cur = g_shell.environ;
 	while (cur != NULL)
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		eq = ft_strchr(cur->content, '=');
+		ft_putstr_fd(MSG_DECLARE, STDOUT_FILENO);
+		eq = ft_strchr(cur->content, CHR_EQUAL);
 		write(STDOUT_FILENO, cur->content, eq - (char *)cur->content + 1);
-		ft_putchar_fd('"', STDOUT_FILENO);
+		ft_putstr_fd(STR_QUOTE, STDOUT_FILENO);
 		ft_putstr_fd(eq + 1, STDOUT_FILENO);
-		ft_putendl_fd("\"", STDOUT_FILENO);
+		ft_putendl_fd(STR_QUOTE, STDOUT_FILENO);
 		cur = cur->next;
 	}
-	return_status = 0;
-	return (return_status);
+	return (STATUS_SUCCESS);
 }
 
 int	ms_set_environ(char **argv)
@@ -55,11 +53,11 @@ int	ms_set_environ(char **argv)
 	size_t	i;
 	char	*eq;
 
-	return_status = 0;
+	return_status = STATUS_SUCCESS;
 	i = 0;
 	while (argv[i] != NULL)
 	{
-		eq = ft_strchr(argv[i], '=');
+		eq = ft_strchr(argv[i], CHR_EQUAL);
 		if (eq == NULL)
 		{
 			i++;
@@ -68,9 +66,10 @@ int	ms_set_environ(char **argv)
 		*eq = '\0';
 		if (ms_is_validenv(argv[i]) == false)
 		{
-			*eq = '=';
-			printf("export: `%s\" : not a valid identifier\n", argv[i++]);
-			return_status = 1;
+			*eq = CHR_EQUAL;
+			ft_putstr_fd(MSG_EXPORT, STDOUT_FILENO);
+			printf(MSG_INVAL_ID, argv[i++]);
+			return_status = STATUS_FAILURE;
 		}
 		else
 			ms_search_env_and_set(argv[i++]);
@@ -91,7 +90,7 @@ void	ms_search_env_and_set(char *env_key)
 		if (ms_is_same_envkey(cur->content, env_key))
 		{
 			free(cur->content);
-			env_key[ft_strlen(env_key)] = '=';
+			env_key[ft_strlen(env_key)] = CHR_EQUAL;
 			cur->content = ft_strdup(env_key);
 			if (cur->content == NULL)
 				exit(EXIT_FAILURE);
@@ -111,7 +110,7 @@ t_list	*ms_lstnew_env(char *env_key)
 {
 	t_list	*new;
 
-	env_key[ft_strlen(env_key)] = '=';
+	env_key[ft_strlen(env_key)] = CHR_EQUAL;
 	new = ft_lstnew(ft_strdup(env_key));
 	if (new == NULL || new->content == NULL)
 		exit(EXIT_FAILURE);

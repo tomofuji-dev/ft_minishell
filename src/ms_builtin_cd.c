@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ms_builtin_cd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 13:00:40 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:34:43 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ms_builtin_cd(char *argv[]);
-int	ms_builtin_cd_chdir(char *path);
-int	ms_builtin_cd_export(char *key, char *val);
+int			ms_builtin_cd(char *argv[]);
+static int	ms_builtin_cd_chdir(char *path);
+static int	ms_builtin_cd_export(char *key, char *val);
 
 int	ms_builtin_cd(char	*argv[])
 {
@@ -26,7 +26,7 @@ int	ms_builtin_cd(char	*argv[])
 	else if (argv[1][0] == CHR_HOME \
 		&& (argv[1][1] == CHR_DIR || argv[1][1] == '\0'))
 		ms_setpath_home(path, argv[1]);
-	else if (!ft_strncmp(argv[1], "-", PATH_MAX + 1))
+	else if (!ft_strncmp(argv[1], STR_OLDPWD, PATH_MAX + 1))
 		return (ms_builtin_cd_chdir(ms_getenv_val(ENV_OLDPWD)));
 	else if (argv[1][0] == CHR_DIR)
 		ms_setpath_absolute(path, argv[1]);
@@ -36,16 +36,16 @@ int	ms_builtin_cd(char	*argv[])
 	return (status);
 }
 
-int	ms_builtin_cd_chdir(char *path)
+static int	ms_builtin_cd_chdir(char *path)
 {
 	if (path == NULL)
 	{
-		ft_putendl_fd(MSG_NO_OLDPWD, 2);
+		ft_putendl_fd(MSG_NO_OLDPWD, STDERR_FILENO);
 		return (STATUS_FAILURE);
 	}
 	else if (chdir(path))
 	{
-		ft_putendl_fd(MSG_ENOENT, 2);
+		ft_putendl_fd(MSG_ENOENT, STDERR_FILENO);
 		return (STATUS_FAILURE);
 	}
 	ms_builtin_cd_export(ENV_OLDPWD, ms_getenv_val(ENV_PWD));
@@ -53,7 +53,7 @@ int	ms_builtin_cd_chdir(char *path)
 	return (STATUS_SUCCESS);
 }
 
-int	ms_builtin_cd_export(char *key, char *val)
+static int	ms_builtin_cd_export(char *key, char *val)
 {
 	char	*keyval;
 	size_t	len;

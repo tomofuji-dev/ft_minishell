@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:24:37 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:08:59 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ void	ms_exec_a_builtin(t_cmd *cmd, int (*builtin)(char *arg[]))
 
 int	(*ms_builtin_getfunc(char *arg))(char *argv[])
 {
-	if (ft_strcmp(arg, "echo") == 0)
+	if (ft_strcmp(arg, CMD_ECHO) == 0)
 		return (ms_builtin_echo);
-	else if (ft_strcmp(arg, "cd") == 0)
+	else if (ft_strcmp(arg, CMD_CD) == 0)
 		return (ms_builtin_cd);
-	else if (ft_strcmp(arg, "pwd") == 0)
+	else if (ft_strcmp(arg, CMD_PWD) == 0)
 		return (ms_builtin_pwd);
-	else if (ft_strcmp(arg, "export") == 0)
+	else if (ft_strcmp(arg, CMD_EXPORT) == 0)
 		return (ms_builtin_export);
-	else if (ft_strcmp(arg, "unset") == 0)
+	else if (ft_strcmp(arg, CMD_UNSET) == 0)
 		return (ms_builtin_unset);
-	else if (ft_strcmp(arg, "env") == 0)
+	else if (ft_strcmp(arg, CMD_ENV) == 0)
 		return (ms_builtin_env);
-	else if (ft_strcmp(arg, "exit") == 0)
+	else if (ft_strcmp(arg, CMD_EXIT) == 0)
 		return (ms_builtin_exit);
 	return (NULL);
 }

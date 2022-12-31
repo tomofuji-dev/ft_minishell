@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/27 16:30:42 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 14:31:43 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ms_builtin_exit(char *argv[])
 {
 	int	status;
 
-	printf("%s\n", MSG_EXIT);
+	ft_putendl_fd(MSG_EXIT, STDOUT_FILENO);
 	if (argv == NULL || argv[0] == NULL || argv[1] == NULL)
 		status = g_shell.status;
 	else if (argv[2] == NULL)
@@ -25,14 +25,14 @@ int	ms_builtin_exit(char *argv[])
 			status = ft_atoi(argv[1]);
 		else
 		{
-			ft_putendl_fd("numeric argument required", 2);
-			status = 0xff;
+			ft_putendl_fd(MSG_ARG_NOTNUM, STDERR_FILENO);
+			status = STATUS_MASK;
 		}
 	}
 	else
 	{
-		ft_putendl_fd("too many arguments", 2);
-		return (1);
+		ft_putendl_fd(MSG_ARG_MANY, STDERR_FILENO);
+		return (STATUS_FAILURE);
 	}
 	exit(status);
 }
