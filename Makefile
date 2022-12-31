@@ -6,7 +6,7 @@
 #    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/31 12:25:05 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/31 12:36:41 by t.fuji           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,9 @@ SRC				= ms_main.c \
 				  ms_builtin_export.c \
 				  ms_builtin_pwd.c \
 				  ms_builtin_unset.c \
-				  ms_lst2map.c \
-				  ms_mapclear.c \
-				  ms_mapsize.c \
+				  ms_map_lst2map.c \
+				  ms_map_clear.c \
+				  ms_map_size.c \
 				  ms_strisdigit.c \
 				  ms_utils.c
 

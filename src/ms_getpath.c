@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:19:59 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 12:35:27 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ms_getpath_envpath(char *name)
 	if (envpath_split == NULL)
 		return (NULL);
 	cmdpath = ms_getpath_envpath_iter(name, envpath_split);
-	envpath_split = ms_mapclear(envpath_split, ms_mapsize(envpath_split));
+	envpath_split = ms_map_clear(envpath_split, ms_map_size(envpath_split));
 	if (!cmdpath)
 		cmdpath = ft_strdup("");
 	return (cmdpath);
@@ -78,7 +78,7 @@ char	*ms_getpath_envpath_iter(char *name, char **envpath_split)
 	{
 		cmdpath = ms_getpath_join(envpath_split[i], name);
 		if (cmdpath == NULL)
-			return (ms_mapclear(envpath_split, ms_mapsize(envpath_split)));
+			return (ms_map_clear(envpath_split, ms_map_size(envpath_split)));
 		stat(cmdpath, &stat_buf);
 		if ((stat_buf.st_mode & S_IFMT) == S_IFREG)
 			return (cmdpath);

@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 16:23:46 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 12:35:42 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ms_exec_in_child_process(t_cmd *cmd)
 	t_cmd	*now_cmd;
 	char	**envp;
 
-	envp = ms_lst2map(g_shell.environ);
+	envp = ms_map_lst2map(g_shell.environ);
 	if (envp == NULL)
 		return ;
 	ms_init_fd(prev_pipe);
