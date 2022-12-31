@@ -7,3 +7,6 @@
 # define INVALID_FD				-1
 
 # define CHRS_PLAIN_DELIM		"\'\"$"
+
+# define LEN_QUOTE_CLOSED		2
+# define LEN_QUOTE_UNCLOSED		1

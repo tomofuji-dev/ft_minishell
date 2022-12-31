@@ -6,11 +6,12 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:08:14 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:12:02 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "minishell_tfujiwar.h"
 
 char		*ms_lexer_string(char *line);
 static void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head);
@@ -53,19 +54,19 @@ static void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head)
 
 	stride = ms_lexer_tokenlen_quoted(&line[*pos]);
 	errno = 0;
-	if (stride > 2)
+	if (stride > LEN_QUOTE_CLOSED)
 	{
 		ms_lstadd_back_substr(head, line, *pos + 1, stride - 2);
 		if (errno == ENOMEM)
 			ms_lstclear_return_null(head);
 	}
-	else if (stride == 2)
+	else if (stride == LEN_QUOTE_CLOSED)
 	{
 		ft_lstadd_back(head, ft_lstnew(ft_strdup("")));
 		if (errno == ENOMEM)
 			ms_lstclear_return_null(head);
 	}
-	else if (stride == 1)
+	else if (stride == LEN_QUOTE_UNCLOSED)
 	{
 		ft_lstadd_back(head, ft_lstnew(ft_strdup("\'")));
 		if (errno == ENOMEM)
@@ -80,20 +81,20 @@ static void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head)
 
 	stride = ms_lexer_tokenlen_quoted(&line[*pos]);
 	errno = 0;
-	if (stride > 2)
+	if (stride > LEN_QUOTE_CLOSED)
 	{
 		ft_lstadd_back(head, \
 				ms_expand_envvar_dquote(&line[*pos + 1], stride - 2));
 		if (errno == ENOMEM)
 			ms_lstclear_return_null(head);
 	}
-	else if (stride == 2)
+	else if (stride == LEN_QUOTE_CLOSED)
 	{
 		ft_lstadd_back(head, ft_lstnew(ft_strdup("")));
 		if (errno == ENOMEM)
 			ms_lstclear_return_null(head);
 	}
-	else if (stride == 1)
+	else if (stride == LEN_QUOTE_UNCLOSED)
 	{
 		ft_lstadd_back(head, ft_lstnew(ft_strdup("\"")));
 		if (errno == ENOMEM)
