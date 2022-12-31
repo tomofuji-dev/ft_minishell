@@ -6,11 +6,12 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 14:46:41 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:43:40 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "minishell_tfujiwar.h"
 
 int			main(int argc, char *argv[], char *envp[]);
 static char	*ms_readline(void);
@@ -53,7 +54,7 @@ static char	*ms_readline(void)
 	ms_sigset_noquit();
 	rl_done = 0;
 	rl_event_hook = NULL;
-	line = readline("minishell $ ");
+	line = readline(PROMPT_MINISH);
 	if (line == NULL)
 		return (NULL);
 	return (line);

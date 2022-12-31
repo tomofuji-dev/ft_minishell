@@ -2,6 +2,10 @@
 
 # define MSG_SIG_QUIT			"Quit: 3"
 # define MSG_SYNTAX_ERR			"syntax error"
+# define MSG_HEREDOC_EOF		"here-document delimited end-of-file"
+
+# define PROMPT_MINISH			"minishell $ "
+# define PROMPT_HREDOC			"> "
 
 # define END_OF_IO				-1
 # define INVALID_FD				-1
