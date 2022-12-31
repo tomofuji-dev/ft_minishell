@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 14:29:59 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:39:05 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ static bool	ms_parser_output_sub(t_fd *output, t_token *token, size_t *i_token)
 		(*i_token)++;
 	}
 	output[i_output].path = NULL;
-	output[i_output].fd = END_OF_OUTPUT;
+	output[i_output].fd = END_OF_IO;
 	return (true);
 }

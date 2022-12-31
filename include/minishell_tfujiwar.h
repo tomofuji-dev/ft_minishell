@@ -3,4 +3,5 @@
 # define MSG_SIG_QUIT	"Quit: 3"
 # define MSG_SYNTAX_ERR	"syntax error"
 
-# define END_OF_OUTPUT	-1
+# define END_OF_IO		-1
+# define INVALID_FD		-1

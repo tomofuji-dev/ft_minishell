@@ -6,11 +6,12 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/30 16:25:33 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 14:39:00 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "minishell_tfujiwar.h"
 
 t_fd		*ms_parser_cmdnew_input(t_token *token, size_t i_token);
 static bool	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token);
@@ -24,7 +25,8 @@ t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 
 	size = ms_parser_cmdnew_fdsize(token, i_token, FLAG_IN);
 	if (size == SIZE_INVALID)
-		return (print_err_set_status_return_null("syntax error", 2));
+		return (print_err_set_status_return_null(\
+				MSG_SYNTAX_ERR, STDERR_FILENO));
 	input = (t_fd *)malloc((size + 1) * sizeof(t_fd));
 	if (input == NULL)
 		exit(EXIT_FAILURE);
@@ -38,7 +40,8 @@ t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 				g_shell.status = 0;
 			return (NULL);
 		}
-		return (print_err_set_status_return_null(strerror(errno), 1));
+		return (print_err_set_status_return_null(\
+				strerror(errno), STDOUT_FILENO));
 	}
 	return (input);
 }
@@ -63,7 +66,7 @@ static bool	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token)
 		(*i_token)++;
 	}
 	input[i_input].path = NULL;
-	input[i_input].fd = -1;
+	input[i_input].fd = END_OF_IO;
 	return (true);
 }
 
@@ -80,7 +83,7 @@ static int	get_heredoc_pipe(const char *eof)
 	else
 	{
 		ms_fd_close(fd);
-		return (-1);
+		return (INVALID_FD);
 	}
 }
 
@@ -88,7 +91,7 @@ static int	is_heredoc_sigint(void)
 {
 	if (g_shell.heredoc_sigint)
 		rl_done = 1;
-	return (0);
+	return (STATUS_SUCCESS);
 }
 
 static bool	get_heredoc_txt(const char *eof, int fd)
