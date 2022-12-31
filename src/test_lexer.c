@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/14 23:36:33 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/29 00:58:52 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 void	test_ms_lexer_endpos(void)
 {
-	char	str[] = "a b  c>bc<def>>ghij<<klm>>>n<<<<op><q|rs||tu|<vw|>x\'y\"z|><12\'34\"56\'78\"9ab\"cdefghi";
-	char	*cur;
-	size_t	s;
+	const char	str[] = "a b  c>bc<def>>ghij<<klm>>>n<<<<o\
+	p><q|rs||tu|<vw|>x\'y\"z|><12\'34\"56\'78\"9ab\"cdefghi";
+	char		*cur;
+	size_t		s;
 
 	cur = str;
 	while (*cur != '\0')

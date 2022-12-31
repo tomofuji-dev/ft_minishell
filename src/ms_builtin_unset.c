@@ -6,43 +6,37 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 10:42:18 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 06:21:46 by Yoshihiro K      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ms_builtin_export.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 12:39:51 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 10:41:46 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:25:13 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ms_builtin_unset(char *argv[]);
-void	ms_search_env_and_unset(char *env_key);
+int			ms_builtin_unset(char *argv[]);
+static void	ms_search_env_and_unset(char *env_key);
 
 int	ms_builtin_unset(char *argv[])
 {
 	int	return_status;
 	int	i;
 
+	return_status = STATUS_SUCCESS;
 	i = 1;
 	while (argv[i] != NULL)
 	{
+		if (ms_is_validenv(argv[i]) == false)
+		{
+			printf(MSG_INVAL_ID, CMD_UNSET, argv[i++]);
+			return_status = STATUS_FAILURE;
+			continue ;
+		}
 		ms_search_env_and_unset(argv[i]);
 		i++;
 	}
-	return_status = 0;
 	return (return_status);
 }
 
-void	ms_search_env_and_unset(char *env_key)
+static void	ms_search_env_and_unset(char *env_key)
 {
 	t_list	*cur;
 	t_list	*prev;
@@ -70,4 +64,3 @@ void	ms_search_env_and_unset(char *env_key)
 		}
 	}
 }
-

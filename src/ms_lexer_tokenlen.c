@@ -6,16 +6,16 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:54:46 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/13 05:35:40 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 16:43:42 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	ms_lexer_tokenlen(char *line);
-size_t	ms_lexer_tokenlen_delim(char *line);
-size_t	ms_lexer_tokenlen_quoted(char *line);
-size_t	ms_lexer_tokenlen_plain(char *line);
+size_t			ms_lexer_tokenlen(char *line);
+static size_t	ms_lexer_tokenlen_delim(char *line);
+size_t			ms_lexer_tokenlen_quoted(char *line);
+size_t			ms_lexer_tokenlen_plain(char *line);
 
 size_t	ms_lexer_tokenlen(char *line)
 {
@@ -28,7 +28,7 @@ size_t	ms_lexer_tokenlen(char *line)
 		return (ms_lexer_tokenlen_delim(line + pos));
 	while (*(line + pos))
 	{
-		if (ft_strchr(CHRS_QUOTE, *(line + pos)))
+		if (ft_strchr(&CHRS_QUOTE[1], *(line + pos)))
 			pos += ms_lexer_tokenlen_quoted(line + pos);
 		else if (ft_strchr(CHRS_DELIM, *(line + pos)))
 			return (pos);
@@ -38,7 +38,7 @@ size_t	ms_lexer_tokenlen(char *line)
 	return (pos);
 }
 
-size_t	ms_lexer_tokenlen_delim(char *line)
+static size_t	ms_lexer_tokenlen_delim(char *line)
 {
 	int		ch;
 	size_t	pos;
@@ -57,7 +57,7 @@ size_t	ms_lexer_tokenlen_quoted(char *line)
 	int		ch;
 	char	*line_end;
 
-	if (!ft_strchr(CHRS_QUOTE, *line))
+	if (!ft_strchr(&CHRS_QUOTE[1], *line))
 		return (0);
 	ch = *line;
 	line_end = ft_strchr(line + 1, ch);
@@ -68,11 +68,10 @@ size_t	ms_lexer_tokenlen_quoted(char *line)
 
 size_t	ms_lexer_tokenlen_plain(char *line)
 {
-	const char	*plain_delim = "\'\"$";
 	size_t		i;
 
 	i = 0;
-	while (line[i] && !ft_strchr(plain_delim, line[i]))
+	while (line[i] && !ft_strchr(CHRS_QUOTE, line[i]))
 		i++;
 	return (i);
 }

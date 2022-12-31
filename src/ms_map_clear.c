@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_builtin.c                                     :+:      :+:    :+:   */
+/*   ms_map_clear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/29 01:04:58 by Yoshihiro K      ###   ########.fr       */
+/*   Created: 2022/11/09 13:03:00 by ykosaka           #+#    #+#             */
+/*   Updated: 2022/12/31 12:34:31 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[])
+void	*ms_map_clear(char **map, size_t size)
 {
-	int	(*builtin)(char *arg[]);
+	size_t	i;
 
-	if (argc <= 1)
-		return (1);
-	builtin = ms_builtin_getfunc(&argv[1]);
-	if (builtin)
-		builtin(&argv[1]);
-	return (0);
+	if (map == NULL)
+		return (NULL);
+	i = 0;
+	while (i < size)
+		free(map[i++]);
+	free(map);
+	map = NULL;
+	return (NULL);
 }

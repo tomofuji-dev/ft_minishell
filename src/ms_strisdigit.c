@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_lst2map.c                                       :+:      :+:    :+:   */
+/*   ms_strisdigit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:03:00 by ykosaka           #+#    #+#             */
-/*   Updated: 2022/12/22 10:26:27 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 22:07:28 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ms_lst2map(t_list **lst)
+bool	ms_strisdigit(char *str)
 {
-	char	**map;
-	t_list	*ele;
-	size_t	size;
-	size_t	i;
-
-	size = ft_lstsize(*lst);
-	ele = *lst;
-	map = (char **)malloc((size + 1) * sizeof(char *));
-	if (map == NULL)
-		return (NULL);
-	i = 0;
-	while (i < size)
+	if (str == NULL || *str == '\0')
+		return (false);
+	while (*str)
 	{
-		map[i] = ele->content;
-		ele = ele->next;
-		i++;
+		if (!ft_isdigit(*str))
+			return (false);
+		str++;
 	}
-	map[i] = NULL;
-	ft_lstclear(lst, NULL);
-	return (map);
+	return (true);
 }

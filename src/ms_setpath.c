@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_builtin.c                                       :+:      :+:    :+:   */
+/*   ms_setpath.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/23 06:22:30 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/26 21:06:15 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	(*ms_builtin_getfunc(char *arg))(char *argv[])
+void	ms_setpath_home(char *path, char *arg);
+void	ms_setpath_absolute(char *path, char *arg);
+void	ms_setpath_relative(char *path, char *arg);
+
+void	ms_setpath_home(char *path, char *arg)
 {
-	if (ft_strcmp(arg, "echo") == 0)
-		return (ms_builtin_echo);
-	else if (ft_strcmp(arg, "cd") == 0)
-		return (ms_builtin_cd);
-	else if (ft_strcmp(arg, "pwd") == 0)
-		return (ms_builtin_pwd);
-	else if (ft_strcmp(arg, "export") == 0)
-		return (ms_builtin_export);
-	else if (ft_strcmp(arg, "unset") == 0)
-		return (ms_builtin_unset);
-	else if (ft_strcmp(arg, "env") == 0)
-		return (ms_builtin_env);
-	else if (ft_strcmp(arg, "exit") == 0)
-		return (ms_builtin_exit);
-	return (NULL);
+	ft_strlcpy(path, ms_getenv_val(ENV_HOME), PATH_MAX + 1);
+	ft_strlcat(path, &arg[1], PATH_MAX + 1);
+}
+
+void	ms_setpath_absolute(char *path, char *arg)
+{
+	ft_strlcpy(path, arg, PATH_MAX + 1);
+}
+
+void	ms_setpath_relative(char *path, char *arg)
+{
+	ft_strlcpy(path, ms_getenv_val(ENV_PWD), PATH_MAX + 1);
+	ft_strlcat(path, STR_DIR, PATH_MAX + 1);
+	ft_strlcat(path, arg, PATH_MAX + 1);
 }

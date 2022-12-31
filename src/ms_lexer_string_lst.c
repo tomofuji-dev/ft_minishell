@@ -3,38 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_lst.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:12:29 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/12 15:35:16 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:21:14 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*ms_lstclear_return_null(t_list **head);
-void	ms_lstadd_back_substr(t_list **head, char *line, \
-								size_t pos, size_t len);
-char	*ms_linkedls_to_str(t_list *head);
+void	ms_lexer_string_lstadd_back_substr(t_list **head, char *line, \
+			size_t pos, size_t len);
+char	*ms_lexer_string_lst_strjoin(t_list *head);
 
-void	*ms_lstclear_return_null(t_list **head)
-{
-	ft_lstclear(head, &free);
-	return (NULL);
-}
-
-void	ms_lstadd_back_substr(t_list **head, char *line, size_t pos, size_t len)
+void	ms_lexer_string_lstadd_back_substr(t_list **head, char *line, \
+	size_t pos, size_t len)
 {
 	char	*substr;
 
 	substr = ft_substr(line, pos, len);
 	if (substr == NULL)
-		return ;
+		exit(EXIT_FAILURE);
 	ft_lstadd_back(head, ft_lstnew(substr));
 	return ;
 }
 
-char	*ms_linkedls_to_str(t_list *head)
+char	*ms_lexer_string_lst_strjoin(t_list *head)
 {
 	size_t	joined_str_size;
 	char	*joined_str;
@@ -49,8 +43,8 @@ char	*ms_linkedls_to_str(t_list *head)
 		cur = cur->next;
 	}
 	joined_str = ft_calloc(joined_str_size + 1, sizeof(char));
-	if (errno == ENOMEM)
-		return (NULL);
+	if (joined_str == NULL)
+		exit(EXIT_FAILURE);
 	cur = head;
 	while (cur != NULL)
 	{

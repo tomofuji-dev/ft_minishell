@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exec_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/23 15:37:42 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:37:33 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_exec_in_child_process(t_cmd *cmd);
-void	\
-ms_exec_a_cmd(t_cmd *cmd, int prev_pipe[2], int now_pipe[2], char **envp);
-void	ms_close_pipe(int fd[2]);
-void	ms_copy_pipe(int dest[2], int src[2]);
-void	ms_wait_all(t_cmd *cmd_lst);
+void		ms_exec_in_child_process(t_cmd *cmd);
+static void	ms_exec_a_cmd(t_cmd *cmd, \
+	int prev_pipe[2], int now_pipe[2], char **envp);
+static void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp);
+static void	ms_wait_all(t_cmd *cmd_lst);
+static void	ms_handle_status(int status);
 
 void	ms_exec_in_child_process(t_cmd *cmd)
 {
@@ -26,18 +26,20 @@ void	ms_exec_in_child_process(t_cmd *cmd)
 	t_cmd	*now_cmd;
 	char	**envp;
 
-	envp = ms_lst2map(&g_shell.environ);
+	envp = ms_map_lst2map(g_shell.environ);
 	if (envp == NULL)
 		return ;
-	prev_pipe[0] = 0;
-	prev_pipe[1] = 1;
+	ms_init_fd(prev_pipe);
 	now_cmd = cmd;
 	while (now_cmd != NULL)
 	{
-		pipe(now_pipe);
+		if (now_cmd->next != NULL)
+			pipe(now_pipe);
+		else
+			ms_init_fd(now_pipe);
 		ms_exec_a_cmd(now_cmd, prev_pipe, now_pipe, envp);
-		ms_close_pipe(prev_pipe);
-		ms_copy_pipe(prev_pipe, now_pipe);
+		ms_fd_close(prev_pipe);
+		ms_fd_copy(prev_pipe, now_pipe);
 		now_cmd = now_cmd->next;
 	}
 	free(envp);
@@ -51,36 +53,49 @@ void	\
 
 	fd[0] = prev_pipe[0];
 	fd[1] = now_pipe[1];
-	if (cmd->input->fd >= 0)
-		fd[0] = cmd->input->fd;
-	if (cmd->output->fd >= 0)
-		fd[1] = cmd->output->fd;
+	if (ms_fd_last_fd(cmd->input) > 0)
+		fd[0] = ms_fd_last_fd(cmd->input);
+	if (ms_fd_last_fd(cmd->output) > 0)
+		fd[1] = ms_fd_last_fd(cmd->output);
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
-		dup2(fd[0], 0);
-		dup2(fd[1], 1);
-		ms_close_pipe(fd);
-		ms_close_pipe(prev_pipe);
-		ms_close_pipe(now_pipe);
-		execve(cmd->path, cmd->arg, envp);
+		dup2(fd[0], STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
+		ms_fd_close(fd);
+		ms_fd_close(prev_pipe);
+		ms_fd_close(now_pipe);
+		ms_exec_a_cmd_sub(cmd, envp);
 	}
+}
+
+void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp)
+{
+	int		(*builtin)(char *arg[]);
+
+	if (cmd->path[0] == '\0')
+	{
+		ft_putendl_fd(MSG_NO_CMD, STDERR_FILENO);
+		exit(STATUS_NO_CMD);
+	}
+	if (ms_is_directory(cmd->path))
+	{
+		ft_putendl_fd(MSG_ISDIR, STDERR_FILENO);
+		exit(STATUS_NOT_EXEC);
+	}
+	builtin = ms_builtin_getfunc(cmd->arg[0]);
+	if (builtin != NULL)
+		exit(builtin(cmd->arg));
 	else
-		return ;
-}
-
-void	ms_close_pipe(int fd[2])
-{
-	if (fd[0] != 0)
-		close(fd[0]);
-	if (fd[1] != 1)
-		close(fd[1]);
-}
-
-void	ms_copy_pipe(int dest[2], int src[2])
-{
-	dest[0] = src[0];
-	dest[1] = src[1];
+	{
+		errno = ERR_NOERR;
+		execve(cmd->path, cmd->arg, envp);
+		if (errno != ERR_NOERR)
+			ft_putendl_fd(strerror(errno), 2);
+		if (errno == ENOENT)
+			exit(STATUS_NO_CMD);
+		exit(STATUS_NOT_EXEC);
+	}
 }
 
 void	ms_wait_all(t_cmd *cmd_lst)
@@ -92,8 +107,18 @@ void	ms_wait_all(t_cmd *cmd_lst)
 	while (now_cmd != NULL)
 	{
 		waitpid(now_cmd->pid, &status, 0);
+		ms_handle_status(status);
 		now_cmd = now_cmd->next;
 	}
-	g_shell.status = status;
+	g_shell.kill_child = false;
+	ms_fd_close_all_cmd(cmd_lst);
 	return ;
+}
+
+void	ms_handle_status(int status)
+{
+	if (WIFEXITED(status) && g_shell.kill_child == false)
+		g_shell.status = WEXITSTATUS(status);
+	else
+		return ;
 }

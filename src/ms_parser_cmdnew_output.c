@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_output.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 13:11:41 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@ t_fd	*ms_parser_cmdnew_output(t_token *token, size_t i_token)
 
 	size = ms_parser_cmdnew_fdsize(token, i_token, FLAG_OUT);
 	if (size == SIZE_INVALID)
-		return (NULL);
+		return (print_err_set_status_return_null(\
+				MSG_SYNTAX_ERR, STDERR_FILENO));
 	output = (t_fd *)malloc((size + 1) * sizeof(t_fd));
 	if (output == NULL)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	if (ms_parser_output_sub(output, token, &i_token) == false)
 	{
 		free(output);
-		return (NULL);
+		return (print_err_set_status_return_null(\
+				strerror(errno), STDOUT_FILENO));
 	}
 	return (output);
 }
@@ -43,12 +45,12 @@ static bool	ms_parser_output_sub(t_fd *output, t_token *token, size_t *i_token)
 	{
 		if ((token[*i_token].flag & FLAG_OUT) == FLAG_OUT)
 		{
-			if (token[*i_token].flag == FLAG_OUT)
-				output[i_output].fd = open(token[++(*i_token)].str, \
-										O_WRONLY | O_CREAT | O_TRUNC, 0666);
-			else if (token[*i_token].flag == FLAG_APPEND)
+			if (token[*i_token].flag == FLAG_APPEND)
 				output[i_output].fd = open(token[++(*i_token)].str, \
 										O_WRONLY | O_CREAT | O_APPEND, 0666);
+			else
+				output[i_output].fd = open(token[++(*i_token)].str, \
+										O_WRONLY | O_CREAT | O_TRUNC, 0666);
 			if (output[i_output].fd < 0)
 				return (false);
 			output[i_output++].path = token[*i_token].str;
@@ -56,5 +58,6 @@ static bool	ms_parser_output_sub(t_fd *output, t_token *token, size_t *i_token)
 		(*i_token)++;
 	}
 	output[i_output].path = NULL;
+	output[i_output].fd = INVALID_FILENO;
 	return (true);
 }

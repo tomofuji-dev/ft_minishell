@@ -3,42 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/19 16:03:30 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:38:28 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ms_isenvchar(int c);
-t_list	*ms_expand_special_env(char *line, size_t *pos);
-t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len);
-t_list	*ms_expand_envvar_dquote(char *line, size_t len);
+t_list			*ms_expand_envvar_dquote(char *line, size_t len);
+t_list			*ms_expand_envvar(char *line, size_t *pos, size_t len);
+bool			ms_isenvchar(int c);
+static t_list	*ms_expand_special_env(char *line, size_t *pos);
 
-bool	ms_isenvchar(int c)
+t_list	*ms_expand_envvar_dquote(char *line, size_t len)
 {
-	return (ft_isalnum(c) || c == '_');
+	size_t	pos;
+	char	*dollar;
+	t_list	*head;
+
+	head = NULL;
+	pos = 0;
+	while (pos < len)
+	{
+		dollar = ft_strchr(&line[pos], CHRS_QUOTE[0]);
+		errno = 0;
+		if (dollar == &line[pos])
+			ft_lstadd_back(&head, ms_expand_envvar(line, &pos, len - pos));
+		else
+		{
+			if (dollar == NULL || dollar >= line + len)
+				dollar = line + len;
+			ms_lexer_string_lstadd_back_substr(&head, line, \
+				pos, dollar - &line[pos]);
+			pos = dollar - line;
+		}
+		if (errno == ENOMEM)
+			exit(EXIT_FAILURE);
+	}
+	return (head);
 }
 
-t_list	*ms_expand_special_env(char *line, size_t *pos)
-{
-	if (line[*pos] == '?')
-	{
-		*pos += 1;
-		return (ft_lstnew(ft_strdup("?")));
-	}
-	else if (ft_isdigit(line[*pos]))
-	{
-		*pos += 1;
-		return (ft_lstnew(ft_strdup("")));
-	}
-	return (NULL);
-}
-
-// "$abc def" -> return "($abc_expanded)", and pos is set to " def"
-// len is range to search
 t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 {
 	size_t	i;
@@ -52,42 +58,34 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	while (i + 1 < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))
 		i++;
 	if (i == 0)
-		return (ft_lstnew(ft_strdup("$")));
+		return (ft_lstnew(ft_strdup(STR_EXPAND)));
 	env_key = ft_substr(line, *pos, i);
 	*pos += i;
-	if (errno == ENOMEM)
+	if (env_key == NULL)
 		exit(EXIT_FAILURE);
-	env_val = getenv(env_key);
+	env_val = ms_getenv_val(env_key);
 	free(env_key);
 	if (env_val == NULL)
 		return (NULL);
 	return (ft_lstnew(ft_strdup(env_val)));
 }
 
-// "abc $var def" -> "abc (expanded) def"
-// line: not include dquote
-t_list	*ms_expand_envvar_dquote(char *line, size_t len)
+bool	ms_isenvchar(int c)
 {
-	size_t	pos;
-	char	*dollar;
-	t_list	*head;
+	return (ft_isalnum(c) || c == CHR_SNAKE);
+}
 
-	head = NULL;
-	pos = 0;
-	while (pos < len)
+static t_list	*ms_expand_special_env(char *line, size_t *pos)
+{
+	if (line[*pos] == CHR_STATUS)
 	{
-		dollar = ft_strchr(&line[pos], '$');
-		if (dollar == &line[pos])
-			ft_lstadd_back(&head, ms_expand_envvar(line, &pos, len - pos));
-		else
-		{
-			if (dollar == NULL || dollar >= line + len)
-				dollar = line + len;
-			ms_lstadd_back_substr(&head, line, pos, dollar - &line[pos]);
-			pos = dollar - line;
-		}
-		if (errno == ENOMEM)
-			return (ms_lstclear_return_null(&head));
+		*pos += 1;
+		return (ft_lstnew(ft_itoa(g_shell.status)));
 	}
-	return (head);
+	else if (ft_isdigit(line[*pos]))
+	{
+		*pos += 1;
+		return (ft_lstnew(ft_strdup(STR_EMPTY)));
+	}
+	return (NULL);
 }

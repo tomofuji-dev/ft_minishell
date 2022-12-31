@@ -6,7 +6,7 @@
 #    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/23 06:26:30 by Yoshihiro K      ###   ########.fr        #
+#    Updated: 2022/12/31 16:17:37 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ OS				= $(shell uname)
 # Enumeration of files
 SRC				= ms_main.c \
 				  ms_init.c \
+				  ms_sigset.c \
+				  ms_sighandler.c \
 				  ms_lexer.c \
 				  ms_lexer_gettoken.c \
 				  ms_lexer_string.c \
@@ -36,10 +38,12 @@ SRC				= ms_main.c \
 				  ms_parser_cmdnew_output.c \
 				  ms_parser_cmdnew_fdsize.c \
 				  ms_getpath.c \
+				  ms_setpath.c \
+				  ms_exec.c \
 				  ms_exec_builtin.c \
 				  ms_exec_child.c \
+				  ms_fd.c \
 				  ms_env.c \
-				  ms_builtin.c \
 				  ms_builtin_cd.c \
 				  ms_builtin_echo.c \
 				  ms_builtin_env.c \
@@ -47,7 +51,11 @@ SRC				= ms_main.c \
 				  ms_builtin_export.c \
 				  ms_builtin_pwd.c \
 				  ms_builtin_unset.c \
-				  ms_lst2map.c \
+				  ms_lstclear.c \
+				  ms_map_lst2map.c \
+				  ms_map_clear.c \
+				  ms_map_size.c \
+				  ms_strisdigit.c \
 				  ms_utils.c
 
 ifneq (, $(findstring test_, $(MAKECMDGOALS)))
@@ -74,8 +82,9 @@ RM				= rm
 CFLAGS			= -MMD -Wall -Wextra -Werror
 DEBUGCFLAGS		= -g -ggdb -fno-omit-frame-pointer
 ifneq ($(OS), Darwin)
-	DEBUGCFLAGS	+= -fstack-usage		
+	DEBUGCFLAGS	+= -fstack-usage
 endif
+
 DEBUGLDFLAGS	= -fsanitize=address
 INCLUDES		= -I$(INCDIR) -I$(LIBDIR)/include
 RMFLAGS			= -r
@@ -94,6 +103,11 @@ ifneq (, $(findstring test_, $(MAKECMDGOALS)))
 	CFLAGS		+= $(DEBUGCFLAGS)
 	LDFLAGS		+= $(DEBUGLDFLAGS)
 	DEF			= -D DEBUG_MODE=1
+endif
+
+ifeq ($(OS), Darwin)
+	INCLUDES	+= -I$(shell brew --prefix readline)/include/
+	LDFLAGS 	= -L$(shell brew --prefix readline)/lib -lreadline
 endif
 
 # ********************* Section for targets and commands ********************* #
@@ -134,3 +148,12 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 -include $(DEPS)
 
 # ******** ******** ******** ******** **** ******** ******** ******** ******** #
+
+
+# Linux OS
+# sudo apt install libreadline-dev
+
+# mac OS
+# curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+# brew install readline
+# brew update && brew upgrade

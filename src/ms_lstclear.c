@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_builtin.c                                     :+:      :+:    :+:   */
+/*   ms_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/29 01:04:58 by Yoshihiro K      ###   ########.fr       */
+/*   Created: 2022/12/11 16:12:29 by tfujiwar          #+#    #+#             */
+/*   Updated: 2022/12/31 16:17:10 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[])
+void	*ms_lstclear_return_null(t_list **head)
 {
-	int	(*builtin)(char *arg[]);
-
-	if (argc <= 1)
-		return (1);
-	builtin = ms_builtin_getfunc(&argv[1]);
-	if (builtin)
-		builtin(&argv[1]);
-	return (0);
+	ft_lstclear(head, &free);
+	return (NULL);
 }

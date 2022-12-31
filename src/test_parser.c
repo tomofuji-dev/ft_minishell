@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/19 15:40:24 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/29 00:54:56 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int	main(int argc, char *argv[])
 	printf("parsing\n");
 	cmd = ms_parser(token);
 	printf("printing\n");
+	sub(cmd);
+	return (0);
+}
+
+int	sub(t_cmd *cmd)
+{
 	while (cmd != NULL)
 	{
 		printf("path: %s\n", cmd->path);
@@ -48,5 +54,4 @@ int	main(int argc, char *argv[])
 		printf("\n");
 		cmd = cmd->next;
 	}
-	return (0);
 }

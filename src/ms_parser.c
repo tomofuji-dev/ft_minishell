@@ -6,15 +6,15 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/16 15:01:28 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*ms_parser(t_token *token);
-void	*clear_cmd_and_return_null(t_cmd *head);
-void	free_string_lst(char **lst, size_t size);
+t_cmd		*ms_parser(t_token *token);
+void		*ms_clear_cmd_and_return_null(t_cmd *head);
+static bool	ms_parser_chktokenflag(t_token *token);
 
 t_cmd	*ms_parser(t_token *token)
 {
@@ -22,12 +22,15 @@ t_cmd	*ms_parser(t_token *token)
 	t_cmd	*head;
 	t_cmd	*cur;
 
+	g_shell.heredoc_sigint = false;
+	if (!ms_parser_chktokenflag(token))
+		return (print_err_set_status_return_null(\
+				MSG_SYNTAX_ERR, STDERR_FILENO));
 	idx = 0;
 	head = ms_parser_cmdnew(token, &idx);
 	if (head == NULL)
 		return (NULL);
 	cur = head;
-//	while (token[idx++].flag == FLAG_PIPE && token[idx].str)
 	while (token[idx++].flag == FLAG_PIPE)
 	{
 		cur->next = ms_parser_cmdnew(token, &idx);
@@ -35,33 +38,44 @@ t_cmd	*ms_parser(t_token *token)
 			cur->next->prev = cur;
 		cur = cur->next;
 		if (cur == NULL)
-			return (clear_cmd_and_return_null(head));
+			return (ms_clear_cmd_and_return_null(head));
 	}
 	return (head);
 }
 
-void	*clear_cmd_and_return_null(t_cmd *head)
+void	*ms_clear_cmd_and_return_null(t_cmd *head)
 {
 	t_cmd	*cur;
+	t_cmd	*next;
 
 	cur = head;
 	while (cur != NULL)
 	{
-		// free(cur->path);
-//		free_string_lst(cur->arg, sizeof(cur->arg) / sizeof(char *));
+		next = cur->next;
+		free(cur->path);
+		free(cur->arg);
 		free(cur->input);
 		free(cur->output);
-		cur = cur->next;
+		free(cur);
+		cur = next;
 	}
 	return (NULL);
 }
 
-void	free_string_lst(char **lst, size_t size)
+static bool	ms_parser_chktokenflag(t_token *token)
 {
-	size_t	i;
+	size_t	idx;
 
-	i = 0;
-	while (i < size)
-		free(lst[i++]);
-	free(lst);
+	idx = 0;
+	if (token[idx].flag == FLAG_PIPE)
+		return (false);
+	while (token[idx].str != NULL)
+	{
+		if (token[idx].flag == 0)
+			return (false);
+		idx++;
+	}
+	if (idx > 0 && token[idx - 1].flag == FLAG_PIPE)
+		return (false);
+	return (true);
 }
