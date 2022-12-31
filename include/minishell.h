@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:50:08 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 16:30:07 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@
 # define CHR_SEP		':'
 # define CHR_EQUAL		'='
 # define CHR_SNAKE		'_'
+# define CHR_STATUS		'?'
 
+# define STR_EMPTY		""
 # define STR_DIR		"/"
 # define STR_OLDPWD		"-"
 # define STR_QUOTE		"\""
+# define STR_EXPAND		"$"
 
 # define CMD_CD			"cd"
 # define CMD_ECHO		"echo"
@@ -82,12 +85,14 @@
 
 # define SIZE_INVALID	-1
 
+# define FLAG_NONE		0x00
 # define FLAG_STRING	0x10
 # define FLAG_IN		0x20
 # define FLAG_HEREDOC	0x22
 # define FLAG_OUT		0x40
 # define FLAG_APPEND	0x44
 # define FLAG_PIPE		0x80
+# define SHIFT_FLAG		4
 
 typedef struct sigaction	t_sa;
 
@@ -133,10 +138,8 @@ void	ms_sighandler_exec(int signum, siginfo_t *info, void *context);
 t_token	*ms_lexer(char *line);
 
 void	ms_lexer_gettoken(t_token *token, char *line);
-int		ms_lexer_gettoken_classify(char *line);
 
 size_t	ms_lexer_tokenlen(char *line);
-size_t	ms_lexer_tokenlen_delim(char *line);
 size_t	ms_lexer_tokenlen_quoted(char *line);
 size_t	ms_lexer_tokenlen_plain(char *line);
 
@@ -158,10 +161,9 @@ char	*ms_getenv_val(char *env_key);
 bool	ms_is_same_envkey(char *dest, char *src);
 bool	ms_is_validenv(char *env_candidate);
 
-void	*ms_lstclear_return_null(t_list **head);
-void	ms_lstadd_back_substr(t_list **head, char *line, \
-								size_t pos, size_t len);
-char	*ms_linkedls_to_str(t_list *head);
+void	ms_lexer_string_lstadd_back_substr(t_list **head, char *line, \
+			size_t pos, size_t len);
+char	*ms_lexer_string_lst_strjoin(t_list *head);
 
 char	*ms_getpath_cmd(char *name);
 char	*ms_getpath_relative(char *name);
@@ -194,6 +196,7 @@ int		ms_builtin_unset(char *argv[]);
 size_t	ms_strlst_count(char *str_lst[]);
 void	ms_strlst_cpy(char **dest, char **src);
 void	ms_strlst_free(char *argv[]);
+void	*ms_lstclear_return_null(t_list **head);
 char	**ms_map_lst2map(t_list *lst);
 void	*ms_map_clear(char **map, size_t size);
 size_t	ms_map_size(char **map);

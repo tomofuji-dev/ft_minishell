@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:28:32 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:31:08 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ char	*ms_lexer_string(char *line)
 	head = NULL;
 	while (line[pos])
 	{
-		if (line[pos] == '\'')
+		if (line[pos] == CHRS_QUOTE[1])
 			ms_lexer_string_quote(line, &pos, &head);
-		else if (line[pos] == '\"')
+		else if (line[pos] == CHRS_QUOTE[0])
 			ms_lexer_string_dquote(line, &pos, &head);
-		else if (line[pos] == '$')
+		else if (line[pos] == *STR_EXPAND)
 			ms_lexer_string_dollar(line, &pos, &head);
 		else
 			ms_lexer_string_plain(line, &pos, &head);
 	}
 	if (head == NULL)
 		return (NULL);
-	expand_str = ms_linkedls_to_str(head);
+	expand_str = ms_lexer_string_lst_strjoin(head);
 	ft_lstclear(&head, &free);
 	return (expand_str);
 }
@@ -53,19 +53,19 @@ static void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head)
 	errno = 0;
 	if (stride > LEN_QUOTE_CLOSED)
 	{
-		ms_lstadd_back_substr(head, line, *pos + 1, stride - 2);
+		ms_lexer_string_lstadd_back_substr(head, line, *pos + 1, stride - 2);
 		if (errno == ENOMEM)
 			exit(EXIT_FAILURE);
 	}
 	else if (stride == LEN_QUOTE_CLOSED)
 	{
-		ft_lstadd_back(head, ft_lstnew(ft_strdup("")));
+		ft_lstadd_back(head, ft_lstnew(ft_strdup(STR_EMPTY)));
 		if (errno == ENOMEM)
 			exit(EXIT_FAILURE);
 	}
 	else if (stride == LEN_QUOTE_UNCLOSED)
 	{
-		ft_lstadd_back(head, ft_lstnew(ft_strdup("\'")));
+		ft_lstadd_back(head, ft_lstnew(ft_strdup(STR_QUOTE)));
 		if (errno == ENOMEM)
 			exit(EXIT_FAILURE);
 	}
@@ -87,13 +87,13 @@ static void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head)
 	}
 	else if (stride == LEN_QUOTE_CLOSED)
 	{
-		ft_lstadd_back(head, ft_lstnew(ft_strdup("")));
+		ft_lstadd_back(head, ft_lstnew(ft_strdup(STR_EMPTY)));
 		if (errno == ENOMEM)
 			exit(EXIT_FAILURE);
 	}
 	else if (stride == LEN_QUOTE_UNCLOSED)
 	{
-		ft_lstadd_back(head, ft_lstnew(ft_strdup("\"")));
+		ft_lstadd_back(head, ft_lstnew(ft_strdup(STR_QUOTE)));
 		if (errno == ENOMEM)
 			exit(EXIT_FAILURE);
 	}
@@ -117,7 +117,7 @@ static void	ms_lexer_string_plain(char *line, size_t *pos, t_list **head)
 	if (stride > 0)
 	{
 		errno = 0;
-		ms_lstadd_back_substr(head, line, *pos, stride);
+		ms_lexer_string_lstadd_back_substr(head, line, *pos, stride);
 		if (errno == ENOMEM)
 			exit(EXIT_FAILURE);
 	}

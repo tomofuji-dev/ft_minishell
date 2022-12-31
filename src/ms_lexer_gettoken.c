@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_gettoken.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:47:24 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 12:03:02 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:02:39 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_lexer_gettoken(t_token *token, char *line);
-int		ms_lexer_gettoken_classify(char *line);
+void		ms_lexer_gettoken(t_token *token, char *line);
+static int	ms_lexer_gettoken_classify(char *line);
 
 void	ms_lexer_gettoken(t_token *token, char *line)
 {
@@ -43,26 +43,26 @@ void	ms_lexer_gettoken(t_token *token, char *line)
 	return ;
 }
 
-int	ms_lexer_gettoken_classify(char *line)
+static int	ms_lexer_gettoken_classify(char *line)
 {
 	int		flag;
 
 	if (line == NULL)
-		return (0x00);
+		return (FLAG_NONE);
 	if (!ft_strchr(CHRS_DELIM, *line))
-		return (0x10);
-	flag = 0;
+		return (FLAG_STRING);
+	flag = FLAG_NONE;
 	if (*line == CHRS_DELIM[1])
-		flag = 0x20;
+		flag = FLAG_IN;
 	else if (*line == CHRS_DELIM[2])
-		flag = 0x40;
+		flag = FLAG_OUT;
 	else if (*line == CHRS_DELIM[3])
-		flag = 0x80;
+		flag = FLAG_PIPE;
 	if (*(line + 1) == '\0')
 		return (flag);
 	else if (*line == *(line + 1))
-		flag += flag >> 4;
+		flag += flag >> SHIFT_FLAG;
 	if (*(line + 2) == '\0' && *(line + 1) != CHRS_DELIM[3])
 		return (flag);
-	return (0x00);
+	return (FLAG_NONE);
 }

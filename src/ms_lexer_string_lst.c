@@ -3,27 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_lst.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:12:29 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:27:32 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:21:14 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*ms_lstclear_return_null(t_list **head);
-void	ms_lstadd_back_substr(t_list **head, char *line, \
-								size_t pos, size_t len);
-char	*ms_linkedls_to_str(t_list *head);
+void	ms_lexer_string_lstadd_back_substr(t_list **head, char *line, \
+			size_t pos, size_t len);
+char	*ms_lexer_string_lst_strjoin(t_list *head);
 
-void	*ms_lstclear_return_null(t_list **head)
-{
-	ft_lstclear(head, &free);
-	return (NULL);
-}
-
-void	ms_lstadd_back_substr(t_list **head, char *line, size_t pos, size_t len)
+void	ms_lexer_string_lstadd_back_substr(t_list **head, char *line, \
+	size_t pos, size_t len)
 {
 	char	*substr;
 
@@ -34,7 +28,7 @@ void	ms_lstadd_back_substr(t_list **head, char *line, size_t pos, size_t len)
 	return ;
 }
 
-char	*ms_linkedls_to_str(t_list *head)
+char	*ms_lexer_string_lst_strjoin(t_list *head)
 {
 	size_t	joined_str_size;
 	char	*joined_str;

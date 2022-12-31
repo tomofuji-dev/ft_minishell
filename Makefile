@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+         #
+#    By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/16 16:52:37 by ykosaka           #+#    #+#              #
-#    Updated: 2022/12/31 14:48:17 by t.fuji           ###   ########.fr        #
+#    Updated: 2022/12/31 16:17:37 by Yoshihiro K      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC				= ms_main.c \
 				  ms_builtin_export.c \
 				  ms_builtin_pwd.c \
 				  ms_builtin_unset.c \
+				  ms_lstclear.c \
 				  ms_map_lst2map.c \
 				  ms_map_clear.c \
 				  ms_map_size.c \

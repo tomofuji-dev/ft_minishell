@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_tokenlen.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 15:54:46 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:02:00 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:31:27 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_tfujiwar.h"
 
-size_t	ms_lexer_tokenlen(char *line);
-size_t	ms_lexer_tokenlen_delim(char *line);
-size_t	ms_lexer_tokenlen_quoted(char *line);
-size_t	ms_lexer_tokenlen_plain(char *line);
+size_t			ms_lexer_tokenlen(char *line);
+static size_t	ms_lexer_tokenlen_delim(char *line);
+size_t			ms_lexer_tokenlen_quoted(char *line);
+size_t			ms_lexer_tokenlen_plain(char *line);
 
 size_t	ms_lexer_tokenlen(char *line)
 {
@@ -39,7 +39,7 @@ size_t	ms_lexer_tokenlen(char *line)
 	return (pos);
 }
 
-size_t	ms_lexer_tokenlen_delim(char *line)
+static size_t	ms_lexer_tokenlen_delim(char *line)
 {
 	int		ch;
 	size_t	pos;

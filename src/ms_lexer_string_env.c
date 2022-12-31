@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_string_env.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:37:23 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:31:32 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*ms_expand_envvar_dquote(char *line, size_t len)
 	pos = 0;
 	while (pos < len)
 	{
-		dollar = ft_strchr(&line[pos], '$');
+		dollar = ft_strchr(&line[pos], *STR_EXPAND);
 		errno = 0;
 		if (dollar == &line[pos])
 			ft_lstadd_back(&head, ms_expand_envvar(line, &pos, len - pos));
@@ -35,7 +35,8 @@ t_list	*ms_expand_envvar_dquote(char *line, size_t len)
 		{
 			if (dollar == NULL || dollar >= line + len)
 				dollar = line + len;
-			ms_lstadd_back_substr(&head, line, pos, dollar - &line[pos]);
+			ms_lexer_string_lstadd_back_substr(&head, line, \
+				pos, dollar - &line[pos]);
 			pos = dollar - line;
 		}
 		if (errno == ENOMEM)
@@ -57,7 +58,7 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 	while (i + 1 < len && line[*pos + i] && ms_isenvchar(line[*pos + i]))
 		i++;
 	if (i == 0)
-		return (ft_lstnew(ft_strdup("$")));
+		return (ft_lstnew(ft_strdup(STR_EXPAND)));
 	env_key = ft_substr(line, *pos, i);
 	*pos += i;
 	if (env_key == NULL)
@@ -71,12 +72,12 @@ t_list	*ms_expand_envvar(char *line, size_t *pos, size_t len)
 
 bool	ms_isenvchar(int c)
 {
-	return (ft_isalnum(c) || c == '_');
+	return (ft_isalnum(c) || c == CHR_SNAKE);
 }
 
 static t_list	*ms_expand_special_env(char *line, size_t *pos)
 {
-	if (line[*pos] == '?')
+	if (line[*pos] == CHR_STATUS)
 	{
 		*pos += 1;
 		return (ft_lstnew(ft_itoa(g_shell.status)));
@@ -84,7 +85,7 @@ static t_list	*ms_expand_special_env(char *line, size_t *pos)
 	else if (ft_isdigit(line[*pos]))
 	{
 		*pos += 1;
-		return (ft_lstnew(ft_strdup("")));
+		return (ft_lstnew(ft_strdup(STR_EMPTY)));
 	}
 	return (NULL);
 }
