@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_sighandler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:04:04 by ykosaka           #+#    #+#             */
-/*   Updated: 2022/12/31 14:20:09 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell_tfujiwar.h"
 
 void	ms_sighandler_rl(int signum, siginfo_t *info, void *context)
 {

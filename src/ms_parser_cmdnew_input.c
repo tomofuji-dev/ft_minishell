@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_input.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:43:49 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell_tfujiwar.h"
 
 t_fd		*ms_parser_cmdnew_input(t_token *token, size_t i_token);
 static bool	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token);
@@ -66,7 +65,7 @@ static bool	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token)
 		(*i_token)++;
 	}
 	input[i_input].path = NULL;
-	input[i_input].fd = END_OF_IO;
+	input[i_input].fd = INVALID_FILENO;
 	return (true);
 }
 
@@ -83,7 +82,7 @@ static int	get_heredoc_pipe(const char *eof)
 	else
 	{
 		ms_fd_close(fd);
-		return (INVALID_FD);
+		return (INVALID_FILENO);
 	}
 }
 

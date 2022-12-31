@@ -6,12 +6,11 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 16:25:03 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell_tfujiwar.h"
 
 int			main(int argc, char *argv[], char *envp[]);
 static char	*ms_readline(void);

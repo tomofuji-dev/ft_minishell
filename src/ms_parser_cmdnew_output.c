@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_output.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 14:39:05 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell_tfujiwar.h"
 
 t_fd		*ms_parser_cmdnew_output(t_token *token, size_t i_token);
 static bool	ms_parser_output_sub(t_fd *output, t_token *token, size_t *i_token);
@@ -59,6 +58,6 @@ static bool	ms_parser_output_sub(t_fd *output, t_token *token, size_t *i_token)
 		(*i_token)++;
 	}
 	output[i_output].path = NULL;
-	output[i_output].fd = END_OF_IO;
+	output[i_output].fd = INVALID_FILENO;
 	return (true);
 }

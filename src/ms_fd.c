@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 17:01:43 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 15:48:47 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 16:41:33 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ms_fd_last_fd(t_fd *fd_lst)
 	int		fd;
 
 	i = 0;
-	fd = FD_INVALID;
+	fd = INVALID_FILENO;
 	while (fd_lst[i].path != NULL)
 	{
 		fd = fd_lst[i].fd;

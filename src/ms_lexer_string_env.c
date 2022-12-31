@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:05:17 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 16:31:32 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 16:38:28 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*ms_expand_envvar_dquote(char *line, size_t len)
 	pos = 0;
 	while (pos < len)
 	{
-		dollar = ft_strchr(&line[pos], *STR_EXPAND);
+		dollar = ft_strchr(&line[pos], CHRS_QUOTE[0]);
 		errno = 0;
 		if (dollar == &line[pos])
 			ft_lstadd_back(&head, ms_expand_envvar(line, &pos, len - pos));

@@ -6,12 +6,11 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 16:31:08 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell_tfujiwar.h"
 
 char		*ms_lexer_string(char *line);
 static void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head);
@@ -29,11 +28,11 @@ char	*ms_lexer_string(char *line)
 	head = NULL;
 	while (line[pos])
 	{
-		if (line[pos] == CHRS_QUOTE[1])
+		if (line[pos] == CHRS_QUOTE[2])
 			ms_lexer_string_quote(line, &pos, &head);
-		else if (line[pos] == CHRS_QUOTE[0])
+		else if (line[pos] == CHRS_QUOTE[1])
 			ms_lexer_string_dquote(line, &pos, &head);
-		else if (line[pos] == *STR_EXPAND)
+		else if (line[pos] == CHRS_QUOTE[0])
 			ms_lexer_string_dollar(line, &pos, &head);
 		else
 			ms_lexer_string_plain(line, &pos, &head);
