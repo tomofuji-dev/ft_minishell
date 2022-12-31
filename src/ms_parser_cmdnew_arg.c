@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_arg.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfujiwar <tfujiwar@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/15 14:17:41 by tfujiwar         ###   ########.fr       */
+/*   Updated: 2022/12/31 14:40:56 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ms_parser_cmdnew_arg(t_token *token, size_t i_token);
-size_t	ms_parser_cmdnew_arg_size(t_token *token, size_t idx);
+char			**ms_parser_cmdnew_arg(t_token *token, size_t i_token);
+static size_t	ms_parser_cmdnew_arg_size(t_token *token, size_t idx);
 
 char	**ms_parser_cmdnew_arg(t_token *token, size_t i_token)
 {
@@ -39,7 +39,7 @@ char	**ms_parser_cmdnew_arg(t_token *token, size_t i_token)
 	return (arg);
 }
 
-size_t	ms_parser_cmdnew_arg_size(t_token *token, size_t idx)
+static size_t	ms_parser_cmdnew_arg_size(t_token *token, size_t idx)
 {
 	size_t	size;
 
