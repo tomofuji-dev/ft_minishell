@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:12:29 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:06:37 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:27:32 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ms_lstadd_back_substr(t_list **head, char *line, size_t pos, size_t len)
 
 	substr = ft_substr(line, pos, len);
 	if (substr == NULL)
-		return ;
+		exit(EXIT_FAILURE);
 	ft_lstadd_back(head, ft_lstnew(substr));
 	return ;
 }
@@ -50,7 +50,7 @@ char	*ms_linkedls_to_str(t_list *head)
 	}
 	joined_str = ft_calloc(joined_str_size + 1, sizeof(char));
 	if (joined_str == NULL)
-		return (NULL);
+		exit(EXIT_FAILURE);
 	cur = head;
 	while (cur != NULL)
 	{

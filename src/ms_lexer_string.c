@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:12:02 by t.fuji           ###   ########.fr       */
+/*   Updated: 2022/12/31 15:28:32 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ char	*ms_lexer_string(char *line)
 	}
 	if (head == NULL)
 		return (NULL);
-	errno = 0;
 	expand_str = ms_linkedls_to_str(head);
-	if (errno == ENOMEM)
-		return (ms_lstclear_return_null(&head));
 	ft_lstclear(&head, &free);
 	return (expand_str);
 }
@@ -58,19 +55,19 @@ static void	ms_lexer_string_quote(char *line, size_t *pos, t_list **head)
 	{
 		ms_lstadd_back_substr(head, line, *pos + 1, stride - 2);
 		if (errno == ENOMEM)
-			ms_lstclear_return_null(head);
+			exit(EXIT_FAILURE);
 	}
 	else if (stride == LEN_QUOTE_CLOSED)
 	{
 		ft_lstadd_back(head, ft_lstnew(ft_strdup("")));
 		if (errno == ENOMEM)
-			ms_lstclear_return_null(head);
+			exit(EXIT_FAILURE);
 	}
 	else if (stride == LEN_QUOTE_UNCLOSED)
 	{
 		ft_lstadd_back(head, ft_lstnew(ft_strdup("\'")));
 		if (errno == ENOMEM)
-			ms_lstclear_return_null(head);
+			exit(EXIT_FAILURE);
 	}
 	*pos += stride;
 }
@@ -86,19 +83,19 @@ static void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head)
 		ft_lstadd_back(head, \
 				ms_expand_envvar_dquote(&line[*pos + 1], stride - 2));
 		if (errno == ENOMEM)
-			ms_lstclear_return_null(head);
+			exit(EXIT_FAILURE);
 	}
 	else if (stride == LEN_QUOTE_CLOSED)
 	{
 		ft_lstadd_back(head, ft_lstnew(ft_strdup("")));
 		if (errno == ENOMEM)
-			ms_lstclear_return_null(head);
+			exit(EXIT_FAILURE);
 	}
 	else if (stride == LEN_QUOTE_UNCLOSED)
 	{
 		ft_lstadd_back(head, ft_lstnew(ft_strdup("\"")));
 		if (errno == ENOMEM)
-			ms_lstclear_return_null(head);
+			exit(EXIT_FAILURE);
 	}
 	*pos += stride;
 }
@@ -109,7 +106,7 @@ static void	ms_lexer_string_dollar(char *line, size_t *pos, t_list **head)
 	ft_lstadd_back(head, \
 		ms_expand_envvar(line, pos, ft_strlen(&line[*pos])));
 	if (errno == ENOMEM)
-		ms_lstclear_return_null(head);
+		exit(EXIT_FAILURE);
 }
 
 static void	ms_lexer_string_plain(char *line, size_t *pos, t_list **head)
@@ -122,7 +119,7 @@ static void	ms_lexer_string_plain(char *line, size_t *pos, t_list **head)
 		errno = 0;
 		ms_lstadd_back_substr(head, line, *pos, stride);
 		if (errno == ENOMEM)
-			ms_lstclear_return_null(head);
+			exit(EXIT_FAILURE);
 	}
 	*pos += stride;
 }
