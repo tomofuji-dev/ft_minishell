@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:50:11 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/02 20:38:51 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*ms_getpath_envpath(char *name)
 	char		**envpath_split;
 
 	envpath = ms_getenv_val(ENV_PATH);
+	if (envpath == NULL)
+		return (ft_strdup(name));
 	envpath_split = ft_split(envpath, ':');
 	if (envpath_split == NULL)
 		return (NULL);
