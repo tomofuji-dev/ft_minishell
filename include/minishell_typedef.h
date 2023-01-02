@@ -6,13 +6,12 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2023/01/02 18:15:21 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/02 19:34:31 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_TYPEDEF_H
 # define MINISHELL_TYPEDEF_H
-
 
 # include <unistd.h>
 # include <stdbool.h>
