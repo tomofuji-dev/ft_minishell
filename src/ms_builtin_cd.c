@@ -6,13 +6,14 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2022/12/31 14:34:43 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/02 19:18:27 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int			ms_builtin_cd(char *argv[]);
+static int	ms_builtin_cd_env(char	*key);
 static int	ms_builtin_cd_chdir(char *path);
 static int	ms_builtin_cd_export(char *key, char *val);
 
@@ -22,12 +23,16 @@ int	ms_builtin_cd(char	*argv[])
 	int		status;
 
 	if (argv == NULL || argv[1] == NULL)
-		return (ms_builtin_cd_chdir(ms_getenv_val(ENV_HOME)));
+		return (ms_builtin_cd_env(ENV_HOME));
 	else if (argv[1][0] == CHR_HOME \
 		&& (argv[1][1] == CHR_DIR || argv[1][1] == '\0'))
+	{
+		if (ms_getenv_val(ENV_HOME) == NULL)
+			return (ms_builtin_cd_env(ENV_HOME));
 		ms_setpath_home(path, argv[1]);
-	else if (!ft_strncmp(argv[1], STR_OLDPWD, PATH_MAX + 1))
-		return (ms_builtin_cd_chdir(ms_getenv_val(ENV_OLDPWD)));
+	}
+	else if (ft_strcmp(argv[1], STR_OLDPWD) == 0)
+		return (ms_builtin_cd_env(ENV_OLDPWD));
 	else if (argv[1][0] == CHR_DIR)
 		ms_setpath_absolute(path, argv[1]);
 	else
@@ -36,14 +41,25 @@ int	ms_builtin_cd(char	*argv[])
 	return (status);
 }
 
+static int	ms_builtin_cd_env(char	*key)
+{
+	char	*val;
+
+	val = ms_getenv_val(key);
+	if (val)
+		return (ms_builtin_cd_chdir(val));
+	else if (ft_strcmp(key, ENV_HOME) == 0)
+		ft_putendl_fd(MSG_NO_HOME, STDERR_FILENO);
+	else if (ft_strcmp(key, ENV_OLDPWD) == 0)
+		ft_putendl_fd(MSG_NO_OLDPWD, STDERR_FILENO);
+	else
+		return (ms_builtin_cd_chdir(NULL));
+	return (STATUS_FAILURE);
+}
+
 static int	ms_builtin_cd_chdir(char *path)
 {
-	if (path == NULL)
-	{
-		ft_putendl_fd(MSG_NO_OLDPWD, STDERR_FILENO);
-		return (STATUS_FAILURE);
-	}
-	else if (chdir(path))
+	if (path == NULL || chdir(path))
 	{
 		ft_putendl_fd(MSG_ENOENT, STDERR_FILENO);
 		return (STATUS_FAILURE);

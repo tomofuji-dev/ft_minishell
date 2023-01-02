@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 17:10:50 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/02 18:49:12 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define MSG_SYNTAX_ERR		"syntax error"
 # define MSG_HEREDOC_EOF	"here-document delimited end-of-file"
 # define MSG_EXIT			"exit"
+# define MSG_NO_HOME		"HOME not set"
 # define MSG_NO_OLDPWD		"OLDPWD not set"
 # define MSG_ENOENT			"No such file or directory"
 # define MSG_ARG_NOTNUM		"numeric argument required"
