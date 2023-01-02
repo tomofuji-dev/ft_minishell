@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:38:39 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 15:37:33 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/01 20:37:17 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ms_exec_a_cmd_sub(t_cmd *cmd, char **envp)
 		errno = ERR_NOERR;
 		execve(cmd->path, cmd->arg, envp);
 		if (errno != ERR_NOERR)
-			ft_putendl_fd(strerror(errno), 2);
+			ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		if (errno == ENOENT)
 			exit(STATUS_NO_CMD);
 		exit(STATUS_NOT_EXEC);

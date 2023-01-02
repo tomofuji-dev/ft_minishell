@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/01 20:47:05 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_fd	*ms_parser_cmdnew_output(t_token *token, size_t i_token)
 	{
 		free(output);
 		return (print_err_set_status_return_null(\
-				strerror(errno), STDOUT_FILENO));
+				strerror(errno), STDERR_FILENO));
 	}
 	return (output);
 }
