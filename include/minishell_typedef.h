@@ -6,28 +6,16 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 17:08:15 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/02 18:15:21 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_TYPEDEF_H
 # define MINISHELL_TYPEDEF_H
 
+
 # include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <dirent.h>
-# include <signal.h>
-# include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdbool.h>
-# include <limits.h>
-# include <errno.h>
-# include <string.h>
 # include "libft.h"
 
 typedef struct sigaction	t_sa;
