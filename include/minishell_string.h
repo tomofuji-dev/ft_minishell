@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2023/01/02 18:49:12 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/06 18:42:27 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # define STR_EMPTY			""
 # define STR_DIR			"/"
 # define STR_OLDPWD			"-"
-# define STR_QUOTE			"\""
+# define STR_QUOTE			"'"
+# define STR_DQUOTE			"\""
 # define STR_EXPAND			"$"
 
 # define CMD_CD				"cd"

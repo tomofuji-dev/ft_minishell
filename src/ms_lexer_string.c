@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 16:02:06 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/06 18:42:54 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	ms_lexer_string_dquote(char *line, size_t *pos, t_list **head)
 	}
 	else if (stride == LEN_QUOTE_UNCLOSED)
 	{
-		ft_lstadd_back(head, ft_lstnew(ft_strdup(STR_QUOTE)));
+		ft_lstadd_back(head, ft_lstnew(ft_strdup(STR_DQUOTE)));
 		if (errno == ENOMEM)
 			exit(EXIT_FAILURE);
 	}
