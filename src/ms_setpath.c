@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2023/01/02 19:14:41 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/06 19:54:20 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@ void	ms_setpath_absolute(char *path, char *arg)
 
 void	ms_setpath_relative(char *path, char *arg)
 {
-	char	buf[PATH_MAX + 1];
+	char	*pwd;
+	char	cwd[PATH_MAX + 1];
 
-	ft_strlcpy(path, getcwd(buf, PATH_MAX), PATH_MAX + 1);
+	pwd = ms_getenv_val(ENV_PWD);
+	if (pwd == NULL)
+		ft_strlcpy(path, getcwd(cwd, PATH_MAX), PATH_MAX + 1);
+	else
+		ft_strlcpy(path, pwd, PATH_MAX + 1);
 	ft_strlcat(path, STR_DIR, PATH_MAX + 1);
 	ft_strlcat(path, arg, PATH_MAX + 1);
 }

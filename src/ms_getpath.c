@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2023/01/02 20:38:51 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/06 19:54:14 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ char	*ms_getpath_relative(char *name)
 {
 	char	*path;
 	char	*pwd;
+	char	cwd[PATH_MAX + 1];
 
-	pwd = ft_strdup(getenv(ENV_PWD));
+	pwd = ms_getenv_val(ENV_PWD);
 	if (pwd == NULL)
-		return (NULL);
-	path = ms_getpath_join(pwd, name);
-	free(pwd);
+		path = ms_getpath_join(getcwd(cwd, PATH_MAX), name);
+	else
+		path = ms_getpath_join(pwd, name);
 	return (path);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2023/01/02 18:26:41 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/06 20:29:57 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 int	ms_builtin_pwd(char *argv[])
 {
-	char	buf[PATH_MAX + 1];
+	char	cwd[PATH_MAX + 1];
+	char	*pwd;
 
 	if (argv == NULL)
 		return (0);
 	errno = 0;
-	ft_putendl_fd(getcwd(buf, PATH_MAX), STDOUT_FILENO);
+	getcwd(cwd, PATH_MAX);
+	pwd = ms_getenv_val(ENV_PWD);
+	if (pwd != NULL && ft_strcmp(cwd, pwd + 1) == 0)
+		ft_strlcpy(cwd, pwd, PATH_MAX + 1);
+	ft_putendl_fd(cwd, STDOUT_FILENO);
 	return (errno);
 }
