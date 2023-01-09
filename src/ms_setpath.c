@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2023/01/06 19:54:20 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/10 02:22:42 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ms_setpath_relative(char *path, char *arg)
 		ft_strlcpy(path, getcwd(cwd, PATH_MAX), PATH_MAX + 1);
 	else
 		ft_strlcpy(path, pwd, PATH_MAX + 1);
-	ft_strlcat(path, STR_DIR, PATH_MAX + 1);
+	if (path[1] != '\0' && path[1] != CHR_DIR)
+		ft_strlcat(path, STR_DIR, PATH_MAX + 1);
 	ft_strlcat(path, arg, PATH_MAX + 1);
 }
