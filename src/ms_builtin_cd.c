@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 14:08:21 by t.fuji            #+#    #+#             */
-/*   Updated: 2023/01/06 20:18:16 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/09 19:12:20 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	ms_builtin_cd_chdir(char *path)
 		return (STATUS_FAILURE);
 	}
 	ms_builtin_cd_export(ENV_OLDPWD, ms_getenv_val(ENV_PWD));
-	if (path[1] == CHR_DIR)
+	if (path[0] == CHR_DIR && path[1] == CHR_DIR && path[2] != CHR_DIR)
 		getcwd(path + 1, PATH_MAX - 1);
 	else
 		getcwd(path, PATH_MAX);
