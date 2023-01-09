@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2023/01/01 20:41:45 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/09 19:01:26 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_fd		*ms_parser_cmdnew_input(t_token *token, size_t i_token);
 static bool	ms_parser_input_sub(t_fd *input, t_token *token, size_t *i_token);
 static int	get_heredoc_pipe(const char *eof);
+static int	is_heredoc_sigint(void);
 static bool	get_heredoc_txt(const char *eof, int fd);
 
 t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
