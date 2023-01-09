@@ -6,7 +6,7 @@
 /*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 16:11:38 by tfujiwar          #+#    #+#             */
-/*   Updated: 2023/01/06 19:54:14 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/09 19:07:12 by Yoshihiro K      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ char	*ms_getpath_envpath(char *name)
 	envpath = ms_getenv_val(ENV_PATH);
 	if (envpath == NULL)
 		return (ft_strdup(name));
-	envpath_split = ft_split(envpath, ':');
+	envpath_split = ft_split(envpath, CHR_SEP);
 	if (envpath_split == NULL)
 		return (NULL);
 	cmdpath = ms_getpath_envpath_iter(name, envpath_split);
 	envpath_split = ms_map_clear(envpath_split, ms_map_size(envpath_split));
 	if (!cmdpath)
-		cmdpath = ft_strdup("");
+		cmdpath = ft_strdup(STR_EMPTY);
 	return (cmdpath);
 }
 
