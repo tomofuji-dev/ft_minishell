@@ -6,7 +6,7 @@
 /*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2023/01/10 16:09:09 by t.fuji           ###   ########.fr       */
+/*   Updated: 2023/01/10 16:32:20 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_fd	*ms_parser_cmdnew_input(t_token *token, size_t i_token)
 			return (NULL);
 		}
 		return (print_err_set_status_return_null(\
-				strerror(errno), STDERR_FILENO));
+				strerror(errno), STATUS_FAILURE));
 	}
 	return (input);
 }

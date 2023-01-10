@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_string.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2023/01/06 18:42:27 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/10 16:32:00 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 
 # define MSG_SIG_QUIT		"Quit: 3"
 # define MSG_SYNTAX_ERR		"syntax error"
-# define MSG_HEREDOC_EOF	"here-document delimited end-of-file"
 # define MSG_EXIT			"exit"
 # define MSG_NO_HOME		"HOME not set"
 # define MSG_NO_OLDPWD		"OLDPWD not set"
