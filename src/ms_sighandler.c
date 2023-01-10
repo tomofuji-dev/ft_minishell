@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_sighandler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 15:04:04 by ykosaka           #+#    #+#             */
-/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/10 15:59:19 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ms_sighandler_rl(int signum, siginfo_t *info, void *context)
 		ms_builtin_exit(NULL);
 	if (signum == SIGINT)
 	{
-		g_shell.status = STATUS_BASE + signum;
+		g_shell.status = STATUS_FAILURE;
 		rl_replace_line("", 0);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
@@ -34,7 +34,7 @@ void	ms_sighandler_rl_heredoc(int signum, siginfo_t *info, void *context)
 	(void)info;
 	if (signum == SIGINT)
 	{
-		g_shell.status = STATUS_BASE + signum;
+		g_shell.status = STATUS_FAILURE;
 		g_shell.heredoc_sigint = true;
 	}
 }
