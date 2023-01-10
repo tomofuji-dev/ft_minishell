@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser_cmdnew_input.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2023/01/09 19:01:26 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/10 16:09:09 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ static bool	get_heredoc_txt(const char *eof, int fd)
 	{
 		buf = readline(PROMPT_HREDOC);
 		if (!buf)
-		{
-			ft_putendl_fd(MSG_HEREDOC_EOF, STDERR_FILENO);
 			return (true);
-		}
 		if (ft_strncmp(buf, eof, INT_MAX) == 0)
 		{
 			free(buf);
