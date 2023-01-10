@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:28:00 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 16:42:59 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/10 16:42:37 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_cmd	*ms_parser(t_token *token)
 	g_shell.heredoc_sigint = false;
 	if (!ms_parser_chktokenflag(token))
 		return (print_err_set_status_return_null(\
-				MSG_SYNTAX_ERR, STDERR_FILENO));
+				MSG_SYNTAX_ERR, STATUS_SYNERR));
 	idx = 0;
 	head = ms_parser_cmdnew(token, &idx);
 	if (head == NULL)

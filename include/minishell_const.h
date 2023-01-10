@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_const.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Yoshihiro Kosaka <ykosaka@student.42tok    +#+  +:+       +#+        */
+/*   By: t.fuji <t.fuji@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 13:51:23 by tfujiwar          #+#    #+#             */
-/*   Updated: 2022/12/31 17:13:28 by Yoshihiro K      ###   ########.fr       */
+/*   Updated: 2023/01/10 16:39:07 by t.fuji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define STATUS_NOT_EXEC	126
 # define STATUS_NO_CMD		127
 # define STATUS_BASE		128
+# define STATUS_SYNERR		258
 # define STATUS_MASK		0xff
 
 # define SIZE_INVALID		-1
