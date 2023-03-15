@@ -2,6 +2,8 @@
 
 Our own shell like bash, 42 project with [ykosaka](https://github.com/yunixuma)
 
+<img width="618" alt="image" src="https://user-images.githubusercontent.com/101627898/225336570-69cbba0f-41e6-430c-a6dc-7ffb8ef64e25.png">
+
 ### How to use
 
 ```
